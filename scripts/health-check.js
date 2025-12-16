@@ -60,12 +60,13 @@ class HealthChecker {
     try {
       const { Logger, Config, ErrorHandler, Utils } = require('../modules/core.js');
 
-      const logger = new Logger('Test');
-      const config = new Config({ test: true });
-      const errorHandler = new ErrorHandler(logger);
-
-      if (logger && config && errorHandler && Utils) {
+      if (Logger && Config && ErrorHandler && Utils) {
+        const logger = new Logger('Test');
+        const config = new Config({ test: true });
+        const errorHandler = new ErrorHandler(logger);
         this.checks.push('✅ Core modules loaded successfully');
+      } else {
+        this.failures.push('Core modules missing required exports');
       }
     } catch (error) {
       this.failures.push(`Core modules loading error: ${error.message}`);
