@@ -1,0 +1,47 @@
+{
+  "name": "rascacielos-digital",
+  "version": "1.0.0",
+  "description": "Sistema de desarrollo arquitectónico modular con agentes especializados y CI/CD gates",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "jest --coverage",
+    "lint": "eslint . --ext .js",
+    "lint:fix": "eslint . --ext .js --fix",
+    "build": "node agents/build-agent.js",
+    "security": "node agents/security-agent.js",
+    "clean": "rm -rf dist/ coverage/",
+    "setup": "npm install && npm run config:check",
+    "config:check": "node scripts/config-check.js",
+    "health-check": "node scripts/health-check.js"
+  },
+  "keywords": [
+    "modular",
+    "architecture",
+    "agents",
+    "ci-cd",
+    "automation",
+    "devops"
+  ],
+  "author": "Melampe001",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Melampe001/rascacielos-digital.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Melampe001/rascacielos-digital/issues"
+  },
+  "homepage": "https://github.com/Melampe001/rascacielos-digital#readme",
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.1"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
