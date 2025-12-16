@@ -48,9 +48,7 @@ class HealthChecker {
       const buildAgent = new BuildAgent();
       const securityAgent = new SecurityAgent();
 
-      if (buildAgent && securityAgent) {
-        this.checks.push('✅ Agents loaded successfully');
-      }
+      this.checks.push('✅ Agents loaded successfully');
     } catch (error) {
       this.failures.push(`Agents loading error: ${error.message}`);
     }
@@ -60,14 +58,16 @@ class HealthChecker {
     try {
       const { Logger, Config, ErrorHandler, Utils } = require('../modules/core.js');
 
-      if (Logger && Config && ErrorHandler && Utils) {
-        const logger = new Logger('Test');
-        const config = new Config({ test: true });
-        const errorHandler = new ErrorHandler(logger);
-        this.checks.push('✅ Core modules loaded successfully');
-      } else {
+      if (!Logger || !Config || !ErrorHandler || !Utils) {
         this.failures.push('Core modules missing required exports');
+        return;
       }
+
+      const logger = new Logger('Test');
+      const config = new Config({ test: true });
+      const errorHandler = new ErrorHandler(logger);
+
+      this.checks.push('✅ Core modules loaded successfully');
     } catch (error) {
       this.failures.push(`Core modules loading error: ${error.message}`);
     }
