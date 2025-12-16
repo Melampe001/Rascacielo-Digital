@@ -1,6 +1,6 @@
 /**
  * Core Module - Rascacielos Digital
- * 
+ *
  * Módulo central con funcionalidades comunes del sistema
  */
 
@@ -117,7 +117,9 @@ class Utils {
         try {
           return await fn(...args);
         } catch (error) {
-          if (attempt === maxAttempts) throw error;
+          if (attempt === maxAttempts) {
+            throw error;
+          }
           await Utils.sleep(delay * attempt);
         }
       }
