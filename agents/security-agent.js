@@ -68,7 +68,7 @@ class SecurityAgent {
   /**
    * Escanea vulnerabilidades en dependencias
    */
-  async scanDependencies(target) {
+  async scanDependencies(_target) {
     console.log('[Security Agent] Escaneando dependencias...');
     
     // Simulación de escaneo de dependencias
@@ -95,7 +95,7 @@ class SecurityAgent {
   /**
    * Escanea el código fuente en busca de vulnerabilidades
    */
-  async scanCode(target) {
+  async scanCode(_target) {
     console.log('[Security Agent] Escaneando código fuente...');
     
     // Simulación de escaneo de código
