@@ -185,9 +185,16 @@ function addData() {
     const label = labelInput.value.trim();
     const value = parseFloat(valueInput.value);
     
+    const errorMessage = document.getElementById('errorMessage');
     if (!label || isNaN(value) || value <= 0) {
-        alert('Por favor, ingresa una etiqueta válida y un valor mayor a 0');
+        if (errorMessage) {
+            errorMessage.textContent = 'Por favor, ingresa una etiqueta válida y un valor mayor a 0';
+            errorMessage.style.display = 'block';
+        }
         return;
+    } else if (errorMessage) {
+        errorMessage.textContent = '';
+        errorMessage.style.display = 'none';
     }
     
     chartData.push({ label, value });
