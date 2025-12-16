@@ -48,9 +48,7 @@ class HealthChecker {
       const buildAgent = new BuildAgent();
       const securityAgent = new SecurityAgent();
 
-      if (buildAgent && securityAgent) {
-        this.checks.push('✅ Agents loaded successfully');
-      }
+      this.checks.push('✅ Agents loaded successfully');
     } catch (error) {
       this.failures.push(`Agents loading error: ${error.message}`);
     }
