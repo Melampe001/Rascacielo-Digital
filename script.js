@@ -122,7 +122,7 @@ function drawBarChart() {
     
     const barWidth = canvas.width / (chartData.length * 2);
     const maxHeight = canvas.height - 100;
-    const barSpacing = barWidth;
+    
     
     chartData.forEach((item, index) => {
         const barHeight = (percentages[index] / 100) * maxHeight;
