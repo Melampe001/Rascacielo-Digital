@@ -29,9 +29,9 @@ Rascacielos Digital es un sistema modular de desarrollo arquitectónico que util
 
 ### Requisitos Previos
 
-- Node.js >= 18.x o Python >= 3.9
+- Node.js >= 18.x
+- npm >= 9.0.0
 - Git
-- Docker (opcional)
 
 ### Instalación
 
@@ -41,20 +41,29 @@ git clone https://github.com/Melampe001/rascacielos-digital.git
 cd rascacielos-digital
 
 # Instalar dependencias
-npm install  # o pip install -r requirements.txt
+npm install
 
 # Configurar variables de entorno
 cp .env.example .env
+
+# Verificar la instalación
+npm run config:check
+npm run health-check
 ```
+
+> 📖 Para instrucciones detalladas de inicialización, consulta la [Guía de Inicialización](./docs/INITIALIZATION.md)
 
 ### Uso Básico
 
 ```bash
 # Ejecutar el sistema
-npm start  # o python main.py
+npm start
+
+# Ejecutar en modo desarrollo
+npm run dev
 
 # Ejecutar tests
-npm test   # o pytest
+npm test
 
 # Ejecutar linting
 npm run lint
