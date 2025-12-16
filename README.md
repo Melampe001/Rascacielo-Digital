@@ -23,14 +23,14 @@ Una aplicación web interactiva para crear y visualizar gráficas de porcentajes
 ## 📋 Requisitos
 
 - Navegador web moderno (Chrome, Firefox, Safari, Edge)
-- Conexión a internet (para cargar Chart.js desde CDN)
+- No requiere conexión a internet (funciona completamente offline)
 
 ## 🛠️ Tecnologías
 
-- HTML5
+- HTML5 Canvas
 - CSS3
-- JavaScript (ES6+)
-- Chart.js 4.4.0
+- JavaScript puro (ES6+)
+- Sin dependencias externas
 
 ## 📂 Estructura
 

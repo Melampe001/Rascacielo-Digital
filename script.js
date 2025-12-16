@@ -1,78 +1,173 @@
-// Chart instance
-let myChart = null;
+// Chart canvas reference
+let canvas = null;
+let ctx = null;
 let chartData = [];
 
 // Color palette
 const colors = [
-    'rgba(102, 126, 234, 0.8)',
-    'rgba(118, 75, 162, 0.8)',
-    'rgba(237, 100, 166, 0.8)',
-    'rgba(255, 154, 158, 0.8)',
-    'rgba(250, 208, 196, 0.8)',
-    'rgba(154, 236, 219, 0.8)',
-    'rgba(106, 196, 220, 0.8)',
-    'rgba(123, 104, 238, 0.8)',
+    '#667eea',
+    '#764ba2',
+    '#ed64a6',
+    '#ff9a9e',
+    '#fad0c4',
+    '#9aecdb',
+    '#6ac4dc',
+    '#7b68ee',
 ];
 
-// Initialize chart
-function initChart() {
-    const ctx = document.getElementById('myChart').getContext('2d');
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    canvas = document.getElementById('myChart');
+    ctx = canvas.getContext('2d');
+    
+    // Set canvas size
+    canvas.width = 400;
+    canvas.height = 400;
+    
+    const inputs = document.querySelectorAll('#labelInput, #valueInput');
+    inputs.forEach(input => {
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addData();
+            }
+        });
+    });
+    
+    // Initialize with sample data
+    addSampleData();
+});
+
+// Draw pie chart
+function drawPieChart() {
     const chartType = document.getElementById('chartType').value;
     
     if (chartData.length === 0) {
-        // Show empty state
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        ctx.font = '20px Segoe UI';
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.font = '16px Segoe UI';
         ctx.fillStyle = '#999';
         ctx.textAlign = 'center';
-        ctx.fillText('Agrega datos para ver la gráfica', ctx.canvas.width / 2, ctx.canvas.height / 2);
+        ctx.fillText('Agrega datos para ver la gráfica', canvas.width / 2, canvas.height / 2);
         return;
     }
     
-    const labels = chartData.map(item => item.label);
-    const values = chartData.map(item => item.value);
-    const percentages = calculatePercentages(values);
+    if (chartType === 'pie' || chartType === 'doughnut') {
+        drawCircularChart(chartType === 'doughnut');
+    } else {
+        drawBarChart();
+    }
+}
+
+// Draw circular chart (pie or doughnut)
+function drawCircularChart(isDoughnut) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    if (myChart) {
-        myChart.destroy();
+    const values = chartData.map(item => item.value);
+    const total = values.reduce((sum, val) => sum + val, 0);
+    const percentages = values.map(val => (val / total) * 100);
+    
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = Math.min(centerX, centerY) - 60;
+    
+    let currentAngle = -Math.PI / 2; // Start from top
+    
+    // Draw slices
+    chartData.forEach((item, index) => {
+        const sliceAngle = (values[index] / total) * 2 * Math.PI;
+        
+        // Draw slice
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
+        ctx.closePath();
+        ctx.fillStyle = colors[index % colors.length];
+        ctx.fill();
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        
+        // Draw percentage text
+        const midAngle = currentAngle + sliceAngle / 2;
+        const textX = centerX + (radius * 0.6) * Math.cos(midAngle);
+        const textY = centerY + (radius * 0.6) * Math.sin(midAngle);
+        
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 14px Segoe UI';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(percentages[index].toFixed(1) + '%', textX, textY);
+        
+        currentAngle += sliceAngle;
+    });
+    
+    // Draw doughnut hole
+    if (isDoughnut) {
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius * 0.6, 0, 2 * Math.PI);
+        ctx.fillStyle = 'white';
+        ctx.fill();
     }
     
-    myChart = new Chart(ctx, {
-        type: chartType,
-        data: {
-            labels: labels,
-            datasets: [{
-                data: values,
-                backgroundColor: colors.slice(0, chartData.length),
-                borderColor: 'white',
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        padding: 15,
-                        font: {
-                            size: 12
-                        }
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const label = context.label || '';
-                            const value = context.parsed || context.parsed.y || 0;
-                            const percentage = percentages[context.dataIndex];
-                            return `${label}: ${value} (${percentage}%)`;
-                        }
-                    }
-                }
-            }
-        }
+    // Draw legend
+    drawLegend();
+}
+
+// Draw bar chart
+function drawBarChart() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    const values = chartData.map(item => item.value);
+    const total = values.reduce((sum, val) => sum + val, 0);
+    const percentages = values.map(val => (val / total) * 100);
+    
+    const barWidth = canvas.width / (chartData.length * 2);
+    const maxHeight = canvas.height - 100;
+    const barSpacing = barWidth;
+    
+    chartData.forEach((item, index) => {
+        const barHeight = (percentages[index] / 100) * maxHeight;
+        const x = (index * 2 * barWidth) + barWidth / 2 + 20;
+        const y = canvas.height - barHeight - 30;
+        
+        // Draw bar
+        ctx.fillStyle = colors[index % colors.length];
+        ctx.fillRect(x, y, barWidth, barHeight);
+        
+        // Draw percentage text
+        ctx.fillStyle = '#333';
+        ctx.font = 'bold 12px Segoe UI';
+        ctx.textAlign = 'center';
+        ctx.fillText(percentages[index].toFixed(1) + '%', x + barWidth / 2, y - 5);
+        
+        // Draw label
+        ctx.save();
+        ctx.translate(x + barWidth / 2, canvas.height - 10);
+        ctx.rotate(-Math.PI / 4);
+        ctx.font = '10px Segoe UI';
+        ctx.fillStyle = '#666';
+        ctx.textAlign = 'right';
+        ctx.fillText(item.label, 0, 0);
+        ctx.restore();
+    });
+}
+
+// Draw legend
+function drawLegend() {
+    const legendY = canvas.height - 40;
+    const itemWidth = canvas.width / chartData.length;
+    
+    chartData.forEach((item, index) => {
+        const x = index * itemWidth + 10;
+        
+        // Draw color box
+        ctx.fillStyle = colors[index % colors.length];
+        ctx.fillRect(x, legendY, 15, 15);
+        
+        // Draw label
+        ctx.fillStyle = '#333';
+        ctx.font = '10px Segoe UI';
+        ctx.textAlign = 'left';
+        ctx.fillText(item.label.substring(0, 10), x + 20, legendY + 12);
     });
 }
 
@@ -103,7 +198,7 @@ function addData() {
     labelInput.focus();
     
     updateDataList();
-    initChart();
+    drawPieChart();
 }
 
 // Update data list
@@ -130,7 +225,7 @@ function updateDataList() {
 function deleteData(index) {
     chartData.splice(index, 1);
     updateDataList();
-    initChart();
+    drawPieChart();
 }
 
 // Clear all data
@@ -140,13 +235,13 @@ function clearData() {
     if (confirm('¿Estás seguro de que quieres eliminar todos los datos?')) {
         chartData = [];
         updateDataList();
-        initChart();
+        drawPieChart();
     }
 }
 
 // Update chart type
 function updateChartType() {
-    initChart();
+    drawPieChart();
 }
 
 // Add sample data on load
@@ -158,20 +253,5 @@ function addSampleData() {
         { label: 'Desarrollo', value: 20 }
     ];
     updateDataList();
-    initChart();
+    drawPieChart();
 }
-
-// Handle Enter key
-document.addEventListener('DOMContentLoaded', function() {
-    const inputs = document.querySelectorAll('#labelInput, #valueInput');
-    inputs.forEach(input => {
-        input.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                addData();
-            }
-        });
-    });
-    
-    // Initialize with sample data
-    addSampleData();
-});
