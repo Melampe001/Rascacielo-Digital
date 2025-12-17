@@ -1,0 +1,94 @@
+# Finance Agent Configuration
+# Configuración del agente especializado en finanzas internacionales
+
+# Perfiles de riesgo y asignación de activos recomendada
+risk_profiles:
+  conservative:
+    name: "Conservador"
+    description: "Prioriza preservación de capital con crecimiento modesto"
+    stocks: 20
+    bonds: 60
+    cash: 15
+    alternatives: 5
+    expected_return: 4.0
+    risk_level: "Bajo"
+  
+  moderate:
+    name: "Moderado"
+    description: "Balance entre crecimiento y estabilidad"
+    stocks: 40
+    bonds: 35
+    cash: 15
+    alternatives: 10
+    expected_return: 6.5
+    risk_level: "Medio"
+  
+  aggressive:
+    name: "Agresivo"
+    description: "Maximiza crecimiento con mayor volatilidad aceptada"
+    stocks: 70
+    bonds: 15
+    cash: 5
+    alternatives: 10
+    expected_return: 9.5
+    risk_level: "Alto"
+
+# Diversificación geográfica recomendada
+geographic_allocation:
+  conservative:
+    north_america: 50
+    europe: 30
+    asia_pacific: 15
+    emerging_markets: 5
+  moderate:
+    north_america: 35
+    europe: 30
+    asia_pacific: 25
+    emerging_markets: 10
+  aggressive:
+    north_america: 30
+    europe: 25
+    asia_pacific: 25
+    emerging_markets: 20
+
+# Divisas principales y ponderaciones por perfil
+currency_exposure:
+  conservative:
+    usd: 60
+    eur: 20
+    gbp: 10
+    jpy: 5
+    chf: 5
+  moderate:
+    usd: 45
+    eur: 25
+    gbp: 15
+    jpy: 10
+    chf: 5
+  aggressive:
+    usd: 35
+    eur: 25
+    gbp: 15
+    jpy: 15
+    chf: 10
+
+# Parámetros de análisis
+analysis:
+  default_investment_horizon: 5  # años
+  default_capital: 100000.0      # USD
+  rebalancing_frequency: 90      # días
+  min_position_size: 1000        # USD
+  max_position_size: 50000       # USD
+
+# Configuración de APIs (para futuras integraciones)
+api_config:
+  rate_limit: 100                # requests por minuto
+  timeout: 30                    # segundos
+  retry_attempts: 3
+  cache_ttl: 300                 # segundos
+
+# Umbrales de alertas
+alerts:
+  volatility_threshold: 0.25     # 25% volatilidad diaria
+  drawdown_threshold: 0.15       # 15% pérdida desde máximo
+  correlation_threshold: 0.8     # correlación máxima entre activos

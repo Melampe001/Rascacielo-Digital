@@ -36,3 +36,14 @@ temp/
 
 # Testing
 .jest/
+
+# Go
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
