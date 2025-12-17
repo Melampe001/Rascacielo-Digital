@@ -10,9 +10,9 @@ import (
 
 var (
 	// Flags de línea de comandos
-	profile  = flag.String("profile", "moderate", "Perfil de riesgo: conservative, moderate, aggressive")
-	horizon  = flag.Int("horizon", 5, "Horizonte de inversión en años")
-	capital  = flag.Float64("capital", 100000.0, "Capital inicial en USD")
+	profile    = flag.String("profile", "moderate", "Perfil de riesgo: conservative, moderate, aggressive")
+	horizon    = flag.Int("horizon", 5, "Horizonte de inversión en años")
+	capital    = flag.Float64("capital", 100000.0, "Capital inicial en USD")
 	configFile = flag.String("config", "config/config.yml", "Ruta al archivo de configuración")
 )
 

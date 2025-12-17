@@ -23,10 +23,10 @@ type AssetAllocation struct {
 
 // GeographicAllocation representa la diversificación geográfica
 type GeographicAllocation struct {
-	NorthAmerica     float64 // Porcentaje en América del Norte
-	Europe           float64 // Porcentaje en Europa
-	AsiaPacific      float64 // Porcentaje en Asia-Pacífico
-	EmergingMarkets  float64 // Porcentaje en mercados emergentes
+	NorthAmerica    float64 // Porcentaje en América del Norte
+	Europe          float64 // Porcentaje en Europa
+	AsiaPacific     float64 // Porcentaje en Asia-Pacífico
+	EmergingMarkets float64 // Porcentaje en mercados emergentes
 }
 
 // CurrencyExposure representa la exposición a diferentes divisas
@@ -191,36 +191,36 @@ func GenerateRecommendation(profile RiskProfile, horizon int, capital float64) P
 // FormatRecommendation formatea la recomendación para mostrarla de forma legible
 func FormatRecommendation(rec PortfolioRecommendation) string {
 	output := "=== Finance Agent - Recomendación de Portafolio ===\n\n"
-	
+
 	output += fmt.Sprintf("Perfil del Inversor: %s\n", rec.Profile)
 	output += fmt.Sprintf("Horizonte de Inversión: %d años\n", rec.InvestmentHorizon)
 	output += fmt.Sprintf("Capital Inicial: $%.2f\n\n", rec.InitialCapital)
-	
+
 	output += "Recomendación de Asignación:\n"
-	output += fmt.Sprintf("  - Acciones: %.2f%% ($%.2f)\n", 
+	output += fmt.Sprintf("  - Acciones: %.2f%% ($%.2f)\n",
 		rec.AssetAllocation.Stocks, rec.InitialCapital*rec.AssetAllocation.Stocks/100)
-	output += fmt.Sprintf("  - Bonos: %.2f%% ($%.2f)\n", 
+	output += fmt.Sprintf("  - Bonos: %.2f%% ($%.2f)\n",
 		rec.AssetAllocation.Bonds, rec.InitialCapital*rec.AssetAllocation.Bonds/100)
-	output += fmt.Sprintf("  - Efectivo: %.2f%% ($%.2f)\n", 
+	output += fmt.Sprintf("  - Efectivo: %.2f%% ($%.2f)\n",
 		rec.AssetAllocation.Cash, rec.InitialCapital*rec.AssetAllocation.Cash/100)
-	output += fmt.Sprintf("  - Alternativos: %.2f%% ($%.2f)\n\n", 
+	output += fmt.Sprintf("  - Alternativos: %.2f%% ($%.2f)\n\n",
 		rec.AssetAllocation.Alternatives, rec.InitialCapital*rec.AssetAllocation.Alternatives/100)
-	
+
 	output += "Diversificación por Región:\n"
 	output += fmt.Sprintf("  - América del Norte: %.0f%%\n", rec.GeographicAllocation.NorthAmerica)
 	output += fmt.Sprintf("  - Europa: %.0f%%\n", rec.GeographicAllocation.Europe)
 	output += fmt.Sprintf("  - Asia-Pacífico: %.0f%%\n", rec.GeographicAllocation.AsiaPacific)
 	output += fmt.Sprintf("  - Mercados Emergentes: %.0f%%\n\n", rec.GeographicAllocation.EmergingMarkets)
-	
+
 	output += "Exposición a Divisas:\n"
 	output += fmt.Sprintf("  - USD: %.0f%%\n", rec.CurrencyExposure.USD)
 	output += fmt.Sprintf("  - EUR: %.0f%%\n", rec.CurrencyExposure.EUR)
 	output += fmt.Sprintf("  - GBP: %.0f%%\n", rec.CurrencyExposure.GBP)
 	output += fmt.Sprintf("  - JPY: %.0f%%\n", rec.CurrencyExposure.JPY)
 	output += fmt.Sprintf("  - CHF: %.0f%%\n\n", rec.CurrencyExposure.CHF)
-	
+
 	output += fmt.Sprintf("Retorno Esperado: %.1f%% anual\n", rec.ExpectedReturn)
 	output += fmt.Sprintf("Nivel de Riesgo: %s\n", rec.RiskLevel)
-	
+
 	return output
 }
