@@ -38,6 +38,7 @@ temp/
 
 # Testing
 .jest/
+*.test.log
 
 # Husky
 .husky/_

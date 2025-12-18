@@ -13,20 +13,9 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"**/*.{js,json,md}\"",
     "format:check": "prettier --check \"**/*.{js,json,md}\"",
-    "build": "node build.js",
-    "clean": "rm -rf dist/ coverage/",
-    "security": "node agents/security-agent.js",
-    "deploy": "node scripts/treesit-cli.js deploy",
-    "deploy:status": "node scripts/treesit-cli.js status",
-    "deploy:rollback": "node scripts/treesit-cli.js rollback",
-    "deploy:logs": "node scripts/treesit-cli.js logs",
-    "deploy:health": "node scripts/treesit-cli.js health",
-    "validate": "npm run lint && npm run format:check && npm test",
-    "prepare": "node -e \"try{require('husky').install()}catch(e){}\"",
-    "precommit": "npm run validate",
-    "setup": "npm install && npm run config:check",
-    "config:check": "node scripts/config-check.js",
-    "health-check": "node scripts/health-check.js"
+    "validate": "npm run lint && npm run format:check && npm run test",
+    "build": "node agents/build-agent.js",
+    "security": "node agents/security-agent.js"
   },
   "keywords": [
     "modular",
