@@ -39,7 +39,7 @@ export function SignupForm() {
         router.push('/dashboard');
         router.refresh();
       }
-    } catch (err) {
+    } catch {
       setError('Error al crear cuenta');
     } finally {
       setLoading(false);

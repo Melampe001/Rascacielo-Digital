@@ -2,7 +2,7 @@
  * Post-Quantum Kyber-1024 Encryption Module
  * Resistente a ataques de computación cuántica
  */
-import { kyber1024 } from '@noble/post-quantum/kyber';
+import { ml_kem1024 } from '@noble/post-quantum/ml-kem';
 
 export class QuantumSecurityManager {
   private static instance: QuantumSecurityManager;
@@ -10,7 +10,7 @@ export class QuantumSecurityManager {
   private keyRotationInterval = 11 * 60 * 1000; // 11 minutos
 
   private constructor() {
-    this.currentKeyPair = kyber1024.keygen();
+    this.currentKeyPair = ml_kem1024.keygen();
     this.startKeyRotation();
   }
 
@@ -22,11 +22,11 @@ export class QuantumSecurityManager {
   }
 
   /**
-   * Encripta datos usando Kyber-1024
+   * Encripta datos usando ML-KEM-1024 (Kyber-1024)
    */
   encrypt(data: string): { ciphertext: string; sharedSecret: string } {
     const plaintext = new TextEncoder().encode(data);
-    const { ciphertext, sharedSecret } = kyber1024.encapsulate(
+    const { cipherText, sharedSecret } = ml_kem1024.encapsulate(
       this.currentKeyPair.publicKey
     );
 
@@ -37,7 +37,7 @@ export class QuantumSecurityManager {
     }
 
     return {
-      ciphertext: Buffer.from(ciphertext).toString('base64'),
+      ciphertext: Buffer.from(cipherText).toString('base64'),
       sharedSecret: Buffer.from(encrypted).toString('base64'),
     };
   }
@@ -49,7 +49,7 @@ export class QuantumSecurityManager {
     const ct = Buffer.from(ciphertext, 'base64');
     const encrypted = Buffer.from(encryptedData, 'base64');
 
-    const sharedSecret = kyber1024.decapsulate(
+    const sharedSecret = ml_kem1024.decapsulate(
       ct,
       this.currentKeyPair.secretKey
     );
@@ -69,7 +69,7 @@ export class QuantumSecurityManager {
   private startKeyRotation(): void {
     setInterval(() => {
       console.log('🔄 Rotating quantum keys...');
-      this.currentKeyPair = kyber1024.keygen();
+      this.currentKeyPair = ml_kem1024.keygen();
       console.log('✅ Keys rotated successfully');
     }, this.keyRotationInterval);
   }

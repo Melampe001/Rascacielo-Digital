@@ -5,13 +5,20 @@ import { db } from '@/lib/db/drizzle';
 import { subscriptions, invoices } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-12-18.acacia',
-});
+function getStripe() {
+  if (!process.env.STRIPE_SECRET_KEY) {
+    throw new Error('STRIPE_SECRET_KEY is not configured');
+  }
+  return new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: '2025-02-24.acacia',
+  });
+}
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || '';
 
 export async function POST(req: Request) {
+  const stripe = getStripe();
+  
   const body = await req.text();
   const headersList = await headers();
   const signature = headersList.get('stripe-signature')!;
@@ -51,9 +58,15 @@ export async function POST(req: Request) {
 }
 
 async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
+  // TODO: Map Stripe customer ID to user ID from your database
+  // For now, this is a placeholder. In production, you'd query the users table
+  // to find the userId based on subscription.customer
+  const userId = '00000000-0000-0000-0000-000000000000'; // Placeholder
+
   await db
     .insert(subscriptions)
     .values({
+      userId,
       stripeSubscriptionId: subscription.id,
       stripeCustomerId: subscription.customer as string,
       stripePriceId: subscription.items.data[0].price.id,
@@ -83,13 +96,16 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
 }
 
 async function handleInvoicePaid(invoice: Stripe.Invoice) {
+  // TODO: Map Stripe customer to userId
+  const userId = '00000000-0000-0000-0000-000000000000'; // Placeholder
+  
   await db.insert(invoices).values({
+    userId,
     stripeInvoiceId: invoice.id,
     amount: invoice.amount_paid,
     currency: invoice.currency,
     status: 'paid',
     paidAt: new Date(),
-    userId: '' as any, // This should be mapped from customer
   });
 }
 

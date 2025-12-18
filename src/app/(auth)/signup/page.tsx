@@ -1,6 +1,8 @@
 import { SignupForm } from '@/components/auth/signup-form';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 export default function SignupPage() {
   return (
     <div className="space-y-6 p-8">
