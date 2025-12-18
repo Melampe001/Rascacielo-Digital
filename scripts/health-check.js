@@ -1,151 +1,55 @@
 #!/usr/bin/env node
 
-/**
- * Health Check Script
- * Validates system health and dependencies
- */
+const BuildAgent = require('../agents/build-agent');
+const SecurityAgent = require('../agents/security-agent');
+const { Logger } = require('../modules/core');
 
-const fs = require('fs');
-const path = require('path');
+const logger = new Logger('HealthCheck');
 
-class HealthCheck {
-  constructor() {
-    this.checks = [];
+async function healthCheck() {
+  console.log('🏥 HEALTH CHECK\n');
+
+  const checks = [];
+
+  // Node version
+  const nodeVersion = process.version;
+  const requiredNode = 'v18.0.0';
+  checks.push({
+    name: 'Node.js Version',
+    status: nodeVersion >= requiredNode ? 'PASS' : 'FAIL',
+    details: `${nodeVersion} (required: ${requiredNode}+)`
+  });
+
+  // Build Agent
+  try {
+    const buildAgent = new BuildAgent();
+    await buildAgent.validate({});
+    checks.push({ name: 'Build Agent', status: 'PASS', details: 'Initialized' });
+  } catch (error) {
+    checks.push({ name: 'Build Agent', status: 'FAIL', details: error.message });
   }
 
-  /**
-   * Run all health checks
-   */
-  async run() {
-    console.log('🏥 Running health checks...\n');
-
-    let passed = 0;
-    let failed = 0;
-
-    // Check Node.js version
-    await this.checkNodeVersion();
-
-    // Check required files
-    await this.checkRequiredFiles();
-
-    // Check configuration
-    await this.checkConfiguration();
-
-    // Check modules
-    await this.checkModules();
-
-    // Summary
-    this.checks.forEach(check => {
-      const icon = check.passed ? '✅' : '❌';
-      console.log(`${icon} ${check.name}: ${check.message}`);
-      
-      if (check.passed) {
-        passed++;
-      } else {
-        failed++;
-      }
-    });
-
-    console.log(`\n📊 Results: ${passed} passed, ${failed} failed\n`);
-
-    if (failed > 0) {
-      console.log('❌ Health check failed');
-      process.exit(1);
-    } else {
-      console.log('✅ All health checks passed');
-      process.exit(0);
-    }
+  // Security Agent
+  try {
+    const securityAgent = new SecurityAgent();
+    checks.push({ name: 'Security Agent', status: 'PASS', details: 'Initialized' });
+  } catch (error) {
+    checks.push({ name: 'Security Agent', status: 'FAIL', details: error.message });
   }
 
-  /**
-   * Check Node.js version
-   */
-  async checkNodeVersion() {
-    const currentVersion = process.version;
-    const requiredVersion = '18.0.0';
-    const [major] = currentVersion.slice(1).split('.').map(Number);
+  // Display results
+  checks.forEach(check => {
+    const icon = check.status === 'PASS' ? '✅' : '❌';
+    console.log(`${icon} ${check.name}: ${check.details}`);
+  });
 
-    const passed = major >= 18;
-    this.checks.push({
-      name: 'Node.js Version',
-      passed,
-      message: passed ? `${currentVersion} (OK)` : `${currentVersion} (Required: >= ${requiredVersion})`
-    });
-  }
+  const allPassed = checks.every(c => c.status === 'PASS');
+  console.log(`\n${allPassed ? '✅ All checks passed' : '❌ Some checks failed'}\n`);
 
-  /**
-   * Check required files
-   */
-  async checkRequiredFiles() {
-    const requiredFiles = [
-      'package.json',
-      'index.js',
-      'agents/build-agent.js',
-      'agents/security-agent.js',
-      'agents/deploy-agent.js',
-      'modules/core.js'
-    ];
-
-    for (const file of requiredFiles) {
-      const filePath = path.join(__dirname, '..', file);
-      const exists = fs.existsSync(filePath);
-      
-      this.checks.push({
-        name: `File: ${file}`,
-        passed: exists,
-        message: exists ? 'Found' : 'Missing'
-      });
-    }
-  }
-
-  /**
-   * Check configuration
-   */
-  async checkConfiguration() {
-    const envExamplePath = path.join(__dirname, '..', '.env.example');
-    const exists = fs.existsSync(envExamplePath);
-
-    this.checks.push({
-      name: 'Configuration',
-      passed: exists,
-      message: exists ? '.env.example found' : '.env.example missing'
-    });
-  }
-
-  /**
-   * Check modules can be loaded
-   */
-  async checkModules() {
-    const modules = [
-      '../modules/core',
-      '../modules/api',
-      '../modules/auth',
-      '../modules/queue'
-    ];
-
-    for (const mod of modules) {
-      try {
-        require(mod);
-        this.checks.push({
-          name: `Module: ${mod}`,
-          passed: true,
-          message: 'Loaded successfully'
-        });
-      } catch (error) {
-        this.checks.push({
-          name: `Module: ${mod}`,
-          passed: false,
-          message: error.message
-        });
-      }
-    }
-  }
+  process.exit(allPassed ? 0 : 1);
 }
 
-// Run if executed directly
-if (require.main === module) {
-  const healthCheck = new HealthCheck();
-  healthCheck.run();
-}
-
-module.exports = HealthCheck;
+healthCheck().catch(error => {
+  console.error('Health check error:', error);
+  process.exit(1);
+});

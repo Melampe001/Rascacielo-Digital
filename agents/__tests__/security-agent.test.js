@@ -75,7 +75,7 @@ describe('SecurityAgent', () => {
     const scanResult = await agent.scan({ target: './' });
     const report = await agent.generateReport(scanResult, 'text');
     expect(typeof report).toBe('string');
-    expect(report).toContain('REPORTE DE SEGURIDAD');
+    expect(report).toContain('SECURITY REPORT');
   });
 
   test('should fail on critical vulnerabilities when configured', async () => {

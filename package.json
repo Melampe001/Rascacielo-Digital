@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "jest",
+    "test": "jest --coverage",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "lint": "eslint .",
@@ -14,8 +14,8 @@
     "format": "prettier --write \"**/*.{js,json,md}\"",
     "format:check": "prettier --check \"**/*.{js,json,md}\"",
     "build": "node build.js",
-    "clean": "rm -rf dist/ coverage/",
     "security": "node agents/security-agent.js",
+    "clean": "rm -rf dist/ coverage/",
     "deploy": "node scripts/treesit-cli.js deploy",
     "deploy:status": "node scripts/treesit-cli.js status",
     "deploy:rollback": "node scripts/treesit-cli.js rollback",

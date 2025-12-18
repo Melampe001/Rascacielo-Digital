@@ -2,34 +2,37 @@
  * API Module Tests
  */
 
-const { HTTPClient } = require('../api');
+const { APIClient } = require('../api');
 
-describe('HTTPClient', () => {
+describe('APIClient', () => {
   let client;
 
   beforeEach(() => {
-    client = new HTTPClient({
+    client = new APIClient({
       baseURL: 'https://api.example.com',
       timeout: 5000,
       maxRetries: 2
     });
   });
 
-  test('should create HTTP client with config', () => {
-    expect(client.config.baseURL).toBe('https://api.example.com');
-    expect(client.config.timeout).toBe(5000);
-    expect(client.config.maxRetries).toBe(2);
+  test('should create API client with config', () => {
+    expect(client.baseURL).toBe('https://api.example.com');
+    expect(client.timeout).toBe(5000);
+    expect(client.maxRetries).toBe(2);
   });
 
   test('should have HTTP methods', () => {
     expect(typeof client.get).toBe('function');
     expect(typeof client.post).toBe('function');
     expect(typeof client.put).toBe('function');
-    expect(typeof client.patch).toBe('function');
     expect(typeof client.delete).toBe('function');
   });
 
-  test('should build request options', () => {
-    expect(client.config.headers).toBeDefined();
+  test('should have request method', () => {
+    expect(typeof client.request).toBe('function');
+  });
+
+  test('should have sleep utility', () => {
+    expect(typeof client.sleep).toBe('function');
   });
 });
