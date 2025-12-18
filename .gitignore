@@ -16,6 +16,9 @@ dist/
 build/
 *.log
 
+# Testing
+test-dist-idempotent/
+
 # Coverage
 coverage/
 .nyc_output/
