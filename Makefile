@@ -26,7 +26,9 @@ idempotency-test:
 		exit 1; \
 	fi
 
-ci: clean build lint test
+ci: clean build
+	@npm run lint
+	@npm run test
 	@echo "✅ All CI checks passed"
 
 stats:

@@ -7,7 +7,7 @@ The idempotent build system uses SHA256 checksums to detect changes and skip unn
 ## Performance
 
 - **Initial build**: ~15ms
-- **Skip detection**: ~50ms
+- **Skip detection**: ~3-5ms
 - **Idempotency**: Verified (consecutive builds produce identical checksums)
 
 ## Usage
