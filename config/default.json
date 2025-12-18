@@ -1,0 +1,82 @@
+{
+  "system": {
+    "name": "Rascacielos Digital",
+    "version": "1.0.0",
+    "environment": "development"
+  },
+  "agents": {
+    "build": {
+      "enabled": true,
+      "optimize": true,
+      "outputDir": "./dist"
+    },
+    "test": {
+      "enabled": true,
+      "coverage": true,
+      "threshold": 80
+    },
+    "security": {
+      "enabled": true,
+      "level": "moderate",
+      "failOnHigh": true,
+      "scanDependencies": true,
+      "scanCode": true
+    },
+    "deploy": {
+      "enabled": true,
+      "environment": "production",
+      "autoRollback": true
+    },
+    "monitor": {
+      "enabled": true,
+      "metrics": ["cpu", "memory", "errors"],
+      "alerting": true
+    }
+  },
+  "modules": {
+    "core": {
+      "logging": {
+        "level": "info",
+        "format": "json"
+      }
+    },
+    "api": {
+      "baseURL": "https://api.example.com",
+      "timeout": 30000,
+      "retries": 3
+    },
+    "database": {
+      "type": "postgres",
+      "pool": {
+        "min": 2,
+        "max": 10
+      }
+    }
+  },
+  "cicd": {
+    "gates": {
+      "lint": {
+        "enabled": true,
+        "required": true
+      },
+      "test": {
+        "enabled": true,
+        "required": true,
+        "minCoverage": 80
+      },
+      "security": {
+        "enabled": true,
+        "required": true,
+        "severity": ["critical", "high"]
+      },
+      "build": {
+        "enabled": true,
+        "required": true
+      },
+      "deploy": {
+        "enabled": true,
+        "manualApproval": true
+      }
+    }
+  }
+}

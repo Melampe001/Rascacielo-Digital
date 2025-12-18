@@ -1,0 +1,64 @@
+{
+  "name": "rascacielos-digital",
+  "version": "1.0.0",
+  "description": "Sistema modular con agentes especializados y CI/CD",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{js,json,md}\"",
+    "format:check": "prettier --check \"**/*.{js,json,md}\"",
+    "build": "node build.js",
+    "clean": "rm -rf dist/ coverage/",
+    "security": "node agents/security-agent.js",
+    "deploy": "node scripts/treesit-cli.js deploy",
+    "deploy:status": "node scripts/treesit-cli.js status",
+    "deploy:rollback": "node scripts/treesit-cli.js rollback",
+    "deploy:logs": "node scripts/treesit-cli.js logs",
+    "deploy:health": "node scripts/treesit-cli.js health",
+    "validate": "npm run lint && npm run format:check && npm test",
+    "prepare": "node -e \"try{require('husky').install()}catch(e){}\"",
+    "precommit": "npm run validate",
+    "setup": "npm install && npm run config:check",
+    "config:check": "node scripts/config-check.js",
+    "health-check": "node scripts/health-check.js"
+  },
+  "keywords": [
+    "modular",
+    "architecture",
+    "agents",
+    "ci-cd",
+    "automation",
+    "devops",
+    "treesit-cloud"
+  ],
+  "author": "Melampe001",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Melampe001/Rascacielo-Digital.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Melampe001/Rascacielo-Digital/issues"
+  },
+  "homepage": "https://github.com/Melampe001/Rascacielo-Digital#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0",
+    "husky": "^8.0.3",
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0"
+  },
+  "dependencies": {}
+}
