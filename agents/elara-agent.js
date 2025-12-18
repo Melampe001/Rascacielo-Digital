@@ -588,14 +588,14 @@ class ElaraAgent {
     const logMessage = `[${timestamp}] [${level.toUpperCase()}] [ELARA] ${message}`;
 
     switch (level) {
-      case 'error':
-        console.error(logMessage, data);
-        break;
-      case 'warn':
-        console.warn(logMessage, data);
-        break;
-      default:
-        console.log(logMessage, data);
+    case 'error':
+      console.error(logMessage, data);
+      break;
+    case 'warn':
+      console.warn(logMessage, data);
+      break;
+    default:
+      console.log(logMessage, data);
     }
   }
 
