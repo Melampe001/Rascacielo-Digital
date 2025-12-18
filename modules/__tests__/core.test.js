@@ -24,10 +24,7 @@ describe('Core Module', () => {
 
     it('should log info messages', () => {
       logger.info('Test message');
-      expect(consoleSpy.log).toHaveBeenCalledWith(
-        '[INFO][TestApp]',
-        'Test message'
-      );
+      expect(consoleSpy.log).toHaveBeenCalledWith('[INFO][TestApp]', 'Test message');
     });
 
     it('should log warn messages', () => {
@@ -141,10 +138,10 @@ describe('Core Module', () => {
     describe('retry', () => {
       it('should retry function on failure', async () => {
         let attempts = 0;
-        const failTwice = async () => {
+        const failTwice = () => {
           attempts++;
           if (attempts < 3) throw new Error('Fail');
-          return 'Success';
+          return Promise.resolve('Success');
         };
 
         const retryFn = Utils.retry(failTwice, 3, 10);
@@ -155,7 +152,7 @@ describe('Core Module', () => {
       });
 
       it('should throw after max attempts', async () => {
-        const alwaysFail = async () => {
+        const alwaysFail = () => {
           throw new Error('Always fails');
         };
 
@@ -167,9 +164,7 @@ describe('Core Module', () => {
     describe('timeout', () => {
       it('should timeout slow promise', async () => {
         const slowPromise = Utils.sleep(200);
-        await expect(Utils.timeout(slowPromise, 100))
-          .rejects
-          .toThrow('Timeout exceeded');
+        await expect(Utils.timeout(slowPromise, 100)).rejects.toThrow('Timeout exceeded');
       });
 
       it('should not timeout fast promise', async () => {

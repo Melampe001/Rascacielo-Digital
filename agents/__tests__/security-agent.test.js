@@ -49,9 +49,9 @@ describe('SecurityAgent', () => {
         total: 3
       });
 
-      await expect(strictAgent.scan({ target: './src' }))
-        .rejects
-        .toThrow('Se encontraron 2 vulnerabilidades críticas');
+      await expect(strictAgent.scan({ target: './src' })).rejects.toThrow(
+        'Se encontraron 2 vulnerabilidades críticas'
+      );
     });
   });
 
@@ -78,16 +78,10 @@ describe('SecurityAgent', () => {
     it('should generate summary correctly', () => {
       const mockResults = {
         dependencies: {
-          vulnerabilities: [
-            { severity: 'high' },
-            { severity: 'moderate' }
-          ]
+          vulnerabilities: [{ severity: 'high' }, { severity: 'moderate' }]
         },
         codeAnalysis: {
-          issues: [
-            { severity: 'critical' },
-            { severity: 'low' }
-          ]
+          issues: [{ severity: 'critical' }, { severity: 'low' }]
         }
       };
 

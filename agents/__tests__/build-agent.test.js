@@ -34,9 +34,9 @@ describe('BuildAgent', () => {
     });
 
     it('should reject invalid source param', async () => {
-      await expect(agent.validate({ source: 123 }))
-        .rejects
-        .toThrow('El parámetro source debe ser una cadena de texto');
+      await expect(agent.validate({ source: 123 })).rejects.toThrow(
+        'El parámetro source debe ser una cadena de texto'
+      );
     });
 
     it('should accept empty params', async () => {

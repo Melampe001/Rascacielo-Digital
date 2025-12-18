@@ -107,7 +107,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 👥 Autores
 
-- **Melampe001** - *Trabajo Inicial* - [Melampe001](https://github.com/Melampe001)
+- **Melampe001** - _Trabajo Inicial_ - [Melampe001](https://github.com/Melampe001)
 
 ## 🙏 Agradecimientos
 
