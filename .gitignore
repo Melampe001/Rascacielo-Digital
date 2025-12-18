@@ -14,6 +14,9 @@ dist/
 build/
 *.log
 
+# Build cache
+.build-cache/
+
 # Coverage
 coverage/
 .nyc_output/

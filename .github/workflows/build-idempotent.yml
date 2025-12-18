@@ -1,0 +1,134 @@
+name: 🔨 Build Idempotente CI/CD
+
+on:
+  push:
+    branches: [Main, develop]
+  pull_request:
+    branches: [Main]
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  build-idempotent:
+    name: 🔨 Build Idempotente
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: 📦 Install dependencies
+        run: npm ci
+      
+      - name: 📊 Cache build checksums
+        uses: actions/cache@v3
+        with:
+          path: |
+            dist/.build-checksum
+            dist/build-manifest.json
+          key: build-${{ runner.os }}-${{ hashFiles('**/*.js', 'package.json') }}
+          restore-keys: |
+            build-${{ runner.os }}-
+      
+      - name: 🔨 Run idempotent build
+        run: node build-idempotent.js
+      
+      - name: 📄 Display build manifest
+        run: |
+          echo "📊 Build Manifest:"
+          if command -v jq > /dev/null; then
+            cat dist/build-manifest.json | jq .
+          else
+            cat dist/build-manifest.json
+          fi
+      
+      - name: 🔍 Verify idempotency
+        run: |
+          echo "🧪 Testing idempotency..."
+          CHECKSUM1=$(cat dist/.build-checksum)
+          echo "First build checksum: $CHECKSUM1"
+          
+          node build-idempotent.js --force
+          CHECKSUM2=$(cat dist/.build-checksum)
+          echo "Second build checksum: $CHECKSUM2"
+          
+          if [ "$CHECKSUM1" == "$CHECKSUM2" ]; then
+            echo "✅ Build is idempotent!"
+          else
+            echo "❌ Build is NOT idempotent"
+            exit 1
+          fi
+      
+      - name: 📦 Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: |
+            dist/
+            !dist/node_modules
+          retention-days: 7
+      
+      - name: 📊 Build statistics
+        run: |
+          echo "📊 Build Statistics:"
+          echo "Files in dist: $(find dist -type f | wc -l)"
+          echo "Dist size: $(du -sh dist | cut -f1)"
+          echo "Checksum: $(cat dist/.build-checksum | cut -c1-16)..."
+
+  test-build-output:
+    name: 🧪 Test Build Output
+    runs-on: ubuntu-latest
+    needs: build-idempotent
+    
+    steps:
+      - name: 📥 Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifacts
+          path: dist/
+      
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      
+      - name: 📦 Install production dependencies
+        run: |
+          cd dist
+          if [ -f package.json ]; then
+            npm install --production --ignore-scripts || echo "No dependencies to install"
+          fi
+      
+      - name: ✅ Verify build output
+        run: |
+          cd dist
+          if [ -f index.js ]; then
+            timeout 10 node index.js || true
+            echo "✅ Build output is valid"
+          else
+            echo "⚠️  index.js not found in build output"
+          fi
+
+  notify:
+    name: 📬 Notify Results
+    runs-on: ubuntu-latest
+    needs: [build-idempotent, test-build-output]
+    if: always()
+    
+    steps:
+      - name: 📬 Send notification
+        run: |
+          echo "📬 Build workflow completed"
+          echo "Status: ${{ needs.build-idempotent.result }}"

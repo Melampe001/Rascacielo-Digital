@@ -1,0 +1,37 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Pre-commit: Ejecutando validaciones..."
+
+# Build idempotente
+echo ""
+echo "🔨 Ejecutando build idempotente..."
+node build-idempotent.js
+
+if [ $? -ne 0 ]; then
+  echo "❌ Build falló, commit abortado"
+  exit 1
+fi
+
+# Linting
+echo ""
+echo "🔍 Ejecutando linter..."
+npm run lint
+
+if [ $? -ne 0 ]; then
+  echo "❌ Linting falló, commit abortado"
+  exit 1
+fi
+
+# Tests
+echo ""
+echo "🧪 Ejecutando tests..."
+npm test
+
+if [ $? -ne 0 ]; then
+  echo "❌ Tests fallaron, commit abortado"
+  exit 1
+fi
+
+echo ""
+echo "✅ Pre-commit validaciones exitosas"
