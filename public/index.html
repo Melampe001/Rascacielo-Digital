@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rascacielos Digital - Sistema modular con agentes especializados y CI/CD gates">
+    <meta name="keywords" content="modular, architecture, agents, ci-cd, automation, devops">
+    <meta name="author" content="Melampe001">
+    <title>Rascacielos Digital - Modular Development Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        .status-badge.healthy {
+            background: rgba(16, 185, 129, 0.3);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .card h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .endpoint {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .endpoint-method {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-right: 0.5rem;
+        }
+
+        .method-get {
+            background: #10b981;
+        }
+
+        .method-post {
+            background: #3b82f6;
+        }
+
+        .endpoint-path {
+            font-family: 'Courier New', monospace;
+            color: #fbbf24;
+        }
+
+        .endpoint-description {
+            margin-top: 0.5rem;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.75rem;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 4rem;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        #health-status {
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏗️ Rascacielos Digital</h1>
+            <p>Sistema Modular con Agentes Especializados y CI/CD Gates</p>
+            <div class="status-badge healthy" id="health-status">
+                ✅ Sistema Operacional
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🚀 API Endpoints</h2>
+            <p style="margin-bottom: 1.5rem; opacity: 0.9;">
+                Serverless functions disponibles en producción
+            </p>
+
+            <div class="endpoint">
+                <span class="endpoint-method method-get">GET</span>
+                <span class="endpoint-path">/api/health</span>
+                <div class="endpoint-description">
+                    Health check del sistema - Retorna estado, uptime y métricas de memoria
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <span class="endpoint-method method-post">POST</span>
+                <span class="endpoint-path">/api/build</span>
+                <div class="endpoint-description">
+                    Ejecuta el Build Agent - Construcción y compilación de código
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <span class="endpoint-method method-post">POST</span>
+                <span class="endpoint-path">/api/security</span>
+                <div class="endpoint-description">
+                    Ejecuta el Security Agent - Análisis de vulnerabilidades y seguridad
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>✨ Características</h2>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🧩</div>
+                    <h3>Arquitectura Modular</h3>
+                    <p>Componentes independientes y reutilizables</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Agentes Especializados</h3>
+                    <p>Build, Security, Deploy y más</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Seguridad Enterprise</h3>
+                    <p>Security headers y análisis automatizado</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Serverless</h3>
+                    <p>Deployment global con edge computing</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3>CI/CD Gates</h3>
+                    <p>Pipeline automatizado con validaciones</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🧪</div>
+                    <h3>94.5% Coverage</h3>
+                    <p>62/62 tests pasando</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📚 Documentación</h2>
+            <div class="links">
+                <a href="https://github.com/Melampe001/Rascacielo-Digital" class="btn" target="_blank" rel="noopener" aria-label="Ver repositorio en GitHub">
+                    GitHub Repository
+                </a>
+                <a href="https://github.com/Melampe001/Rascacielo-Digital#readme" class="btn" target="_blank" rel="noopener" aria-label="Ver documentación">
+                    Documentation
+                </a>
+                <a href="/api/health" class="btn" aria-label="Verificar health check">
+                    Health Check
+                </a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>v1.0.0 | MIT License | © 2024 Melampe001</p>
+            <p style="margin-top: 0.5rem;">Built with ❤️ for the open source community</p>
+        </div>
+    </div>
+
+    <script>
+        // Auto health check on load
+        async function checkHealth() {
+            try {
+                const response = await fetch('/api/health');
+                const data = await response.json();
+                
+                if (data.status === 'healthy') {
+                    document.getElementById('health-status').innerHTML = '✅ Sistema Operacional';
+                    document.getElementById('health-status').className = 'status-badge healthy';
+                } else {
+                    document.getElementById('health-status').innerHTML = '⚠️ Estado Desconocido';
+                    document.getElementById('health-status').className = 'status-badge';
+                }
+            } catch (error) {
+                document.getElementById('health-status').innerHTML = '❌ Servicio No Disponible';
+                document.getElementById('health-status').className = 'status-badge';
+            }
+        }
+
+        // Check health on page load
+        window.addEventListener('load', checkHealth);
+    </script>
+</body>
+</html>
