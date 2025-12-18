@@ -98,9 +98,78 @@ Las contribuciones son bienvenidas. Por favor:
 
 Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
 
+## 🚀 Deployment en Vercel
+
+### Preparación
+
+1. **Instalar Vercel CLI**
+
+   ```bash
+   npm i -g vercel
+   ```
+
+2. **Login en Vercel**
+
+   ```bash
+   vercel login
+   ```
+
+3. **Configurar Variables de Entorno**
+   En el dashboard de Vercel, agrega:
+   - `NODE_ENV=production`
+   - Otras variables según `.env.example`
+
+### Deployment
+
+#### Preview Deployment
+
+```bash
+vercel
+```
+
+#### Production Deployment
+
+```bash
+vercel --prod
+```
+
+### GitHub Integration
+
+Conecta tu repositorio a Vercel para deployments automáticos:
+
+1. Ve a [vercel.com/dashboard](https://vercel.com/dashboard)
+2. Click "Import Project"
+3. Conecta tu repositorio GitHub
+4. Vercel auto-deployará en cada push a `main`
+
+### API Endpoints
+
+Una vez deployado, tus endpoints estarán disponibles en:
+
+- **Health Check:** `https://tu-proyecto.vercel.app/api/health`
+- **Build Agent:** `https://tu-proyecto.vercel.app/api/build`
+- **Security Agent:** `https://tu-proyecto.vercel.app/api/security`
+
+### Testing en Producción
+
+```bash
+# Health check
+curl https://tu-proyecto.vercel.app/api/health
+
+# Build Agent
+curl -X POST https://tu-proyecto.vercel.app/api/build \
+  -H "Content-Type: application/json" \
+  -d '{"source": "./src"}'
+
+# Security Agent
+curl -X POST https://tu-proyecto.vercel.app/api/security \
+  -H "Content-Type: application/json" \
+  -d '{"target": "./src"}'
+```
+
 ## 👥 Autores
 
-- **Melampe001** - *Trabajo Inicial* - [Melampe001](https://github.com/Melampe001)
+- **Melampe001** - _Trabajo Inicial_ - [Melampe001](https://github.com/Melampe001)
 
 ## 🙏 Agradecimientos
 

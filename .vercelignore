@@ -1,0 +1,12 @@
+node_modules
+coverage
+.git
+.github
+__tests__
+*.test.js
+*.spec.js
+.env
+.env.local
+dist/
+.eslintcache
+.prettierignore

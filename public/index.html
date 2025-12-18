@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rascacielo Digital - Sistema Modular de Agentes</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    .container {
+      text-align: center;
+      padding: 2rem;
+      max-width: 800px;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    .agents {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .agent-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 1.5rem;
+      border-radius: 15px;
+      transition: transform 0.3s ease;
+    }
+    .agent-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .agent-icon {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    .agent-name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .agent-status {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    .api-info {
+      margin-top: 3rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      border-radius: 15px;
+    }
+    .endpoint {
+      margin: 0.5rem 0;
+      font-family: monospace;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 0.5rem;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏗️ Rascacielo Digital</h1>
+    <p class="subtitle">Sistema Modular con Agentes Especializados</p>
+
+    <div class="agents">
+      <div class="agent-card">
+        <div class="agent-icon">🔨</div>
+        <div class="agent-name">Build Agent</div>
+        <div class="agent-status">✅ Activo</div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-icon">🔒</div>
+        <div class="agent-name">Security Agent</div>
+        <div class="agent-status">✅ Activo</div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-icon">🎨</div>
+        <div class="agent-name">ELARA Agent</div>
+        <div class="agent-status">⏳ En desarrollo</div>
+      </div>
+    </div>
+
+    <div class="api-info">
+      <h3>API Endpoints</h3>
+      <div class="endpoint">GET /api/health</div>
+      <div class="endpoint">POST /api/build</div>
+      <div class="endpoint">POST /api/security</div>
+    </div>
+  </div>
+
+  <script>
+    // Health check al cargar
+    fetch('/api/health')
+      .then(res => res.json())
+      .then(data => console.log('Health Check:', data))
+      .catch(err => console.error('Health Check Error:', err));
+  </script>
+</body>
+</html>
