@@ -1,0 +1,39 @@
+name: 🚦 Gate 1 - Preflight
+
+on:
+  push:
+    branches: [main, develop, 'copilot/**']
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  preflight:
+    name: Preflight Checks
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Check TypeScript
+        run: npm run type-check
+      
+      - name: Run ESLint
+        run: npm run lint
+      
+      - name: Run Prettier Check
+        run: npm run format:check
+      
+      - name: ✅ Preflight Passed
+        run: |
+          echo "══════════════════════════════════════════"
+          echo "✅ Gate 1: PREFLIGHT - PASSED"
+          echo "══════════════════════════════════════════"
