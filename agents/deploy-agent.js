@@ -90,9 +90,12 @@ class DeployAgent {
 
   async prepareArtifacts(options) {
     // Prepare deployment package
+    const path = require('path');
+    const packageJson = require(path.join(__dirname, '..', 'package.json'));
+    
     return {
       name: 'rascacielo-digital',
-      version: require('../package.json').version,
+      version: packageJson.version,
       files: options.files || ['dist/*'],
       entrypoint: options.entrypoint || 'index.js',
       buildTime: new Date().toISOString()

@@ -54,6 +54,9 @@ if (!command || !commands[command]) {
 }
 
 commands[command]().catch(error => {
-  console.error('❌ Error:', error.message);
+  console.error('❌ Error:', error);
+  if (error.stack) {
+    console.error('Stack trace:', error.stack);
+  }
   process.exit(1);
 });

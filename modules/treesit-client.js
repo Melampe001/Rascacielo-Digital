@@ -1,6 +1,8 @@
 /**
  * Treesit Cloud Client
  * Handles communication with Treesit Cloud API
+ * 
+ * Note: Uses Node.js 18+ built-in fetch API
  */
 
 const TreesitCloudConfig = require('../config/treesit-cloud');
