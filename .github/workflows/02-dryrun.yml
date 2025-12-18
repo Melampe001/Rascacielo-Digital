@@ -1,0 +1,44 @@
+name: 🧪 Gate 2 - Dry Run
+
+on:
+  workflow_run:
+    workflows: ["🚦 Gate 1 - Preflight"]
+    types: [completed]
+    branches: [main, develop, 'copilot/**']
+
+jobs:
+  dryrun:
+    name: Dry Run Build
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build Next.js Application
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co' }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key' }}
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: .next
+          retention-days: 7
+      
+      - name: ✅ Dry Run Passed
+        run: |
+          echo "══════════════════════════════════════════"
+          echo "✅ Gate 2: DRY RUN - PASSED"
+          echo "══════════════════════════════════════════"

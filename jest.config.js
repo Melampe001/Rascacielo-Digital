@@ -1,28 +1,33 @@
-module.exports = {
-  testEnvironment: 'node',
-  coverageDirectory: 'coverage',
+const nextJest = require('next/jest');
+
+const createJestConfig = nextJest({
+  dir: './'
+});
+
+const customJestConfig = {
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  testEnvironment: 'jest-environment-jsdom',
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1'
+  },
+  testMatch: ['**/tests/**/*.test.ts', '**/tests/**/*.test.tsx'],
+  testPathIgnorePatterns: ['/node_modules/', '/.next/'],
   collectCoverageFrom: [
-    'agents/**/*.js',
-    'modules/**/*.js',
-    '!**/__tests__/**',
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/**/*.stories.{js,jsx,ts,tsx}',
     '!**/node_modules/**',
-    '!**/dist/**'
+    '!**/.next/**'
   ],
   coverageThreshold: {
     global: {
-      branches: 70,
-      functions: 70,
-      lines: 70,
-      statements: 70
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80
     }
   },
-  testMatch: [
-    '**/__tests__/**/*.test.js',
-    '**/*.test.js'
-  ],
-  testPathIgnorePatterns: [
-    '/node_modules/',
-    '/dist/'
-  ],
   verbose: true
 };
+
+module.exports = createJestConfig(customJestConfig);

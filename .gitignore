@@ -5,11 +5,20 @@ yarn-debug.log*
 yarn-error.log*
 package-lock.json
 yarn.lock
+pnpm-lock.yaml
+
+# Next.js
+.next/
+out/
+next-env.d.ts
 
 # Environment files
 .env
 .env.local
-.env.*.local
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Build outputs
 dist/
@@ -19,6 +28,12 @@ build/
 # Coverage
 coverage/
 .nyc_output/
+
+# Testing
+.jest/
+playwright-report/
+test-results/
+playwright/.cache/
 
 # IDE
 .vscode/
@@ -36,8 +51,14 @@ tmp/
 temp/
 *.tmp
 
-# Testing
-.jest/
-
 # Husky
 .husky/_
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+
+# Drizzle
+drizzle/

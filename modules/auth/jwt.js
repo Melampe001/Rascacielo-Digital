@@ -80,15 +80,11 @@ class JWT {
   sign(data) {
     // Simple signing (in production, use crypto library)
     const crypto = require('crypto');
-    return crypto
-      .createHmac('sha256', this.secret)
-      .update(data)
-      .digest('base64url');
+    return crypto.createHmac('sha256', this.secret).update(data).digest('base64url');
   }
 
   base64UrlEncode(str) {
-    return Buffer.from(str)
-      .toString('base64url');
+    return Buffer.from(str).toString('base64url');
   }
 
   base64UrlDecode(str) {
