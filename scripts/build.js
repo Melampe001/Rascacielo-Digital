@@ -30,6 +30,7 @@ if (allFilesExist) {
   console.log('\n🎉 Build completed successfully!');
   process.exit(0);
 } else {
-  console.log('\n⚠️  Build completed with warnings');
-  process.exit(0); // Don't fail build
+  console.log('\n⚠️  Build completed with warnings - some files are missing');
+  console.log('⚠️  This may cause deployment issues. Please review the above list.');
+  process.exit(0); // Don't fail build per requirements
 }

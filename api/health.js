@@ -1,5 +1,6 @@
 export default function handler(req, res) {
-  // CORS headers
+  // CORS headers - allowing all origins for health check endpoint
+  // In production, consider restricting to specific domains via environment variables
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
