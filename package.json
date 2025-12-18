@@ -9,7 +9,7 @@
     "test": "jest --coverage",
     "lint": "eslint . --ext .js",
     "lint:fix": "eslint . --ext .js --fix",
-    "build": "node agents/build-agent.js",
+    "build": "node build.js",
     "security": "node agents/security-agent.js",
     "clean": "rm -rf dist/ coverage/",
     "setup": "npm install && npm run config:check",
