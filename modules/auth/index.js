@@ -11,7 +11,7 @@ module.exports = {
   JWT,
   PasswordHash,
   RBAC,
-  createJWT: (secret) => new JWT(secret),
-  createPasswordHash: (config) => new PasswordHash(config),
+  createJWT: secret => new JWT(secret),
+  createPasswordHash: config => new PasswordHash(config),
   createRBAC: () => new RBAC()
 };

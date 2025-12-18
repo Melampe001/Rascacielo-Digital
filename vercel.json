@@ -1,43 +1,6 @@
 {
   "version": 2,
   "name": "rascacielo-digital",
-  "routes": [
-    {
-      "src": "/assets/(.*)",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      },
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/static/(.*)",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      },
-      "dest": "/static/$1"
-    },
-    {
-      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|webp|avif))",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      },
-      "dest": "/$1"
-    },
-    {
-      "src": "/api/(.*)",
-      "headers": {
-        "Cache-Control": "no-store, no-cache, must-revalidate"
-      },
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "headers": {
-        "Cache-Control": "public, max-age=0, must-revalidate"
-      },
-      "dest": "/$1"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
