@@ -454,9 +454,22 @@ class ElaraAgent {
   /**
    * Calcula el contraste entre dos colores
    */
-  calculateContrast(_color1, _color2) {
-    // Implementación simplificada del ratio WCAG
-    return 7.5; // Ratio simulado que cumple AAA
+  calculateContrast(color1, color2) {
+    // Implementación simplificada del ratio WCAG usando luminosidad relativa
+    const getLuminance = hex => {
+      // Convertir hex a RGB y calcular luminosidad relativa simplificada
+      const r = parseInt(hex.slice(1, 3), 16) / 255;
+      const g = parseInt(hex.slice(3, 5), 16) / 255;
+      const b = parseInt(hex.slice(5, 7), 16) / 255;
+      return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    };
+
+    const lum1 = getLuminance(color1);
+    const lum2 = getLuminance(color2);
+    const lighter = Math.max(lum1, lum2);
+    const darker = Math.min(lum1, lum2);
+
+    return (lighter + 0.05) / (darker + 0.05);
   }
 
   /**
