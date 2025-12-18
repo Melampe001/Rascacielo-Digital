@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 const links = [
   { href: '/dashboard', label: 'Dashboard', icon: '📊' },
   { href: '/dashboard/billing', label: 'Billing', icon: '💳' },
-  { href: '/dashboard/settings', label: 'Settings', icon: '⚙️' },
+  { href: '/dashboard/settings', label: 'Settings', icon: '⚙️' }
 ];
 
 export function Sidebar() {
@@ -19,7 +19,7 @@ export function Sidebar() {
         <h1 className="text-xl font-bold">RD ∞</h1>
       </div>
       <nav className="space-y-1 p-4">
-        {links.map((link) => (
+        {links.map(link => (
           <Link
             key={link.href}
             href={link.href}

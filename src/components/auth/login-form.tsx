@@ -24,7 +24,7 @@ export function LoginForm() {
     try {
       const { error } = await supabase.auth.signInWithPassword({
         email,
-        password,
+        password
       });
 
       if (error) {
@@ -53,7 +53,7 @@ export function LoginForm() {
               type="email"
               placeholder="tu@email.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
               required
               className="border-slate-600 bg-slate-900 text-white"
             />
@@ -66,19 +66,13 @@ export function LoginForm() {
               id="password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
               required
               className="border-slate-600 bg-slate-900 text-white"
             />
           </div>
-          {error && (
-            <div className="text-sm text-red-400">{error}</div>
-          )}
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={loading}
-          >
+          {error && <div className="text-sm text-red-400">{error}</div>}
+          <Button type="submit" className="w-full" disabled={loading}>
             {loading ? 'Iniciando...' : 'Iniciar Sesión'}
           </Button>
         </form>

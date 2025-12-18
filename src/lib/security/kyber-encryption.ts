@@ -26,9 +26,7 @@ export class QuantumSecurityManager {
    */
   encrypt(data: string): { ciphertext: string; sharedSecret: string } {
     const plaintext = new TextEncoder().encode(data);
-    const { cipherText, sharedSecret } = ml_kem1024.encapsulate(
-      this.currentKeyPair.publicKey
-    );
+    const { cipherText, sharedSecret } = ml_kem1024.encapsulate(this.currentKeyPair.publicKey);
 
     // XOR plaintext with shared secret (simplificado)
     const encrypted = new Uint8Array(plaintext.length);
@@ -38,7 +36,7 @@ export class QuantumSecurityManager {
 
     return {
       ciphertext: Buffer.from(cipherText).toString('base64'),
-      sharedSecret: Buffer.from(encrypted).toString('base64'),
+      sharedSecret: Buffer.from(encrypted).toString('base64')
     };
   }
 
@@ -49,10 +47,7 @@ export class QuantumSecurityManager {
     const ct = Buffer.from(ciphertext, 'base64');
     const encrypted = Buffer.from(encryptedData, 'base64');
 
-    const sharedSecret = ml_kem1024.decapsulate(
-      ct,
-      this.currentKeyPair.secretKey
-    );
+    const sharedSecret = ml_kem1024.decapsulate(ct, this.currentKeyPair.secretKey);
 
     // XOR para recuperar plaintext
     const decrypted = new Uint8Array(encrypted.length);

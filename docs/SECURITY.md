@@ -103,11 +103,13 @@ Drizzle ORM usa prepared statements automáticamente, previniendo SQL injection.
 ### Secrets Management
 
 Nunca commitear:
+
 - `.env.local`
 - Claves API
 - Database URLs con credenciales
 
 Usar:
+
 - `.env.local.example` como plantilla
 - GitHub Secrets para CI/CD
 - Vercel Environment Variables para producción
@@ -194,6 +196,7 @@ Antes de cada release:
 ## Security Contacts
 
 Para reportar vulnerabilidades de seguridad:
+
 - Email: security@rascacielo.digital
 - GitHub Security Advisories
 - Responsible disclosure policy

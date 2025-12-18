@@ -9,6 +9,7 @@
 Verifica el estado del servicio.
 
 **Response**:
+
 ```json
 {
   "status": "ok",
@@ -26,6 +27,7 @@ Verifica el estado del servicio.
 Procesa eventos de Stripe.
 
 **Headers**:
+
 ```
 Content-Type: application/json
 Stripe-Signature: <signature>
@@ -35,25 +37,23 @@ Stripe-Signature: <signature>
 
 1. **customer.subscription.created**
    - Crea nueva suscripción en la base de datos
-   
 2. **customer.subscription.updated**
    - Actualiza estado de suscripción existente
-   
 3. **customer.subscription.deleted**
    - Marca suscripción como cancelada
-   
 4. **invoice.paid**
    - Registra pago exitoso de invoice
-   
 5. **invoice.payment_failed**
    - Registra fallo de pago
 
 **Implementation Note**:
+
 - Requiere `STRIPE_WEBHOOK_SECRET` configurado
 - Verifica firma de Stripe automáticamente
 - Usa Drizzle ORM para persistencia
 
 **Example Payload** (customer.subscription.created):
+
 ```json
 {
   "id": "evt_xxx",
@@ -64,11 +64,13 @@ Stripe-Signature: <signature>
       "customer": "cus_xxx",
       "status": "active",
       "items": {
-        "data": [{
-          "price": {
-            "id": "price_xxx"
+        "data": [
+          {
+            "price": {
+              "id": "price_xxx"
+            }
           }
-        }]
+        ]
       }
     }
   }
@@ -84,25 +86,28 @@ Server Actions permiten mutaciones server-side sin crear API routes explícitos.
 (Implementados en componentes client-side usando Supabase)
 
 **Login**:
+
 ```typescript
 const { error } = await supabase.auth.signInWithPassword({
   email,
-  password,
+  password
 });
 ```
 
 **Signup**:
+
 ```typescript
 const { error } = await supabase.auth.signUp({
   email,
   password,
   options: {
-    data: { full_name: fullName },
-  },
+    data: { full_name: fullName }
+  }
 });
 ```
 
 **Logout**:
+
 ```typescript
 await supabase.auth.signOut();
 ```
@@ -112,36 +117,40 @@ await supabase.auth.signOut();
 ### Users
 
 **Get User by ID**:
+
 ```typescript
 import { db } from '@/lib/db/drizzle';
 import { users } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 
 const user = await db.query.users.findFirst({
-  where: eq(users.id, userId),
+  where: eq(users.id, userId)
 });
 ```
 
 **Create User**:
+
 ```typescript
 await db.insert(users).values({
   email: 'user@example.com',
-  fullName: 'John Doe',
+  fullName: 'John Doe'
 });
 ```
 
 ### Subscriptions
 
 **Get User Subscriptions**:
+
 ```typescript
 import { subscriptions } from '@/lib/db/schema';
 
 const userSubs = await db.query.subscriptions.findMany({
-  where: eq(subscriptions.userId, userId),
+  where: eq(subscriptions.userId, userId)
 });
 ```
 
 **Update Subscription**:
+
 ```typescript
 await db
   .update(subscriptions)
@@ -152,12 +161,13 @@ await db
 ### Invoices
 
 **Get User Invoices**:
+
 ```typescript
 import { invoices } from '@/lib/db/schema';
 
 const userInvoices = await db.query.invoices.findMany({
   where: eq(invoices.userId, userId),
-  orderBy: (invoices, { desc }) => [desc(invoices.createdAt)],
+  orderBy: (invoices, { desc }) => [desc(invoices.createdAt)]
 });
 ```
 
@@ -168,18 +178,21 @@ const userInvoices = await db.query.invoices.findMany({
 **Client Creation**:
 
 Server-side:
+
 ```typescript
 import { createClient } from '@/lib/supabase/server';
 const supabase = await createClient();
 ```
 
 Client-side:
+
 ```typescript
 import { createClient } from '@/lib/supabase/client';
 const supabase = createClient();
 ```
 
 **Auth Methods**:
+
 - `auth.signInWithPassword()`
 - `auth.signUp()`
 - `auth.signOut()`
@@ -189,6 +202,7 @@ const supabase = createClient();
 ### Stripe
 
 **Client Creation**:
+
 ```typescript
 import { stripe } from '@/lib/stripe/client';
 ```
@@ -196,16 +210,19 @@ import { stripe } from '@/lib/stripe/client';
 **Common Operations**:
 
 Create Checkout Session:
+
 ```typescript
 const session = await stripe.checkout.sessions.create({
   customer: customerId,
-  line_items: [{
-    price: priceId,
-    quantity: 1,
-  }],
+  line_items: [
+    {
+      price: priceId,
+      quantity: 1
+    }
+  ],
   mode: 'subscription',
   success_url: `${process.env.NEXT_PUBLIC_APP_URL}/billing?success=true`,
-  cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/billing?canceled=true`,
+  cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/billing?canceled=true`
 });
 ```
 
@@ -214,6 +231,7 @@ const session = await stripe.checkout.sessions.create({
 ### API Error Responses
 
 **Format**:
+
 ```json
 {
   "error": "Error message",
@@ -223,6 +241,7 @@ const session = await stripe.checkout.sessions.create({
 ```
 
 **Common HTTP Status Codes**:
+
 - `200` - Success
 - `400` - Bad Request
 - `401` - Unauthorized
@@ -243,6 +262,7 @@ const session = await stripe.checkout.sessions.create({
 (To be implemented)
 
 Recommended limits:
+
 - Authentication: 5 requests per minute per IP
 - API routes: 100 requests per minute per user
 - Webhooks: Unlimited (verified by signature)
@@ -252,6 +272,7 @@ Recommended limits:
 ### Protected Routes
 
 Routes requiring authentication:
+
 - `/dashboard/*`
 - `/billing`
 - `/settings`
@@ -269,6 +290,7 @@ Protected by middleware in `src/middleware.ts`.
 Current API version: **v1**
 
 Future versions will use URL prefixes:
+
 - `v1`: `/api/v1/*`
 - `v2`: `/api/v2/*`
 
@@ -280,7 +302,7 @@ Future versions will use URL prefixes:
 test('health check returns ok', async ({ request }) => {
   const response = await request.get('/api/health');
   expect(response.ok()).toBeTruthy();
-  
+
   const data = await response.json();
   expect(data.status).toBe('ok');
 });
@@ -299,6 +321,7 @@ describe('Stripe Webhook Handler', () => {
 ## Documentation Updates
 
 When adding new endpoints:
+
 1. Document in this file
 2. Add TypeScript types
 3. Write tests

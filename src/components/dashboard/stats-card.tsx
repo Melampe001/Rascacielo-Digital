@@ -15,11 +15,7 @@ export function StatsCard({ title, value, change, trend }: StatsCardProps) {
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">{value}</div>
-        <p
-          className={`text-xs ${
-            trend === 'up' ? 'text-green-600' : 'text-red-600'
-          }`}
-        >
+        <p className={`text-xs ${trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
           {change} desde el último mes
         </p>
       </CardContent>

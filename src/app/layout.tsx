@@ -3,11 +3,11 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Rascacielo Digital - SaaS Platform',
-  description: 'Production-ready SaaS with Next.js 16+, Supabase, and Post-Quantum Security',
+  description: 'Production-ready SaaS with Next.js 16+, Supabase, and Post-Quantum Security'
 };
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {

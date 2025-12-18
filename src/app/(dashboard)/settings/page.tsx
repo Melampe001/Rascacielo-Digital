@@ -7,9 +7,7 @@ export default function SettingsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold">Settings</h1>
-        <p className="text-slate-600">
-          Configura tu cuenta y preferencias
-        </p>
+        <p className="text-slate-600">Configura tu cuenta y preferencias</p>
       </div>
 
       <Card>
@@ -35,12 +33,8 @@ export default function SettingsPage() {
           <CardTitle>Seguridad</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-slate-600">
-            🔐 Post-Quantum Kyber-1024 encryption activa
-          </p>
-          <p className="text-xs text-slate-500 mt-2">
-            Rotación de claves cada 11 minutos
-          </p>
+          <p className="text-sm text-slate-600">🔐 Post-Quantum Kyber-1024 encryption activa</p>
+          <p className="text-xs text-slate-500 mt-2">Rotación de claves cada 11 minutos</p>
         </CardContent>
       </Card>
     </div>

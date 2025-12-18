@@ -10,7 +10,7 @@ function getStripe() {
     throw new Error('STRIPE_SECRET_KEY is not configured');
   }
   return new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: '2025-02-24.acacia',
+    apiVersion: '2025-02-24.acacia'
   });
 }
 
@@ -18,7 +18,7 @@ const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || '';
 
 export async function POST(req: Request) {
   const stripe = getStripe();
-  
+
   const body = await req.text();
   const headersList = await headers();
   const signature = headersList.get('stripe-signature')!;
@@ -73,7 +73,7 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
       status: subscription.status,
       currentPeriodStart: new Date(subscription.current_period_start * 1000),
       currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-      cancelAtPeriodEnd: subscription.cancel_at_period_end,
+      cancelAtPeriodEnd: subscription.cancel_at_period_end
     })
     .onConflictDoUpdate({
       target: subscriptions.stripeSubscriptionId,
@@ -83,8 +83,8 @@ async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
         currentPeriodStart: new Date(subscription.current_period_start * 1000),
         currentPeriodEnd: new Date(subscription.current_period_end * 1000),
         cancelAtPeriodEnd: subscription.cancel_at_period_end,
-        updatedAt: new Date(),
-      },
+        updatedAt: new Date()
+      }
     });
 }
 
@@ -98,14 +98,14 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
 async function handleInvoicePaid(invoice: Stripe.Invoice) {
   // TODO: Map Stripe customer to userId
   const userId = '00000000-0000-0000-0000-000000000000'; // Placeholder
-  
+
   await db.insert(invoices).values({
     userId,
     stripeInvoiceId: invoice.id,
     amount: invoice.amount_paid,
     currency: invoice.currency,
     status: 'paid',
-    paidAt: new Date(),
+    paidAt: new Date()
   });
 }
 

@@ -4,8 +4,8 @@ import { NextResponse, type NextRequest } from 'next/server';
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({
     request: {
-      headers: request.headers,
-    },
+      headers: request.headers
+    }
   });
 
   const supabase = createServerClient(
@@ -19,23 +19,23 @@ export async function middleware(request: NextRequest) {
         set(name: string, value: string, options: CookieOptions) {
           request.cookies.set({ name, value, ...options });
           response = NextResponse.next({
-            request: { headers: request.headers },
+            request: { headers: request.headers }
           });
           response.cookies.set({ name, value, ...options });
         },
         remove(name: string, options: CookieOptions) {
           request.cookies.set({ name, value: '', ...options });
           response = NextResponse.next({
-            request: { headers: request.headers },
+            request: { headers: request.headers }
           });
           response.cookies.set({ name, value: '', ...options });
-        },
-      },
+        }
+      }
     }
   );
 
   const {
-    data: { user },
+    data: { user }
   } = await supabase.auth.getUser();
 
   // Proteger rutas de dashboard
@@ -44,11 +44,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Redirigir usuarios autenticados desde login/signup
-  if (
-    (request.nextUrl.pathname === '/login' ||
-      request.nextUrl.pathname === '/signup') &&
-    user
-  ) {
+  if ((request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/signup') && user) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
@@ -56,7 +52,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
-  ],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)']
 };

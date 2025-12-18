@@ -25,8 +25,8 @@ export async function createClient() {
           } catch {
             // Server Component error - ignore
           }
-        },
-      },
+        }
+      }
     }
   );
 }

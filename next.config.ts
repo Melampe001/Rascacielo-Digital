@@ -7,15 +7,15 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**.supabase.co',
-      },
-    ],
+        hostname: '**.supabase.co'
+      }
+    ]
   },
   experimental: {
     serverActions: {
-      bodySizeLimit: '2mb',
-    },
-  },
+      bodySizeLimit: '2mb'
+    }
+  }
 };
 
 export default nextConfig;

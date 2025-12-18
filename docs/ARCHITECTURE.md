@@ -14,18 +14,21 @@
 ## Principios Arquitectónicos
 
 ### 1. Server-First
+
 - Server Components por defecto
 - Client Components solo cuando sea necesario (`"use client"`)
 - Server Actions para mutaciones (`"use server"`)
 - Dynamic rendering para páginas con autenticación
 
 ### 2. Type Safety
+
 - TypeScript strict mode habilitado
 - Zod para validaciones en runtime
 - Drizzle para queries type-safe
 - Definiciones de tipos compartidas
 
 ### 3. Performance
+
 - Dynamic imports para code-splitting
 - Suspense boundaries estratégicos
 - Optimistic updates con useOptimistic
@@ -33,6 +36,7 @@
 - Build optimization con Next.js
 
 ### 4. Security
+
 - Post-quantum encryption (ML-KEM-1024)
 - Key rotation cada 11 minutos
 - Zero-trust architecture
@@ -41,6 +45,7 @@
 - Secure cookie handling
 
 ### 5. Testing
+
 - Tests E2E con Playwright
 - Tests unitarios con Jest
 - Tests de integración
@@ -69,24 +74,28 @@ Interactive (Client Component)
 ## Módulos Principales
 
 ### Auth
+
 - Supabase Auth SSR con cookies
 - Magic link + OAuth (Google, GitHub)
 - Session management
 - Protected routes via middleware
 
 ### Billing
+
 - Stripe Checkout integration
 - Webhook handlers para eventos
 - Subscription management
 - Invoice generation y tracking
 
 ### Dashboard
+
 - Real-time stats con Server Components
 - Revenue charts (preparado para Recharts)
 - Activity feed
 - User management
 
 ### Security
+
 - ML-KEM-1024 (Kyber-1024) post-quantum encryption
 - Automatic key rotation cada 11 minutos
 - Secure data handling

@@ -7,9 +7,7 @@ export default function BillingPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold">Billing</h1>
-        <p className="text-slate-600">
-          Manage tu suscripción y métodos de pago
-        </p>
+        <p className="text-slate-600">Manage tu suscripción y métodos de pago</p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">

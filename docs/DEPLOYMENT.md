@@ -21,22 +21,26 @@
 ### Local Development
 
 1. **Clone the repository**:
+
 ```bash
 git clone https://github.com/Melampe001/Rascacielo-Digital.git
 cd Rascacielo-Digital
 ```
 
 2. **Install dependencies**:
+
 ```bash
 npm install
 ```
 
 3. **Copy environment variables**:
+
 ```bash
 cp .env.local.example .env.local
 ```
 
 4. **Configure `.env.local`**:
+
 ```bash
 # Supabase
 NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
@@ -55,6 +59,7 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
 5. **Run development server**:
+
 ```bash
 npm run dev
 ```
@@ -69,6 +74,7 @@ Visit http://localhost:3000
    - Note your URL and anon key
 
 2. **Run migrations**:
+
 ```bash
 # Apply the initial schema
 # In Supabase Dashboard > SQL Editor, run:
@@ -106,6 +112,7 @@ Visit http://localhost:3000
    - Copy webhook secret
 
 4. **Test with Stripe CLI** (optional):
+
 ```bash
 stripe listen --forward-to localhost:3000/api/webhooks/stripe
 ```
@@ -129,7 +136,7 @@ stripe listen --forward-to localhost:3000/api/webhooks/stripe
 
 3. **Set environment variables**:
    In Vercel Dashboard > Settings > Environment Variables:
-   
+
    ```
    NEXT_PUBLIC_SUPABASE_URL
    NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -182,17 +189,20 @@ vercel --prod
 Our CI/CD pipeline consists of 5 automated gates:
 
 #### Gate 1: Preflight 🚦
+
 - Type checking
 - Linting
 - Code formatting
 - **Trigger**: Push to any branch
 
 #### Gate 2: Dry Run 🧪
+
 - Build verification
 - Artifact generation
 - **Trigger**: After Gate 1 passes
 
 #### Gate 3: Quality 📊
+
 - Unit tests
 - Integration tests
 - E2E tests
@@ -200,12 +210,14 @@ Our CI/CD pipeline consists of 5 automated gates:
 - **Trigger**: After Gate 2 passes
 
 #### Gate 4: Security 🛡️
+
 - npm audit
 - Trivy vulnerability scan
 - Secret detection
 - **Trigger**: After Gate 3 passes
 
 #### Gate 5: Release 🚀
+
 - Production build
 - Deployment to Vercel
 - Smoke tests
@@ -214,6 +226,7 @@ Our CI/CD pipeline consists of 5 automated gates:
 ### GitHub Secrets
 
 Configure these secrets in GitHub:
+
 ```
 NEXT_PUBLIC_SUPABASE_URL
 NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -312,6 +325,7 @@ vercel --prod
 ### CDN Configuration
 
 Vercel Edge Network:
+
 - Automatic CDN
 - Global distribution
 - DDoS protection
@@ -321,6 +335,7 @@ Vercel Edge Network:
 ### Database Backups
 
 Supabase provides:
+
 - Automatic daily backups
 - Point-in-time recovery
 - Manual backups on demand
@@ -359,6 +374,7 @@ Supabase provides:
 ### Horizontal Scaling
 
 Vercel automatically scales:
+
 - Serverless functions
 - Edge network
 - Static assets
@@ -366,6 +382,7 @@ Vercel automatically scales:
 ### Database Scaling
 
 Supabase options:
+
 - Free tier: Development
 - Pro tier: Production
 - Enterprise: Large scale

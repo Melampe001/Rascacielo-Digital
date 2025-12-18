@@ -28,9 +28,9 @@ export function SignupForm() {
         password,
         options: {
           data: {
-            full_name: fullName,
-          },
-        },
+            full_name: fullName
+          }
+        }
       });
 
       if (error) {
@@ -59,7 +59,7 @@ export function SignupForm() {
               type="text"
               placeholder="Juan Pérez"
               value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              onChange={e => setFullName(e.target.value)}
               required
               className="border-slate-600 bg-slate-900 text-white"
             />
@@ -73,7 +73,7 @@ export function SignupForm() {
               type="email"
               placeholder="tu@email.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
               required
               className="border-slate-600 bg-slate-900 text-white"
             />
@@ -86,20 +86,14 @@ export function SignupForm() {
               id="password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
               required
               minLength={6}
               className="border-slate-600 bg-slate-900 text-white"
             />
           </div>
-          {error && (
-            <div className="text-sm text-red-400">{error}</div>
-          )}
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={loading}
-          >
+          {error && <div className="text-sm text-red-400">{error}</div>}
+          <Button type="submit" className="w-full" disabled={loading}>
             {loading ? 'Creando cuenta...' : 'Crear Cuenta'}
           </Button>
         </form>

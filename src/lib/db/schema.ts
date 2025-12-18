@@ -1,12 +1,4 @@
-import {
-  pgTable,
-  uuid,
-  text,
-  timestamp,
-  integer,
-  jsonb,
-  boolean,
-} from 'drizzle-orm/pg-core';
+import { pgTable, uuid, text, timestamp, integer, jsonb, boolean } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 export const users = pgTable('users', {
@@ -15,7 +7,7 @@ export const users = pgTable('users', {
   fullName: text('full_name'),
   avatarUrl: text('avatar_url'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull()
 });
 
 export const subscriptions = pgTable('subscriptions', {
@@ -31,7 +23,7 @@ export const subscriptions = pgTable('subscriptions', {
   currentPeriodEnd: timestamp('current_period_end'),
   cancelAtPeriodEnd: boolean('cancel_at_period_end').default(false),
   createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull()
 });
 
 export const invoices = pgTable('invoices', {
@@ -45,24 +37,24 @@ export const invoices = pgTable('invoices', {
   status: text('status').notNull(), // paid, open, void
   paidAt: timestamp('paid_at'),
   metadata: jsonb('metadata'),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull()
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
   subscriptions: many(subscriptions),
-  invoices: many(invoices),
+  invoices: many(invoices)
 }));
 
 export const subscriptionsRelations = relations(subscriptions, ({ one }) => ({
   user: one(users, {
     fields: [subscriptions.userId],
-    references: [users.id],
-  }),
+    references: [users.id]
+  })
 }));
 
 export const invoicesRelations = relations(invoices, ({ one }) => ({
   user: one(users, {
     fields: [invoices.userId],
-    references: [users.id],
-  }),
+    references: [users.id]
+  })
 }));

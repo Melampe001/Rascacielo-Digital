@@ -8,9 +8,7 @@ export default function LoginPage() {
     <div className="space-y-6 p-8">
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold text-white">Iniciar Sesión</h1>
-        <p className="text-slate-400">
-          Accede a tu cuenta de Rascacielo Digital
-        </p>
+        <p className="text-slate-400">Accede a tu cuenta de Rascacielo Digital</p>
       </div>
       <LoginForm />
       <p className="text-center text-sm text-slate-400">

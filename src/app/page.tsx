@@ -4,9 +4,7 @@ export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-slate-900 to-slate-950 text-white">
       <div className="container mx-auto px-4 text-center">
-        <h1 className="mb-4 text-6xl font-bold">
-          🏗️ RASCACIELO DIGITAL ∞
-        </h1>
+        <h1 className="mb-4 text-6xl font-bold">🏗️ RASCACIELO DIGITAL ∞</h1>
         <p className="mb-8 text-xl text-slate-300">
           SaaS production-ready de clase mundial con arquitectura post-quantum
         </p>

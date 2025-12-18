@@ -116,6 +116,7 @@ const decrypted = qsm.decrypt(encrypted.ciphertext, encrypted.sharedSecret);
 ```
 
 Características:
+
 - Rotación automática de claves cada 11 minutos
 - Resistencia contra computadoras cuánticas
 - Cumple con NIST IR 8547
@@ -134,19 +135,19 @@ Todos los gates se ejecutan automáticamente en cada push.
 
 ## 📊 Stack Tecnológico
 
-| Categoría | Tecnología |
-|-----------|-----------|
-| Framework | Next.js 15+ |
-| Language | TypeScript (strict) |
-| Styling | Tailwind CSS v3 + shadcn/ui |
-| Database | Supabase PostgreSQL |
-| ORM | Drizzle |
-| Auth | Supabase Auth SSR |
-| Payments | Stripe |
-| Security | ML-KEM-1024 (Post-Quantum) |
-| Testing | Playwright + Jest |
-| Deployment | Vercel |
-| CI/CD | GitHub Actions (5 gates) |
+| Categoría  | Tecnología                  |
+| ---------- | --------------------------- |
+| Framework  | Next.js 15+                 |
+| Language   | TypeScript (strict)         |
+| Styling    | Tailwind CSS v3 + shadcn/ui |
+| Database   | Supabase PostgreSQL         |
+| ORM        | Drizzle                     |
+| Auth       | Supabase Auth SSR           |
+| Payments   | Stripe                      |
+| Security   | ML-KEM-1024 (Post-Quantum)  |
+| Testing    | Playwright + Jest           |
+| Deployment | Vercel                      |
+| CI/CD      | GitHub Actions (5 gates)    |
 
 ## 🤝 Contribuir
 
@@ -164,7 +165,7 @@ Este proyecto está bajo la Licencia MIT. Ver [LICENSE](./LICENSE) para más det
 
 ## 👥 Autores
 
-- **Melampe001** - *Trabajo Inicial* - [Melampe001](https://github.com/Melampe001)
+- **Melampe001** - _Trabajo Inicial_ - [Melampe001](https://github.com/Melampe001)
 
 ## 🙏 Agradecimientos
 

@@ -8,9 +8,7 @@ export default function SignupPage() {
     <div className="space-y-6 p-8">
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold text-white">Crear Cuenta</h1>
-        <p className="text-slate-400">
-          Únete a Rascacielo Digital hoy
-        </p>
+        <p className="text-slate-400">Únete a Rascacielo Digital hoy</p>
       </div>
       <SignupForm />
       <p className="text-center text-sm text-slate-400">
