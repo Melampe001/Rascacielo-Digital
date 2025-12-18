@@ -1,6 +1,6 @@
 /**
  * Core Module - Rascacielos Digital
- * 
+ *
  * Módulo central con funcionalidades comunes del sistema
  */
 
@@ -112,7 +112,7 @@ class Utils {
   }
 
   static retry(fn, maxAttempts = 3, delay = 1000) {
-    return async function(...args) {
+    return async function (...args) {
       for (let attempt = 1; attempt <= maxAttempts; attempt++) {
         try {
           return await fn(...args);

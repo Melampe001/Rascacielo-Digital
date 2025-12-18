@@ -87,7 +87,7 @@ class ConfigCheck {
 
     try {
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
-      
+
       console.log('✅ package.json is valid');
       console.log(`   Name: ${packageJson.name}`);
       console.log(`   Version: ${packageJson.version}`);
@@ -102,7 +102,6 @@ class ConfigCheck {
           message: `Missing scripts: ${missingScripts.join(', ')}`
         });
       }
-
     } catch (error) {
       this.errors.push({
         type: 'PACKAGE_JSON',
@@ -115,13 +114,7 @@ class ConfigCheck {
    * Check environment variables
    */
   checkEnvironmentVariables() {
-    const optionalVars = [
-      'NODE_ENV',
-      'PORT',
-      'LOG_LEVEL',
-      'TREESIT_API_KEY',
-      'TREESIT_API_SECRET'
-    ];
+    const optionalVars = ['NODE_ENV', 'PORT', 'LOG_LEVEL', 'TREESIT_API_KEY', 'TREESIT_API_SECRET'];
 
     const missing = optionalVars.filter(varName => !process.env[varName]);
 

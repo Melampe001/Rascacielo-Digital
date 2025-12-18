@@ -18,9 +18,11 @@ The Rascacielos Digital team takes security bugs seriously. We appreciate your e
 **Please do not report security vulnerabilities through public GitHub issues.**
 
 Instead, please report them via email to:
+
 - **Email**: security@rascacielosdigital.com (or create a security advisory in GitHub)
 
 If you prefer, you can also report vulnerabilities using GitHub's security advisory feature:
+
 1. Go to the [Security](https://github.com/Melampe001/Rascacielo-Digital/security) tab
 2. Click "Report a vulnerability"
 3. Fill out the form with details
@@ -72,26 +74,31 @@ After submitting a vulnerability report, you can expect:
 When using Rascacielos Digital:
 
 ### Environment Variables
+
 - Never commit `.env` files to version control
 - Use strong, unique secrets for `JWT_SECRET` and API keys
 - Rotate credentials regularly
 
 ### API Keys
+
 - Store Treesit Cloud API keys securely
 - Use environment variables, not hardcoded values
 - Limit API key permissions to minimum required
 
 ### Dependencies
+
 - Keep dependencies up to date
 - Review Dependabot alerts regularly
 - Run `npm audit` before production deployments
 
 ### Authentication
+
 - Use strong passwords (minimum 12 characters)
 - Enable 2FA for all accounts
 - Use RBAC to limit permissions
 
 ### Deployment
+
 - Use HTTPS/TLS for all communications
 - Enable auto-scaling with minimum/maximum limits
 - Implement rate limiting on APIs
@@ -102,21 +109,25 @@ When using Rascacielos Digital:
 Rascacielos Digital includes several built-in security features:
 
 ### Code Scanning
+
 - **Security Agent**: Automated vulnerability scanning
 - **ESLint**: Static code analysis
 - **npm audit**: Dependency vulnerability checking
 
 ### Authentication
+
 - **JWT**: Secure token-based authentication
 - **Password Hashing**: PBKDF2 with configurable iterations
 - **RBAC**: Role-based access control
 
 ### Build Security
+
 - **Checksums**: SHA256 verification of build artifacts
 - **Manifest**: Detailed build manifest for verification
 - **Validation**: Pre-deployment security checks
 
 ### CI/CD Security
+
 - **Security Gate**: Automated security scanning in pipeline
 - **Dependency Scanning**: Trivy for filesystem scanning
 - **Audit Gate**: npm audit in CI/CD
@@ -137,12 +148,14 @@ We thank the following researchers for responsibly disclosing vulnerabilities:
 ## Contact
 
 For security-related questions or concerns:
+
 - **Security Email**: security@rascacielosdigital.com
 - **General Contact**: https://github.com/Melampe001
 
 ## PGP Key
 
 For encrypted communications, use our PGP key:
+
 - **Key ID**: (To be added)
 - **Fingerprint**: (To be added)
 

@@ -35,16 +35,10 @@ describe('SecurityAgent', () => {
   test('should generate summary', () => {
     const results = {
       dependencies: {
-        vulnerabilities: [
-          { severity: 'high' },
-          { severity: 'moderate' }
-        ]
+        vulnerabilities: [{ severity: 'high' }, { severity: 'moderate' }]
       },
       codeAnalysis: {
-        issues: [
-          { severity: 'high' },
-          { severity: 'low' }
-        ]
+        issues: [{ severity: 'high' }, { severity: 'low' }]
       }
     };
 

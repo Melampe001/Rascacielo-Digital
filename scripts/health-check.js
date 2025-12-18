@@ -38,7 +38,7 @@ class HealthCheck {
     this.checks.forEach(check => {
       const icon = check.passed ? '✅' : '❌';
       console.log(`${icon} ${check.name}: ${check.message}`);
-      
+
       if (check.passed) {
         passed++;
       } else {
@@ -69,7 +69,9 @@ class HealthCheck {
     this.checks.push({
       name: 'Node.js Version',
       passed,
-      message: passed ? `${currentVersion} (OK)` : `${currentVersion} (Required: >= ${requiredVersion})`
+      message: passed
+        ? `${currentVersion} (OK)`
+        : `${currentVersion} (Required: >= ${requiredVersion})`
     });
   }
 
@@ -89,7 +91,7 @@ class HealthCheck {
     for (const file of requiredFiles) {
       const filePath = path.join(__dirname, '..', file);
       const exists = fs.existsSync(filePath);
-      
+
       this.checks.push({
         name: `File: ${file}`,
         passed: exists,
@@ -116,12 +118,7 @@ class HealthCheck {
    * Check modules can be loaded
    */
   async checkModules() {
-    const modules = [
-      '../modules/core',
-      '../modules/api',
-      '../modules/auth',
-      '../modules/queue'
-    ];
+    const modules = ['../modules/core', '../modules/api', '../modules/auth', '../modules/queue'];
 
     for (const mod of modules) {
       try {

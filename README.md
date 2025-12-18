@@ -60,6 +60,41 @@ npm test   # o pytest
 npm run lint
 ```
 
+## 🧹 Mantenimiento y Limpieza
+
+El proyecto incluye scripts automatizados para mantenimiento y optimización:
+
+### Scripts de Mantenimiento
+
+```bash
+# Auditar dependencias (seguridad y versiones obsoletas)
+npm run audit
+
+# Aplicar formato y linting automático
+npm run lint-and-format
+
+# Limpieza completa del proyecto
+npm run cleanup
+
+# Validar todo (lint + format + tests)
+npm run validate
+```
+
+### Scripts Rápidos
+
+```bash
+# Verificar calidad de código
+npm run check        # lint + format + test
+
+# Verificar configuración
+npm run config:check
+
+# Verificar salud del sistema
+npm run health-check
+```
+
+Para más detalles sobre los scripts de mantenimiento, consulta [scripts/README.md](./scripts/README.md).
+
 ## 🤖 Agentes Especializados
 
 Los agentes son componentes autónomos que realizan tareas específicas:
@@ -72,13 +107,29 @@ Los agentes son componentes autónomos que realizan tareas específicas:
 
 ## 🔄 CI/CD Pipeline
 
-El pipeline incluye los siguientes gates:
+El proyecto cuenta con dos workflows automatizados:
+
+### CI/CD Pipeline Principal (ci-cd.yml)
+
+Pipeline completo con múltiples gates:
 
 1. **Lint Gate**: Validación de estilo de código
 2. **Test Gate**: Pruebas unitarias y de integración
 3. **Security Gate**: Análisis de vulnerabilidades
 4. **Build Gate**: Compilación exitosa
 5. **Deploy Gate**: Despliegue automático
+
+### Code Quality Check (code-quality.yml)
+
+Verificación de calidad de código en cada push/PR:
+
+- ESLint y formato de código
+- Auditoría de seguridad
+- Detección de dependencias no utilizadas
+- Cobertura de tests
+- Reporte de calidad
+
+Ambos workflows se ejecutan automáticamente en push y pull requests a las ramas principales.
 
 ## 📚 Documentación
 
@@ -100,7 +151,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 👥 Autores
 
-- **Melampe001** - *Trabajo Inicial* - [Melampe001](https://github.com/Melampe001)
+- **Melampe001** - _Trabajo Inicial_ - [Melampe001](https://github.com/Melampe001)
 
 ## 🙏 Agradecimientos
 
