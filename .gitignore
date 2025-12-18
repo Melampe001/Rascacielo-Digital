@@ -41,3 +41,7 @@ temp/
 
 # Husky
 .husky/_
+
+# Auto-consolidation reports
+.github/consolidation-report.json
+.github/elara-report.md

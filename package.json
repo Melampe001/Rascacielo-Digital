@@ -26,7 +26,10 @@
     "precommit": "npm run validate",
     "setup": "npm install && npm run config:check",
     "config:check": "node scripts/config-check.js",
-    "health-check": "node scripts/health-check.js"
+    "health-check": "node scripts/health-check.js",
+    "consolidate": "node scripts/auto-consolidate.js",
+    "consolidate:trigger": "bash scripts/trigger-consolidation.sh",
+    "notify:elara": "node scripts/notify-elara.js"
   },
   "keywords": [
     "modular",
