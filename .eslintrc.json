@@ -1,0 +1,38 @@
+{
+  "env": {
+    "node": true,
+    "es2021": true,
+    "jest": true
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-console": "off",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "no-var": "error",
+    "prefer-const": "error",
+    "prefer-arrow-callback": "error",
+    "arrow-spacing": "error",
+    "comma-dangle": ["error", "never"],
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+    "indent": ["error", 2],
+    "max-len": ["warn", { "code": 100, "ignoreComments": true }],
+    "no-trailing-spaces": "error",
+    "eol-last": "error",
+    "object-curly-spacing": ["error", "always"],
+    "array-bracket-spacing": ["error", "never"],
+    "brace-style": ["error", "1tbs"],
+    "no-multiple-empty-lines": ["error", { "max": 1 }],
+    "camelcase": ["error", { "properties": "never" }],
+    "consistent-return": "error",
+    "no-throw-literal": "error",
+    "require-await": "error"
+  },
+  "ignorePatterns": ["dist/", "node_modules/", "coverage/"]
+}

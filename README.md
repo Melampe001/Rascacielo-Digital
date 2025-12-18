@@ -1,5 +1,12 @@
 # Rascacielos Digital
 
+[![CI/CD Pipeline](https://github.com/Melampe001/Rascacielo-Digital/workflows/CI%2FCD%20Complete%20Pipeline/badge.svg)](https://github.com/Melampe001/Rascacielo-Digital/actions)
+[![codecov](https://codecov.io/gh/Melampe001/Rascacielo-Digital/branch/Main/graph/badge.svg)](https://codecov.io/gh/Melampe001/Rascacielo-Digital)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org)
+[![Code Style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+
 **Sistema de desarrollo arquitectónico modular con agentes especializados y CI/CD gates**
 
 ## 🏗️ Descripción
