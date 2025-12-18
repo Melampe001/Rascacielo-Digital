@@ -1,3 +1,34 @@
+# 🏗️ Rascacielo Digital
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/Melampe001/Rascacielo-Digital)
+[![Status](https://img.shields.io/badge/status-production-success)](https://rascacielo-digital.vercel.app)
+[![Security](https://img.shields.io/badge/security-A%2B-success)](https://securityheaders.com)
+
+> Sistema modular con agentes especializados y CI/CD automatizado
+
+## 🚀 Quick Start
+
+### Deploy to Vercel (1-click)
+```bash
+vercel --prod
+```
+
+### Local Development
+```bash
+npm install
+npm run dev
+```
+
+## 📦 Production Features
+
+- ✅ Security headers (OWASP compliant)
+- ✅ CDN optimization with edge caching
+- ✅ Serverless API functions
+- ✅ Auto-deploy on git push
+- ✅ Preview deployments for PRs
+
+---
+
 # Rascacielos Digital
 
 **Sistema de desarrollo arquitectónico modular con agentes especializados y CI/CD gates**
