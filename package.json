@@ -26,7 +26,11 @@
     "precommit": "npm run validate",
     "setup": "npm install && npm run config:check",
     "config:check": "node scripts/config-check.js",
-    "health-check": "node scripts/health-check.js"
+    "health-check": "node scripts/health-check.js",
+    "cleanup": "bash scripts/cleanup.sh",
+    "audit": "bash scripts/audit-dependencies.sh",
+    "lint-and-format": "bash scripts/lint-and-format.sh",
+    "check": "npm run lint && npm run format && npm test"
   },
   "keywords": [
     "modular",

@@ -36,7 +36,7 @@ describe('JobQueue', () => {
   });
 
   test('should process jobs', async () => {
-    const handler = jest.fn(async data => {
+    const handler = jest.fn(async _data => {
       return { success: true };
     });
 
