@@ -53,12 +53,49 @@ cp .env.example .env
 # Ejecutar el sistema
 npm start  # o python main.py
 
+# Build idempotente (nuevo)
+npm run build        # Skip si no hay cambios
+npm run build:force  # Forzar rebuild
+
+# Watch mode - build automático
+npm run watch
+
 # Ejecutar tests
 npm test   # o pytest
 
 # Ejecutar linting
 npm run lint
 ```
+
+## 🔨 Build System Idempotente
+
+Nuevo sistema de build con automatización completa:
+
+- ✅ **Checksums SHA256** - Detección precisa de cambios
+- ✅ **Build Inteligente** - Skip automático si no hay cambios
+- ✅ **File Watcher** - Rebuild automático al guardar
+- ✅ **Pre-commit Hooks** - Validación antes de cada commit
+- ✅ **CI/CD Integrado** - GitHub Actions con cache
+
+### Comandos de Build
+
+```bash
+# Via npm
+npm run build        # Build normal
+npm run build:force  # Forzar rebuild
+npm run watch        # Modo watch
+
+# Via Makefile
+make build           # Build idempotente
+make build-force     # Forzar rebuild
+make watch           # Iniciar watcher
+make clean           # Limpiar artifacts
+make idempotency-test # Verificar idempotencia
+make stats           # Ver estadísticas
+make ci              # Simular CI completo
+```
+
+Ver [documentación completa del build system](./docs/BUILD_AUTOMATION.md) para más detalles.
 
 ## 🤖 Agentes Especializados
 
