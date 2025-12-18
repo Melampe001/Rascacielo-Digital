@@ -35,26 +35,26 @@ class ElaraAgent {
 
       // Determinar tipo de operación
       switch (params.operation) {
-        case 'generateColorPalette':
-          result = await this.generateColorPalette(params.options);
-          break;
-        case 'createLayout':
-          result = await this.createLayout(params.specs);
-          break;
-        case 'optimizeDesign':
-          result = await this.optimizeDesign(params.design);
-          break;
-        case 'generateUIComponent':
-          result = await this.generateUIComponent(params.type, params.props);
-          break;
-        case 'validateAccessibility':
-          result = await this.validateAccessibility(params.design);
-          break;
-        case 'createResponsiveBreakpoints':
-          result = await this.createResponsiveBreakpoints(params.design);
-          break;
-        default:
-          throw new Error(`Operación no soportada: ${params.operation}`);
+      case 'generateColorPalette':
+        result = await this.generateColorPalette(params.options);
+        break;
+      case 'createLayout':
+        result = await this.createLayout(params.specs);
+        break;
+      case 'optimizeDesign':
+        result = await this.optimizeDesign(params.design);
+        break;
+      case 'generateUIComponent':
+        result = await this.generateUIComponent(params.type, params.props);
+        break;
+      case 'validateAccessibility':
+        result = await this.validateAccessibility(params.design);
+        break;
+      case 'createResponsiveBreakpoints':
+        result = await this.createResponsiveBreakpoints(params.design);
+        break;
+      default:
+        throw new Error(`Operación no soportada: ${params.operation}`);
       }
 
       const duration = Date.now() - startTime;
