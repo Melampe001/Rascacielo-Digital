@@ -106,6 +106,7 @@ Configure in Vercel Dashboard:
 
 ```
 NODE_ENV=production
+ALLOWED_ORIGINS=https://yourdomain.com,https://app.yourdomain.com
 TREESIT_API_KEY=your_api_key_here
 ```
 

@@ -97,6 +97,7 @@ Configure these in the Vercel Dashboard (`Settings > Environment Variables`):
 
 | Variable | Description | Example | Required |
 |----------|-------------|---------|----------|
+| `ALLOWED_ORIGINS` | Comma-separated list of allowed CORS origins | `https://yourdomain.com,https://app.yourdomain.com` | No (defaults to localhost) |
 | `TREESIT_API_KEY` | TreeSit Cloud API key | `sk_live_...` | No |
 | `LOG_LEVEL` | Logging verbosity | `info` | No |
 
