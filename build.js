@@ -14,6 +14,9 @@ async function runBuild() {
   console.log('=====================================\n');
 
   try {
+    // Read package.json once for efficiency
+    const originalPkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
+    
     // Configure build agent
     const agent = new BuildAgent({
       outputDir: './dist',
@@ -84,7 +87,7 @@ async function runBuild() {
     
     const manifest = {
       buildDate: new Date().toISOString(),
-      version: getVersion(),
+      version: originalPkg.version || '1.0.0',
       nodeVersion: process.version,
       platform: process.platform,
       environment: process.env.NODE_ENV || 'development',
@@ -105,14 +108,13 @@ async function runBuild() {
     console.log('   ✓ build-manifest.json created');
 
     // Create production package.json
-    const originalPkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
     const productionPkg = {
       name: originalPkg.name,
       version: originalPkg.version,
       description: originalPkg.description,
       main: originalPkg.main,
       scripts: {
-        start: 'node index.js'
+        start: originalPkg.scripts?.start || 'node index.js'
       },
       author: originalPkg.author,
       license: originalPkg.license,
@@ -184,15 +186,6 @@ function countFiles(dir) {
   }
 
   return count;
-}
-
-function getVersion() {
-  try {
-    const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
-    return pkg.version || '1.0.0';
-  } catch {
-    return '1.0.0';
-  }
 }
 
 // Execute
