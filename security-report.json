@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-12-18T01:11:22.483Z",
+  "summary": {
+    "total": 0,
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "vulnerabilities": [],
+  "config": {
+    "target": "./src",
+    "level": "moderate",
+    "failOnHigh": true,
+    "reportPath": "./security-report.json"
+  },
+  "recommendations": [
+    "Ejecutar npm audit fix",
+    "Revisar código en busca de eval() e innerHTML",
+    "Verificar secretos en variables de entorno"
+  ]
+}
