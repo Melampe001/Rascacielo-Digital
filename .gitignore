@@ -36,3 +36,4 @@ temp/
 
 # Testing
 .jest/
+*.test.log
