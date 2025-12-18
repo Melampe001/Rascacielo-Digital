@@ -12,6 +12,7 @@ yarn-error.log*
 # Build outputs
 dist/
 build/
+test-dist/
 *.log
 
 # Coverage
@@ -36,3 +37,10 @@ temp/
 
 # Testing
 .jest/
+
+# Security and build reports
+security-report.json
+test-security-report.json
+
+# Source directory (created by build agent)
+src/

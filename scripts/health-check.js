@@ -87,7 +87,7 @@ class HealthCheck {
       }
 
       if (missing.length === 0) {
-        this.pass(check, `✓ Todos los agentes presentes`);
+        this.pass(check, '✓ Todos los agentes presentes');
       } else {
         this.fail(check, `✗ Faltantes: ${missing.join(', ')}`);
       }
@@ -111,7 +111,7 @@ class HealthCheck {
       }
 
       if (missing.length === 0) {
-        this.pass(check, `✓ Todos los módulos presentes`);
+        this.pass(check, '✓ Todos los módulos presentes');
       } else {
         this.fail(check, `✗ Faltantes: ${missing.join(', ')}`);
       }

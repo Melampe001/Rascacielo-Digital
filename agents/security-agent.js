@@ -116,7 +116,7 @@ class SecurityAgent {
     };
 
     scanDirectory(targetDir);
-    this.log(`✓ Escaneo completado`);
+    this.log('✓ Escaneo completado');
   }
 
   scanFile(filePath) {
