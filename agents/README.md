@@ -9,15 +9,18 @@ Cada agente es un componente autónomo responsable de una tarea específica en e
 ## Agentes Disponibles
 
 ### 1. Build Agent
+
 **Ubicación**: `./build-agent/`
 
 **Responsabilidades**:
+
 - Compilar código fuente
 - Gestionar dependencias
 - Generar artefactos de construcción
 - Optimizar el build
 
 **Uso**:
+
 ```javascript
 const buildAgent = require('./build-agent');
 await buildAgent.build({
@@ -27,15 +30,18 @@ await buildAgent.build({
 ```
 
 ### 2. Test Agent
+
 **Ubicación**: `./test-agent/`
 
 **Responsabilidades**:
+
 - Ejecutar pruebas unitarias
 - Ejecutar pruebas de integración
 - Generar reportes de cobertura
 - Validar calidad del código
 
 **Uso**:
+
 ```javascript
 const testAgent = require('./test-agent');
 await testAgent.runTests({
@@ -45,15 +51,18 @@ await testAgent.runTests({
 ```
 
 ### 3. Security Agent
+
 **Ubicación**: `./security-agent/`
 
 **Responsabilidades**:
+
 - Análisis de vulnerabilidades
 - Auditoría de dependencias
 - Escaneo de código
 - Validación de seguridad
 
 **Uso**:
+
 ```javascript
 const securityAgent = require('./security-agent');
 await securityAgent.scan({
@@ -63,15 +72,18 @@ await securityAgent.scan({
 ```
 
 ### 4. Deploy Agent
+
 **Ubicación**: `./deploy-agent/`
 
 **Responsabilidades**:
+
 - Despliegue automatizado
 - Gestión de ambientes
 - Rollback automático
 - Validación post-deploy
 
 **Uso**:
+
 ```javascript
 const deployAgent = require('./deploy-agent');
 await deployAgent.deploy({
@@ -81,15 +93,18 @@ await deployAgent.deploy({
 ```
 
 ### 5. Monitor Agent
+
 **Ubicación**: `./monitor-agent/`
 
 **Responsabilidades**:
+
 - Monitoreo en tiempo real
 - Alertas automáticas
 - Métricas de rendimiento
 - Logs centralizados
 
 **Uso**:
+
 ```javascript
 const monitorAgent = require('./monitor-agent');
 await monitorAgent.watch({
@@ -133,13 +148,13 @@ module.exports = MyCustomAgent;
 
 ## 📊 Estado de los Agentes
 
-| Agente | Estado | Versión | Última Actualización |
-|--------|--------|---------|---------------------|
-| Build Agent | ✅ Activo | 1.0.0 | 2025-12-16 |
-| Test Agent | ✅ Activo | 1.0.0 | 2025-12-16 |
-| Security Agent | ✅ Activo | 1.0.0 | 2025-12-16 |
-| Deploy Agent | ✅ Activo | 1.0.0 | 2025-12-16 |
-| Monitor Agent | ✅ Activo | 1.0.0 | 2025-12-16 |
+| Agente         | Estado    | Versión | Última Actualización |
+| -------------- | --------- | ------- | -------------------- |
+| Build Agent    | ✅ Activo | 1.0.0   | 2025-12-16           |
+| Test Agent     | ✅ Activo | 1.0.0   | 2025-12-16           |
+| Security Agent | ✅ Activo | 1.0.0   | 2025-12-16           |
+| Deploy Agent   | ✅ Activo | 1.0.0   | 2025-12-16           |
+| Monitor Agent  | ✅ Activo | 1.0.0   | 2025-12-16           |
 
 ## 🔗 Integración
 

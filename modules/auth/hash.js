@@ -15,7 +15,7 @@ class PasswordHash {
   /**
    * Hash a password
    */
-  async hash(password, salt = null) {
+  hash(password, salt = null) {
     if (!salt) {
       salt = crypto.randomBytes(16).toString('hex');
     }

@@ -1,6 +1,6 @@
 /**
  * Security Agent - Rascacielos Digital
- * 
+ *
  * Agente especializado en análisis de seguridad y vulnerabilidades
  */
 
@@ -22,10 +22,10 @@ class SecurityAgent {
    */
   async scan(params = {}) {
     const startTime = Date.now();
-    
+
     try {
       console.log('[Security Agent] Iniciando análisis de seguridad...');
-      
+
       const results = {
         dependencies: null,
         codeAnalysis: null,
@@ -58,7 +58,6 @@ class SecurityAgent {
         duration,
         ...results
       };
-      
     } catch (error) {
       console.error('[Security Agent] Error durante el análisis:', error.message);
       throw error;
@@ -68,11 +67,11 @@ class SecurityAgent {
   /**
    * Escanea vulnerabilidades en dependencias
    */
-  async scanDependencies(target) {
+  scanDependencies(_target) {
     console.log('[Security Agent] Escaneando dependencias...');
-    
+
     // Simulación de escaneo de dependencias
-    return {
+    return Promise.resolve({
       total: 150,
       vulnerable: 3,
       vulnerabilities: [
@@ -89,17 +88,17 @@ class SecurityAgent {
           cve: 'CVE-2020-28168'
         }
       ]
-    };
+    });
   }
 
   /**
    * Escanea el código fuente en busca de vulnerabilidades
    */
-  async scanCode(target) {
+  scanCode(_target) {
     console.log('[Security Agent] Escaneando código fuente...');
-    
+
     // Simulación de escaneo de código
-    return {
+    return Promise.resolve({
       files: 45,
       issues: [
         {
@@ -117,7 +116,7 @@ class SecurityAgent {
           message: 'Salida no sanitizada puede permitir XSS'
         }
       ]
-    };
+    });
   }
 
   /**
@@ -161,13 +160,13 @@ class SecurityAgent {
   /**
    * Genera reporte de seguridad
    */
-  async generateReport(results, format = 'json') {
+  generateReport(results, format = 'json') {
     console.log(`[Security Agent] Generando reporte en formato ${format}...`);
-    
+
     if (format === 'json') {
-      return JSON.stringify(results, null, 2);
+      return Promise.resolve(JSON.stringify(results, null, 2));
     }
-    
+
     // Formato de texto
     let report = '=== REPORTE DE SEGURIDAD ===\n\n';
     report += `Total de vulnerabilidades: ${results.summary.total}\n`;
@@ -175,8 +174,8 @@ class SecurityAgent {
     report += `  - Altas: ${results.summary.high}\n`;
     report += `  - Moderadas: ${results.summary.moderate}\n`;
     report += `  - Bajas: ${results.summary.low}\n`;
-    
-    return report;
+
+    return Promise.resolve(report);
   }
 }
 

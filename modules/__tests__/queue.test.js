@@ -36,8 +36,8 @@ describe('JobQueue', () => {
   });
 
   test('should process jobs', async () => {
-    const handler = jest.fn(async data => {
-      return { success: true };
+    const handler = jest.fn(_data => {
+      return Promise.resolve({ success: true });
     });
 
     queue.registerHandler('test-job', handler);
@@ -51,8 +51,9 @@ describe('JobQueue', () => {
 
   test('should respect job priority', async () => {
     const results = [];
-    const handler = jest.fn(async data => {
-      results.push(data.priority);
+    const handler = jest.fn(_data => {
+      results.push(_data.priority);
+      return Promise.resolve();
     });
 
     queue.registerHandler('test-job', handler);

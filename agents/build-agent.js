@@ -1,6 +1,6 @@
 /**
  * Build Agent - Rascacielos Digital
- * 
+ *
  * Agente especializado en construcción y compilación de código
  */
 
@@ -22,30 +22,29 @@ class BuildAgent {
    */
   async build(params = {}) {
     const startTime = Date.now();
-    
+
     try {
       console.log('[Build Agent] Iniciando construcción...');
-      
+
       // Validar parámetros
       await this.validate(params);
-      
+
       // Detectar tipo de proyecto
       const projectType = await this.detectProjectType();
       console.log(`[Build Agent] Tipo de proyecto detectado: ${projectType}`);
-      
+
       // Ejecutar build según el tipo
       const result = await this.executeBuild(projectType, params);
-      
+
       const duration = Date.now() - startTime;
       console.log(`[Build Agent] Build completado en ${duration}ms`);
-      
+
       return {
         success: true,
         duration,
         artifacts: result.artifacts,
         projectType
       };
-      
     } catch (error) {
       console.error('[Build Agent] Error durante el build:', error.message);
       throw error;
@@ -55,20 +54,20 @@ class BuildAgent {
   /**
    * Valida los parámetros de entrada
    */
-  async validate(params) {
+  validate(params) {
     if (params.source && typeof params.source !== 'string') {
-      throw new Error('El parámetro source debe ser una cadena de texto');
+      return Promise.reject(new Error('El parámetro source debe ser una cadena de texto'));
     }
-    return true;
+    return Promise.resolve(true);
   }
 
   /**
    * Detecta el tipo de proyecto
    */
-  async detectProjectType() {
+  detectProjectType() {
     // Lógica simplificada para detectar tipo de proyecto
     // En producción, esto verificaría archivos como package.json, pom.xml, etc.
-    return 'javascript';
+    return Promise.resolve('javascript');
   }
 
   /**
@@ -93,49 +92,49 @@ class BuildAgent {
   /**
    * Build para proyectos JavaScript/Node.js
    */
-  async buildJavaScript(params) {
+  buildJavaScript(_params) {
     console.log('[Build Agent] Ejecutando build JavaScript...');
-    return {
+    return Promise.resolve({
       artifacts: ['dist/bundle.js', 'dist/bundle.css']
-    };
+    });
   }
 
   /**
    * Build para proyectos Python
    */
-  async buildPython(params) {
+  buildPython(_params) {
     console.log('[Build Agent] Ejecutando build Python...');
-    return {
+    return Promise.resolve({
       artifacts: ['dist/package.whl']
-    };
+    });
   }
 
   /**
    * Build para proyectos Java
    */
-  async buildJava(params) {
+  buildJava(_params) {
     console.log('[Build Agent] Ejecutando build Java...');
-    return {
+    return Promise.resolve({
       artifacts: ['target/application.jar']
-    };
+    });
   }
 
   /**
    * Build para proyectos Go
    */
-  async buildGo(params) {
+  buildGo(_params) {
     console.log('[Build Agent] Ejecutando build Go...');
-    return {
+    return Promise.resolve({
       artifacts: ['bin/application']
-    };
+    });
   }
 
   /**
    * Limpia artefactos de build previos
    */
-  async clean() {
+  clean() {
     console.log('[Build Agent] Limpiando artefactos previos...');
-    return { success: true };
+    return Promise.resolve({ success: true });
   }
 }
 

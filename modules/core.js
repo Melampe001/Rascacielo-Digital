@@ -1,6 +1,6 @@
 /**
  * Core Module - Rascacielos Digital
- * 
+ *
  * Módulo central con funcionalidades comunes del sistema
  */
 
@@ -112,19 +112,24 @@ class Utils {
   }
 
   static retry(fn, maxAttempts = 3, delay = 1000) {
-    return async function(...args) {
+    return async function (...args) {
+      let lastError;
       for (let attempt = 1; attempt <= maxAttempts; attempt++) {
         try {
           return await fn(...args);
         } catch (error) {
-          if (attempt === maxAttempts) throw error;
+          lastError = error;
+          if (attempt === maxAttempts) {
+            throw lastError;
+          }
           await Utils.sleep(delay * attempt);
         }
       }
+      throw lastError;
     };
   }
 
-  static async timeout(promise, ms) {
+  static timeout(promise, ms) {
     const timeoutPromise = new Promise((_, reject) => {
       setTimeout(() => reject(new Error('Timeout exceeded')), ms);
     });
