@@ -114,44 +114,44 @@ class AutoConsolidator {
         const status = this.checkPRStatus(pr.pr);
 
         if (!status.exists) {
-          console.log(`   ⏭️  Skipping: PR does not exist`);
+          console.log('   ⏭️  Skipping: PR does not exist');
           continue;
         }
 
         if (status.merged) {
-          console.log(`   ✅ Already merged`);
+          console.log('   ✅ Already merged');
           this.merged.push(pr.pr);
           continue;
         }
 
         if (status.closed) {
-          console.log(`   🚫 Already closed`);
+          console.log('   🚫 Already closed');
           continue;
         }
 
         // Mark as ready for review if draft
         if (status.draft) {
-          console.log(`   📝 Converting from draft to ready...`);
+          console.log('   📝 Converting from draft to ready...');
           execSync(`gh pr ready ${pr.pr}`, { stdio: 'pipe' });
         }
 
         // Update PR branch with Main
-        console.log(`   🔄 Updating PR branch with Main...`);
+        console.log('   🔄 Updating PR branch with Main...');
         await this.updatePRBranch(pr.pr);
 
         // Auto-approve PR
-        console.log(`   ✅ Auto-approving PR (Elara Protocol)...`);
+        console.log('   ✅ Auto-approving PR (Elara Protocol)...');
         await this.approvePR(pr.pr);
 
         // Merge PR
-        console.log(`   🔀 Merging PR...`);
+        console.log('   🔀 Merging PR...');
         await this.mergePR(pr.pr);
 
         this.merged.push(pr.pr);
         console.log(`   ✅ PR #${pr.pr} merged successfully`);
 
         // Wait between merges to allow CI/CD
-        console.log(`   ⏳ Waiting 30s for CI/CD...`);
+        console.log('   ⏳ Waiting 30s for CI/CD...');
         await this.sleep(30000);
       } catch (error) {
         console.log(`   ❌ Failed to merge PR #${pr.pr}: ${error.message}`);
@@ -159,7 +159,7 @@ class AutoConsolidator {
       }
     }
 
-    console.log(`\n✓ Merge process completed`);
+    console.log('\n✓ Merge process completed');
     console.log(`   Merged: ${this.merged.length}`);
     console.log(`   Failed: ${this.failed.length}`);
   }
@@ -195,7 +195,7 @@ class AutoConsolidator {
         });
       } catch (mergeError) {
         // Auto-resolve conflicts by accepting incoming changes
-        console.log(`   🔧 Auto-resolving conflicts...`);
+        console.log('   🔧 Auto-resolving conflicts...');
         execSync('git checkout --theirs .', { stdio: 'pipe' });
         execSync('git add .', { stdio: 'pipe' });
         execSync('git commit -m "Auto-resolve conflicts (Elara Protocol)"', { stdio: 'pipe' });
@@ -254,7 +254,7 @@ class AutoConsolidator {
     console.log('======================');
     console.log(`Timestamp: ${report.timestamp}`);
     console.log(`Lead Engineer: ${report.engineer}`);
-    console.log(`\nResults:`);
+    console.log('\nResults:');
     console.log(`  Closed (duplicates): ${report.results.closed}`);
     console.log(`  Merged: ${report.results.merged}`);
     console.log(`  Failed: ${report.results.failed}`);
@@ -271,7 +271,7 @@ if (require.main === module) {
 
   consolidator
     .run()
-    .then(result => {
+    .then(() => {
       console.log('\n🎉 Auto-consolidation successful');
       process.exit(0);
     })
