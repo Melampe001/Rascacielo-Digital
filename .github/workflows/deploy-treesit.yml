@@ -1,0 +1,84 @@
+name: Deploy to Treesit Cloud
+
+on:
+  push:
+    branches: [Main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+          - development
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  deploy:
+    name: 🚀 Deploy to Treesit Cloud
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build project
+        run: npm run build || echo "No build script"
+
+      - name: Deploy to Treesit Cloud
+        env:
+          TREESIT_API_KEY: ${{ secrets.TREESIT_API_KEY }}
+          TREESIT_SECRET_KEY: ${{ secrets.TREESIT_SECRET_KEY }}
+          TREESIT_PROJECT_ID: ${{ secrets.TREESIT_PROJECT_ID }}
+          TREESIT_REGION: ${{ secrets.TREESIT_REGION }}
+          NODE_ENV: production
+        run: |
+          node -e "
+            const DeployAgent = require('./agents/deploy-agent');
+            const agent = new DeployAgent({ environment: 'production' });
+            agent.deploy().then(result => {
+              console.log('✅ Deployment successful:', result);
+              process.exit(0);
+            }).catch(error => {
+              console.error('❌ Deployment failed:', error);
+              process.exit(1);
+            });
+          "
+
+      - name: Notify deployment
+        if: success()
+        run: |
+          echo "🎉 Deployment to Treesit Cloud completed successfully!"
+          echo "Environment: production"
+          echo "Commit: ${{ github.sha }}"
+
+      - name: Rollback on failure
+        if: failure()
+        env:
+          TREESIT_API_KEY: ${{ secrets.TREESIT_API_KEY }}
+          TREESIT_SECRET_KEY: ${{ secrets.TREESIT_SECRET_KEY }}
+          TREESIT_PROJECT_ID: ${{ secrets.TREESIT_PROJECT_ID }}
+        run: |
+          echo "🔄 Initiating automatic rollback..."
+          node -e "
+            const DeployAgent = require('./agents/deploy-agent');
+            const agent = new DeployAgent();
+            agent.rollback().catch(console.error);
+          "

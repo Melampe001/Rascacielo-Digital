@@ -14,7 +14,12 @@
     "clean": "rm -rf dist/ coverage/",
     "setup": "npm install && npm run config:check",
     "config:check": "node scripts/config-check.js",
-    "health-check": "node scripts/health-check.js"
+    "health-check": "node scripts/health-check.js",
+    "deploy": "node scripts/treesit-cli.js deploy",
+    "deploy:status": "node scripts/treesit-cli.js status",
+    "deploy:rollback": "node scripts/treesit-cli.js rollback",
+    "deploy:logs": "node scripts/treesit-cli.js logs",
+    "deploy:health": "node scripts/treesit-cli.js health"
   },
   "keywords": [
     "modular",

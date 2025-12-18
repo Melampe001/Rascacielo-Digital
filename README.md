@@ -67,7 +67,7 @@ Los agentes son componentes autónomos que realizan tareas específicas:
 - **Build Agent**: Construcción y compilación
 - **Test Agent**: Ejecución de pruebas automatizadas
 - **Security Agent**: Análisis de seguridad
-- **Deploy Agent**: Despliegue automatizado
+- **Deploy Agent**: Despliegue automatizado a Treesit Cloud
 - **Monitor Agent**: Monitoreo y alertas
 
 ## 🔄 CI/CD Pipeline
@@ -78,7 +78,29 @@ El pipeline incluye los siguientes gates:
 2. **Test Gate**: Pruebas unitarias y de integración
 3. **Security Gate**: Análisis de vulnerabilidades
 4. **Build Gate**: Compilación exitosa
-5. **Deploy Gate**: Despliegue automático
+5. **Deploy Gate**: Despliegue automático a Treesit Cloud
+
+## ☁️ Despliegue en Treesit Cloud
+
+Rascacielos Digital está integrado con Treesit Cloud para despliegues automatizados:
+
+```bash
+# Deploy manual
+npm run deploy
+
+# Ver estado del deployment
+npm run deploy:status
+
+# Ver logs
+npm run deploy:logs
+
+# Rollback si es necesario
+npm run deploy:rollback
+```
+
+Cada push a la rama `Main` despliega automáticamente a producción en Treesit Cloud.
+
+Para más información, consulta la [Guía de Despliegue en Treesit Cloud](./docs/TREESIT_DEPLOYMENT.md).
 
 ## 📚 Documentación
 
