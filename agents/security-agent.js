@@ -1,6 +1,6 @@
 /**
  * Security Agent - Rascacielos Digital
- * 
+ *
  * Agente especializado en análisis de seguridad y vulnerabilidades
  */
 
@@ -22,10 +22,10 @@ class SecurityAgent {
    */
   async scan(params = {}) {
     const startTime = Date.now();
-    
+
     try {
       console.log('[Security Agent] Iniciando análisis de seguridad...');
-      
+
       const results = {
         dependencies: null,
         codeAnalysis: null,
@@ -58,7 +58,6 @@ class SecurityAgent {
         duration,
         ...results
       };
-      
     } catch (error) {
       console.error('[Security Agent] Error durante el análisis:', error.message);
       throw error;
@@ -68,9 +67,9 @@ class SecurityAgent {
   /**
    * Escanea vulnerabilidades en dependencias
    */
-  async scanDependencies(target) {
+  async scanDependencies(_target) {
     console.log('[Security Agent] Escaneando dependencias...');
-    
+
     // Simulación de escaneo de dependencias
     return {
       total: 150,
@@ -95,9 +94,9 @@ class SecurityAgent {
   /**
    * Escanea el código fuente en busca de vulnerabilidades
    */
-  async scanCode(target) {
+  async scanCode(_target) {
     console.log('[Security Agent] Escaneando código fuente...');
-    
+
     // Simulación de escaneo de código
     return {
       files: 45,
@@ -131,7 +130,7 @@ class SecurityAgent {
 
     // Contar vulnerabilidades de dependencias
     if (results.dependencies) {
-      results.dependencies.vulnerabilities.forEach(vuln => {
+      results.dependencies.vulnerabilities.forEach((vuln) => {
         if (vuln.severity === 'critical') critical++;
         else if (vuln.severity === 'high') high++;
         else if (vuln.severity === 'moderate') moderate++;
@@ -141,7 +140,7 @@ class SecurityAgent {
 
     // Contar issues de código
     if (results.codeAnalysis) {
-      results.codeAnalysis.issues.forEach(issue => {
+      results.codeAnalysis.issues.forEach((issue) => {
         if (issue.severity === 'critical') critical++;
         else if (issue.severity === 'high') high++;
         else if (issue.severity === 'moderate') moderate++;
@@ -163,11 +162,11 @@ class SecurityAgent {
    */
   async generateReport(results, format = 'json') {
     console.log(`[Security Agent] Generando reporte en formato ${format}...`);
-    
+
     if (format === 'json') {
       return JSON.stringify(results, null, 2);
     }
-    
+
     // Formato de texto
     let report = '=== REPORTE DE SEGURIDAD ===\n\n';
     report += `Total de vulnerabilidades: ${results.summary.total}\n`;
@@ -175,7 +174,7 @@ class SecurityAgent {
     report += `  - Altas: ${results.summary.high}\n`;
     report += `  - Moderadas: ${results.summary.moderate}\n`;
     report += `  - Bajas: ${results.summary.low}\n`;
-    
+
     return report;
   }
 }

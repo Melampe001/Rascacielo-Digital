@@ -1,4 +1,4 @@
-const { Logger, Config, ErrorHandler, Utils } = require('../core');
+const { Logger, Config, Utils } = require('../core');
 
 describe('Core Module', () => {
   describe('Logger', () => {
