@@ -9,8 +9,17 @@ Elara is the lead engineer of Rascacielos Digital with **FULL** authority over a
 1. **Authority**: Elara has complete control over merge decisions
 2. **Automation**: All PRs are merged automatically following priority order
 3. **Collaboration**: All agents work collaboratively under Elara's orchestration
-4. **Conflict Resolution**: Automatic resolution favoring incoming changes
-5. **Validation**: Full test suite runs before each merge
+4. **Conflict Resolution**: PRs with merge conflicts are skipped for manual resolution
+5. **Validation**: Each PR must pass its own CI/CD checks before merge
+6. **Branch Protection**: System respects all branch protection rules and required status checks
+
+## Safety Features
+
+- **No Forced Merges**: System respects branch protection rules
+- **Conflict Safety**: Skips PRs with merge conflicts instead of forcing resolution
+- **CI/CD Validation**: Only merges PRs that pass all required checks
+- **Comprehensive Logging**: All actions are logged for audit trail
+- **Error Handling**: Failed merges don't stop the entire process
 
 ## Priority Order
 

@@ -194,11 +194,11 @@ class AutoConsolidator {
           stdio: 'pipe'
         });
       } catch (mergeError) {
-        // Auto-resolve conflicts by accepting incoming changes
-        console.log('   🔧 Auto-resolving conflicts...');
-        execSync('git checkout --theirs .', { stdio: 'pipe' });
-        execSync('git add .', { stdio: 'pipe' });
-        execSync('git commit -m "Auto-resolve conflicts (Elara Protocol)"', { stdio: 'pipe' });
+        // Check if there are conflicts
+        console.log('   ⚠️  Merge conflicts detected');
+        console.log('   ℹ️  Skipping automatic conflict resolution for safety');
+        execSync('git merge --abort', { stdio: 'pipe' });
+        throw new Error('Merge conflicts require manual resolution');
       }
 
       execSync('git push', { stdio: 'pipe' });
@@ -223,7 +223,9 @@ class AutoConsolidator {
 
   async mergePR(prNumber) {
     try {
-      execSync(`gh pr merge ${prNumber} --squash --auto --delete-branch`, {
+      // Use --squash for cleaner history, remove --auto to respect branch protection
+      // This will only merge if all required checks pass
+      execSync(`gh pr merge ${prNumber} --squash --delete-branch`, {
         stdio: 'pipe'
       });
     } catch (error) {

@@ -43,12 +43,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/auto-consolidate.js
+        # Note: Each PR must pass its own CI/CD checks before merge
+        # The script respects branch protection rules
 
       - name: Run Validation Suite
         run: |
           npm run lint
           npm run format:check
           npm test
+        # Validates the final consolidated state after all merges
 
       - name: Notify Elara
         if: always()
