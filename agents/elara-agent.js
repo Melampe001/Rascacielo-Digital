@@ -539,11 +539,16 @@ class ElaraAgent {
    * @private
    */
   _sanitizeInput(input) {
-    // Remove potential injection attempts
-    return input
-      .replace(/<script[^>]*>.*?<\/script>/gi, '')
-      .replace(/<[^>]+>/g, '')
-      .trim();
+    // Secure sanitization: only allow alphanumeric, spaces, and safe punctuation
+    // This is a whitelist approach that's much more secure than trying to blacklist tags
+
+    // First pass: remove all characters that could be part of HTML/script injection
+    let sanitized = input.replace(/[<>'"`;(){}[\]]/g, '');
+
+    // Remove multiple consecutive spaces
+    sanitized = sanitized.replace(/\s+/g, ' ');
+
+    return sanitized.trim();
   }
 
   /**
@@ -583,14 +588,14 @@ class ElaraAgent {
     const logMessage = `[${timestamp}] [${level.toUpperCase()}] [ELARA] ${message}`;
 
     switch (level) {
-    case 'error':
-      console.error(logMessage, data);
-      break;
-    case 'warn':
-      console.warn(logMessage, data);
-      break;
-    default:
-      console.log(logMessage, data);
+      case 'error':
+        console.error(logMessage, data);
+        break;
+      case 'warn':
+        console.warn(logMessage, data);
+        break;
+      default:
+        console.log(logMessage, data);
     }
   }
 

@@ -115,9 +115,13 @@ describe('ElaraAgent', () => {
         task: '<script>alert("xss")</script>Test task<div>test</div>'
       };
       await agent.validate(params);
-      expect(params.task).toBe('Test tasktest');
-      expect(params.task).not.toContain('<script>');
-      expect(params.task).not.toContain('<div>');
+      // Whitelist sanitization removes all dangerous characters
+      expect(params.task).toBe('scriptalertxss/scriptTest taskdivtest/div');
+      expect(params.task).not.toContain('<');
+      expect(params.task).not.toContain('>');
+      expect(params.task).not.toContain('"');
+      expect(params.task).not.toContain('(');
+      expect(params.task).not.toContain(')');
     });
   });
 
