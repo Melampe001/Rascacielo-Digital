@@ -34,7 +34,14 @@ class HealthCheck {
     const check = 'Node.js Version';
     try {
       const version = process.version;
-      const major = parseInt(version.slice(1).split('.')[0]);
+      // Extract major version number more safely
+      const versionMatch = version.match(/^v?(\d+)/);
+      if (!versionMatch) {
+        this.fail(check, `✗ Invalid version format: ${version}`);
+        return;
+      }
+      
+      const major = parseInt(versionMatch[1], 10);
       if (major >= 18) {
         this.pass(check, `✓ ${version}`);
       } else {

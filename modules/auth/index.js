@@ -6,11 +6,17 @@ const crypto = require('crypto');
 class Auth {
   constructor(config = {}) {
     this.config = {
-      secret: config.secret || process.env.JWT_SECRET || 'default-secret-change-me',
+      secret: config.secret || process.env.JWT_SECRET,
       expiresIn: config.expiresIn || '24h',
       algorithm: config.algorithm || 'HS256',
       ...config
     };
+
+    // Security check: Ensure a secret is provided
+    if (!this.config.secret) {
+      console.warn('⚠️ Warning: No JWT secret provided. Using default for development only. Set JWT_SECRET environment variable or pass secret in config for production.');
+      this.config.secret = 'default-secret-change-me';
+    }
   }
 
   async generateToken(payload, options = {}) {

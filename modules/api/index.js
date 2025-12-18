@@ -78,8 +78,19 @@ class APIClient {
             const response = {
               status: res.statusCode,
               headers: res.headers,
-              data: body ? JSON.parse(body) : null
+              data: null
             };
+
+            // Try to parse JSON, but handle non-JSON responses
+            if (body) {
+              try {
+                response.data = JSON.parse(body);
+              } catch {
+                // If not JSON, return raw body
+                response.data = body;
+              }
+            }
+
             if (res.statusCode >= 200 && res.statusCode < 300) {
               resolve(response);
             } else {

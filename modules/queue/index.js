@@ -75,6 +75,11 @@ class Queue extends EventEmitter {
     this.emit('job:started', job);
 
     try {
+      // Validate handler exists
+      if (!this.config.handler || typeof this.config.handler !== 'function') {
+        throw new Error('No handler configured for queue');
+      }
+
       const result = await this.executeWithTimeout(
         this.config.handler(job.data),
         this.config.timeout
