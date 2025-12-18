@@ -45,11 +45,13 @@ npm start
 ### Primeros Pasos
 
 1. **Configuración Inicial**
+
    ```bash
    npm run setup
    ```
 
 2. **Verificar Instalación**
+
    ```bash
    npm run health-check
    ```
@@ -171,7 +173,7 @@ El pipeline se configura en `.github/workflows/ci-cd.yml`:
 name: CI/CD Pipeline
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
 ```
 
 ## API Reference
@@ -183,10 +185,12 @@ on:
 Ejecuta el proceso de build.
 
 **Parámetros:**
+
 - `source` (string): Directorio fuente
 - `output` (string): Directorio de salida
 
 **Retorna:**
+
 - `Promise<Object>`: Resultado del build
 
 #### `clean()`
@@ -194,6 +198,7 @@ Ejecuta el proceso de build.
 Limpia artefactos previos.
 
 **Retorna:**
+
 - `Promise<Object>`: Resultado de la limpieza
 
 ### Security Agent API
@@ -203,10 +208,12 @@ Limpia artefactos previos.
 Ejecuta análisis de seguridad.
 
 **Parámetros:**
+
 - `target` (string): Directorio a escanear
 - `level` (string): Nivel de escaneo
 
 **Retorna:**
+
 - `Promise<Object>`: Resultado del análisis
 
 ## Mejores Prácticas

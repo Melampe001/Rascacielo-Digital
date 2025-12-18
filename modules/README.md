@@ -14,15 +14,18 @@ El sistema está diseñado con una arquitectura modular que permite:
 ## 📦 Módulos Disponibles
 
 ### 1. Core Module
+
 **Descripción**: Funcionalidad central del sistema
 
 **Componentes**:
+
 - Sistema de configuración
 - Logger centralizado
 - Gestión de errores
 - Utilidades comunes
 
 **Uso**:
+
 ```javascript
 const { Config, Logger } = require('./modules/core');
 
@@ -31,15 +34,18 @@ logger.info('Aplicación iniciada');
 ```
 
 ### 2. API Module
+
 **Descripción**: Manejo de APIs y servicios REST
 
 **Componentes**:
+
 - Cliente HTTP
 - Gestión de rutas
 - Middleware
 - Validación de requests
 
 **Uso**:
+
 ```javascript
 const { APIClient } = require('./modules/api');
 
@@ -48,15 +54,18 @@ const data = await client.get('/users');
 ```
 
 ### 3. Database Module
+
 **Descripción**: Gestión de bases de datos
 
 **Componentes**:
+
 - Conexión a DB
 - Modelos
 - Migrations
 - Query builder
 
 **Uso**:
+
 ```javascript
 const { Database } = require('./modules/database');
 
@@ -65,15 +74,18 @@ await db.connect();
 ```
 
 ### 4. Auth Module
+
 **Descripción**: Autenticación y autorización
 
 **Componentes**:
+
 - JWT handling
 - Sesiones
 - Roles y permisos
 - OAuth integrations
 
 **Uso**:
+
 ```javascript
 const { Auth } = require('./modules/auth');
 
@@ -82,15 +94,18 @@ const token = await auth.generateToken(user);
 ```
 
 ### 5. Queue Module
+
 **Descripción**: Gestión de colas y trabajos asíncronos
 
 **Componentes**:
+
 - Job queue
 - Workers
 - Scheduler
 - Retry logic
 
 **Uso**:
+
 ```javascript
 const { Queue } = require('./modules/queue');
 
@@ -154,13 +169,13 @@ await module.initialize();
 
 ## 📊 Estado de los Módulos
 
-| Módulo | Estado | Versión | Dependencias |
-|--------|--------|---------|--------------|
-| Core | ✅ Estable | 1.0.0 | Ninguna |
-| API | ✅ Estable | 1.0.0 | axios |
-| Database | ✅ Estable | 1.0.0 | pg, mysql2 |
-| Auth | ✅ Estable | 1.0.0 | jsonwebtoken |
-| Queue | ✅ Estable | 1.0.0 | bull |
+| Módulo   | Estado     | Versión | Dependencias |
+| -------- | ---------- | ------- | ------------ |
+| Core     | ✅ Estable | 1.0.0   | Ninguna      |
+| API      | ✅ Estable | 1.0.0   | axios        |
+| Database | ✅ Estable | 1.0.0   | pg, mysql2   |
+| Auth     | ✅ Estable | 1.0.0   | jsonwebtoken |
+| Queue    | ✅ Estable | 1.0.0   | bull         |
 
 ## 🧪 Testing
 
