@@ -15,6 +15,9 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
+// Constants
+const BYTES_PER_KB = 1024;
+
 class OrchestratorAgent {
   constructor(config = {}) {
     this.logger = new Logger('Orchestrator');
@@ -163,7 +166,12 @@ class OrchestratorAgent {
         const result = await Utils.timeout(
           task.handler(),
           this.config.timeout
-        );
+        ).catch(err => {
+          if (err.message === 'Timeout exceeded') {
+            throw new Error(`Task '${task.name}' exceeded timeout of ${this.config.timeout}ms`);
+          }
+          throw err;
+        });
 
         const duration = Date.now() - taskStart;
         this.logger.info(`[${task.name}] Completado en ${duration}ms`);
@@ -224,7 +232,12 @@ class OrchestratorAgent {
         const result = await Utils.timeout(
           task.handler(),
           this.config.timeout
-        );
+        ).catch(err => {
+          if (err.message === 'Timeout exceeded') {
+            throw new Error(`Task '${task.name}' exceeded timeout of ${this.config.timeout}ms`);
+          }
+          throw err;
+        });
 
         const duration = Date.now() - taskStart;
         this.logger.info(`[${task.name}] Completado en ${duration}ms`);
@@ -576,8 +589,8 @@ class OrchestratorAgent {
     let size = bytes;
     let unitIndex = 0;
 
-    while (size >= 1024 && unitIndex < units.length - 1) {
-      size /= 1024;
+    while (size >= BYTES_PER_KB && unitIndex < units.length - 1) {
+      size /= BYTES_PER_KB;
       unitIndex++;
     }
 
@@ -698,7 +711,7 @@ if (require.main === module) {
 
       case 'sequential':
         if (tasks.length === 0) {
-          console.error('Error: --tasks requerido para modo sequential');
+          console.error('Error: --tasks requeridas para modo sequential');
           process.exit(1);
         }
         result = await orchestrator.executeCustom(tasks, 'sequential');

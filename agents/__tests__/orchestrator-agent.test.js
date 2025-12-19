@@ -447,7 +447,7 @@ describe('OrchestratorAgent', () => {
         handler: () => new Promise(resolve => setTimeout(() => resolve({ done: true }), 200))
       };
 
-      await expect(slowOrchestrator.executeSequential([slowTask])).rejects.toThrow('Timeout exceeded');
+      await expect(slowOrchestrator.executeSequential([slowTask])).rejects.toThrow("Task 'slow' exceeded timeout of 100ms");
     });
 
     test('should track execution duration', async () => {
