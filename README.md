@@ -83,6 +83,7 @@ El pipeline incluye los siguientes gates:
 ## 📦 Dependencies
 
 ### Core Dependencies
+
 - **dotenv** - Environment variable management
 - **winston** - Professional logging system
 - **chalk** - Colored terminal output
@@ -90,21 +91,26 @@ El pipeline incluye los siguientes gates:
 - **fs-extra** - Enhanced file system utilities
 
 ### API & HTTP
+
 - **axios** - Promise-based HTTP client with retry logic
 
 ### Authentication & Security
+
 - **jsonwebtoken** - JWT token generation and verification
 - **bcryptjs** - Secure password hashing
 
 ### Queue System
+
 - **bull** - Redis-based job queue management
 - **redis** - Redis client for in-memory data store
 
 ### CLI & User Experience
+
 - **inquirer** - Interactive command line prompts
 - **ora** - Elegant terminal spinners
 
 ### Utilities
+
 - **glob** - File pattern matching
 - **yaml** - YAML parsing for configuration files
 
@@ -128,7 +134,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 👥 Autores
 
-- **Melampe001** - *Trabajo Inicial* - [Melampe001](https://github.com/Melampe001)
+- **Melampe001** - _Trabajo Inicial_ - [Melampe001](https://github.com/Melampe001)
 
 ## 🙏 Agradecimientos
 
