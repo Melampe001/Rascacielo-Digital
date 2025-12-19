@@ -80,6 +80,26 @@ El pipeline incluye los siguientes gates:
 4. **Build Gate**: Compilación exitosa
 5. **Deploy Gate**: Despliegue automático
 
+## 🔄 Pull Requests Status
+
+### Activos
+- [PR #36](https://github.com/Melampe001/Rascacielo-Digital/pull/36) - Backend API REST 🟡 IN PROGRESS
+- [PR #37](https://github.com/Melampe001/Rascacielo-Digital/pull/37) - Complete Application 🟡 IN PROGRESS
+
+### Pendientes de Fix
+- [PR #32](https://github.com/Melampe001/Rascacielo-Digital/pull/32) - Orchestrator Agent ⚠️ Needs permissions fix
+- [PR #33](https://github.com/Melampe001/Rascacielo-Digital/pull/33) - CI/CD Fix ⚠️ Needs permissions fix
+
+### Listos para Merge
+- [PR #34](https://github.com/Melampe001/Rascacielo-Digital/pull/34) - Production Dependencies ✅
+- [PR #35](https://github.com/Melampe001/Rascacielo-Digital/pull/35) - Update Dependencies ✅
+- [PR #30](https://github.com/Melampe001/Rascacielo-Digital/pull/30) - Maintenance Infrastructure ✅
+
+### Cerrados
+- PR #28 - Old Vercel config ❌
+- PR #29 - Duplicate Vercel config ❌
+- PR #31 - Next.js transformation ❌ (conflicto arquitectónico)
+
 ## 📚 Documentación
 
 Para más información, consulta la [documentación completa](./docs/README.md).
