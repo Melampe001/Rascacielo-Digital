@@ -3,22 +3,27 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-package-lock.json
 yarn.lock
+pnpm-lock.yaml
 
 # Environment files
 .env
 .env.local
 .env.*.local
+.env.production.local
+.env.development.local
 
 # Build outputs
 dist/
 build/
+out/
 *.log
+logs/
 
 # Coverage
 coverage/
 .nyc_output/
+*.lcov
 
 # IDE
 .vscode/
@@ -26,18 +31,58 @@ coverage/
 *.swp
 *.swo
 *~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+desktop.ini
 
 # Temporary files
 tmp/
 temp/
 *.tmp
+*.bak
+*.swp
+*~.nib
 
 # Testing
 .jest/
+.nyc_output/
 
 # Husky
 .husky/_
+
+# JavaScript/TypeScript
+*.tsbuildinfo
+.eslintcache
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Vercel
+.vercel
+.env*.local
+
+# Misc
+*.pem
+.env.production
