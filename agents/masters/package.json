@@ -1,0 +1,78 @@
+{
+  "name": "@melampe001/rascacielo-masters",
+  "version": "2.0.0",
+  "description": "🏛️ Sistema Imperial Premium Elite - 71 Agentes Maestros + Automatización Completa",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "bin": {
+    "rascacielo": "./cli/bin/rascacielo"
+  },
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint **/*.js",
+    "build": "echo 'No build required'",
+    "prepublishOnly": "echo 'Ready to publish'"
+  },
+  "keywords": [
+    "rascacielo",
+    "agents",
+    "code-quality",
+    "validation",
+    "automation",
+    "best-practices",
+    "badges",
+    "cli",
+    "web-search",
+    "seo",
+    "python",
+    "javascript",
+    "typescript",
+    "react",
+    "vue",
+    "angular",
+    "flutter",
+    "docker",
+    "kubernetes",
+    "aws",
+    "vercel",
+    "testing",
+    "security",
+    "devops",
+    "imperial",
+    "premium",
+    "elite"
+  ],
+  "author": "Melampe001",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Melampe001/Rascacielo-Digital.git",
+    "directory": "agents/masters"
+  },
+  "bugs": {
+    "url": "https://github.com/Melampe001/Rascacielo-Digital/issues"
+  },
+  "homepage": "https://github.com/Melampe001/Rascacielo-Digital/blob/Main/agents/masters/README.md",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "**/*.js",
+    "!**/*.test.js",
+    "!**/__tests__/**",
+    "!scripts/**",
+    "index.d.ts",
+    "README.md",
+    "LICENSE",
+    "templates/**",
+    "cli/bin/rascacielo"
+  ],
+  "dependencies": {
+    "commander": "^11.1.0",
+    "chalk": "^4.1.2",
+    "ora": "^5.4.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
