@@ -2,6 +2,20 @@
 
 **Sistema de desarrollo arquitectónico modular con agentes especializados y CI/CD gates**
 
+## 👑 Sistema Imperial Elara - NEW!
+
+**91 Agentes Maestros con IA Personal de Priorización Estratégica**
+
+Incluye 20 agentes especiales de Elara para:
+- 🔗 **Blockchain & Web3**: Solana, Ethereum, DeFi, NFTs
+- 🎮 **Game Development**: Unity, Unreal, Game Logic, UI
+- ⚡ **Real-Time Systems**: WebSocket, Streaming, Analytics
+- 📊 **Data Science**: Pipelines, Statistics, Visualization
+- 🤖 **AI/ML Ops**: MLOps, LLM Integration, Optimization
+- 🔍 **Observability**: Logging, Tracing, Performance
+
+➡️ [Ver documentación completa de Elara](./agents/masters/README.md)
+
 ## 🏗️ Descripción
 
 Rascacielos Digital es un sistema modular de desarrollo arquitectónico que utiliza agentes especializados para construir, validar y desplegar aplicaciones de manera escalable y segura.
@@ -9,7 +23,8 @@ Rascacielos Digital es un sistema modular de desarrollo arquitectónico que util
 ## 🎯 Características Principales
 
 - **Arquitectura Modular**: Componentes independientes y reutilizables
-- **Agentes Especializados**: Sistema de agentes para tareas específicas
+- **Agentes Especializados**: Sistema de agentes para tareas específicas (91 total)
+- **Elara Orchestrator**: Meta-agente de IA personal con priorización estratégica
 - **CI/CD Gates**: Pipeline automatizado con validaciones de calidad
 - **Escalabilidad**: Diseño preparado para crecimiento horizontal
 - **Seguridad**: Validaciones de seguridad integradas
@@ -18,7 +33,14 @@ Rascacielos Digital es un sistema modular de desarrollo arquitectónico que util
 
 ```
 .
-├── agents/              # Agentes especializados
+├── agents/
+│   ├── masters/         # 👑 Sistema Imperial Elara (91 agentes)
+│   │   ├── groups/      # 20 Agentes especiales de Elara
+│   │   ├── core/        # Elara Orchestrator
+│   │   └── cli/         # CLI de Elara
+│   ├── build-agent.js   # Agente de construcción
+│   ├── security-agent.js # Agente de seguridad
+│   └── deploy-agent.js  # Agente de despliegue
 ├── modules/             # Módulos del sistema
 ├── docs/                # Documentación
 ├── .github/workflows/   # CI/CD pipelines
@@ -62,13 +84,24 @@ npm run lint
 
 ## 🤖 Agentes Especializados
 
-Los agentes son componentes autónomos que realizan tareas específicas:
+### Sistema Imperial Elara (91 Agentes Maestros)
 
+**20 Agentes Especiales de Elara:**
+1. **Blockchain & Web3** (5): Solana, Ethereum, Web3, Security, Crypto
+2. **Game Development** (4): Unity, Unreal, Game Logic, Game UI
+3. **Real-Time** (3): WebSocket, Streaming, Analytics
+4. **Data Science** (3): Pipeline, Statistics, Visualization
+5. **AI/ML Ops** (3): MLOps, LLM, Model Optimization
+6. **Observability** (2): Observability, Performance
+
+**71 Agentes Base:**
+- Languages, Frontend, Mobile, DevOps, Cloud, Database
+- Testing, Security, Backend, Data/ML, Build Tools, etc.
+
+**Agentes Tradicionales:**
 - **Build Agent**: Construcción y compilación
-- **Test Agent**: Ejecución de pruebas automatizadas
 - **Security Agent**: Análisis de seguridad
 - **Deploy Agent**: Despliegue automatizado
-- **Monitor Agent**: Monitoreo y alertas
 
 ## 🔄 CI/CD Pipeline
 

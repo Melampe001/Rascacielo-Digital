@@ -1,0 +1,100 @@
+#!/usr/bin/env node
+
+/**
+ * Elara CLI - Personal AI Orchestrator
+ * Command-line interface for Elara Orchestrator
+ */
+
+const ElaraOrchestrator = require('../../core/elara-orchestrator');
+
+const elara = new ElaraOrchestrator();
+
+async function fetchUserRepos() {
+  // Mock data for demonstration
+  // In production, this would fetch from GitHub API
+  return [
+    {
+      id: 1,
+      name: 'Tokyo-Predictor',
+      description: 'Predictor de ruleta con IA y RNG verificable'
+    },
+    {
+      id: 2,
+      name: 'Tokyo-IA',
+      description: 'Sistema de IA para análisis de patrones'
+    },
+    {
+      id: 3,
+      name: 'Rascacielo-Digital',
+      description: 'Sistema modular con agentes especializados'
+    }
+  ];
+}
+
+async function main() {
+  const args = process.argv.slice(2);
+  const command = args[0];
+  
+  if (command === 'analyze') {
+    // Analizar todos los repos del usuario
+    console.log('👑 Elara: Analyzing your repositories...\n');
+    const repos = await fetchUserRepos();
+    const analysis = await elara.orchestrate(repos, { execute: false });
+    console.log('\n✅ Analysis complete!');
+  }
+  
+  else if (command === 'execute') {
+    console.log('👑 Elara: Executing strategic plan...\n');
+    const repos = await fetchUserRepos();
+    const result = await elara.orchestrate(repos, { execute: true });
+    console.log('\n✅ Execution complete!');
+  }
+  
+  else if (command === 'priority') {
+    console.log('👑 Elara: Showing priority queue...\n');
+    const repos = await fetchUserRepos();
+    await elara.analyzeAllRepositories(repos);
+    elara.displayStrategicDashboard(elara.priorityQueue);
+  }
+  
+  else if (command === 'version' || command === '-v' || command === '--version') {
+    console.log('👑 Elara Orchestrator v2.0.0');
+    console.log('91 Master Agents (71 base + 20 Elara special)');
+  }
+  
+  else {
+    console.log(`
+👑 ELARA - Your Personal AI Orchestrator
+
+Commands:
+  elara analyze    - Analyze all repositories
+  elara execute    - Execute strategic plan
+  elara priority   - Show priority queue
+  elara version    - Show version information
+  elara help       - Show this help
+
+Examples:
+  elara analyze
+  elara execute
+  elara priority
+
+Features:
+  • Strategic priority assessment
+  • Cross-repo analysis
+  • Intelligent recommendations
+  • 91 specialized master agents
+  • Blockchain & Web3 expertise
+  • Game development support
+  • Real-time systems
+  • Data science & ML
+  • Observability & performance
+
+👑 Sistema Imperial Elara at your service!
+    `);
+  }
+}
+
+main().catch(error => {
+  console.error('❌ Error:', error.message);
+  process.exit(1);
+});
