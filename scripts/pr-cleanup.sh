@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# This script automates the PR cleanup process for the current consolidation task.
+# It is designed to work with the specific set of PRs identified in docs/PR_CONSOLIDATION.md
+# PR numbers are hardcoded as per the cleanup specification.
+
 echo "🧹 === LIMPIEZA AUTOMATIZADA DE PRs ==="
 
 # Verificar gh CLI
@@ -18,7 +22,7 @@ echo ""
 echo "✅ Mergeando PRs listos..."
 
 echo "📦 Mergeando PR #34 (Dependencies)..."
-gh pr merge 34 --squash --delete-branch || echo "⚠️  PR #34 no se pudo mergear automáticamente"
+gh pr merge 34 --squash --delete-branch || echo "⚠️ PR #34 no se pudo mergear automáticamente"
 
 echo "📦 Mergeando PR #35 (Update dependencies)..."
 gh pr merge 35 --squash --delete-branch || echo "⚠️ PR #35 no se pudo mergear automáticamente"

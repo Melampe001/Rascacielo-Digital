@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# This script is designed specifically for the current PR cleanup task.
+# It closes PRs #28, #29, and #31 as part of the consolidation effort.
+# PR numbers are hardcoded as per the cleanup specification.
+
 echo "🧹 Cerrando PRs obsoletos..."
 
 # PR #28 - Obsoleto, reemplazado por #29
