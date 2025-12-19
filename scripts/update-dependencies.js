@@ -133,7 +133,7 @@ class DependencyUpdater {
 
     try {
       this.exec(`npm install ${allPackages}`, { silent: false });
-      console.log(`\n✅ Todas las dependencias actualizadas exitosamente`);
+      console.log('\n✅ Todas las dependencias actualizadas exitosamente');
     } catch (error) {
       console.error(`❌ Error actualizando dependencias: ${error.message}`);
       throw new Error('La actualización de dependencias falló');
