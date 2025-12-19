@@ -93,7 +93,7 @@ class BuildAgent {
   /**
    * Build para proyectos JavaScript/Node.js
    */
-  async buildJavaScript(params) {
+  async buildJavaScript(_params) {
     console.log('[Build Agent] Ejecutando build JavaScript...');
     return {
       artifacts: ['dist/bundle.js', 'dist/bundle.css']
@@ -103,7 +103,7 @@ class BuildAgent {
   /**
    * Build para proyectos Python
    */
-  async buildPython(params) {
+  async buildPython(_params) {
     console.log('[Build Agent] Ejecutando build Python...');
     return {
       artifacts: ['dist/package.whl']
@@ -113,7 +113,7 @@ class BuildAgent {
   /**
    * Build para proyectos Java
    */
-  async buildJava(params) {
+  async buildJava(_params) {
     console.log('[Build Agent] Ejecutando build Java...');
     return {
       artifacts: ['target/application.jar']
@@ -123,7 +123,7 @@ class BuildAgent {
   /**
    * Build para proyectos Go
    */
-  async buildGo(params) {
+  async buildGo(_params) {
     console.log('[Build Agent] Ejecutando build Go...');
     return {
       artifacts: ['bin/application']
