@@ -7,7 +7,7 @@
 const { Logger, Config } = require('./modules/core');
 const BuildAgent = require('./agents/build-agent');
 const SecurityAgent = require('./agents/security-agent');
-const { initializeAll: initializeMasters, listMasters } = require('./agents/masters');
+const { initializeAll: initializeMasters } = require('./agents/masters');
 
 class RascacielosDigital {
   constructor(config = {}) {
