@@ -12,7 +12,8 @@ Rascacielos Digital es un sistema modular de desarrollo arquitectónico que util
 - **Agentes Especializados**: Sistema de agentes para tareas específicas
 - **CI/CD Gates**: Pipeline automatizado con validaciones de calidad
 - **Escalabilidad**: Diseño preparado para crecimiento horizontal
-- **Seguridad**: Validaciones de seguridad integradas
+- **Seguridad Premium**: Sistema de blindaje con encriptación AES-256-GCM y acceso controlado
+- **File Vault**: Protección de archivos sensibles con verificación premium
 
 ## 📁 Estructura del Proyecto
 
@@ -20,9 +21,13 @@ Rascacielos Digital es un sistema modular de desarrollo arquitectónico que util
 .
 ├── agents/              # Agentes especializados
 ├── modules/             # Módulos del sistema
+│   ├── security/        # Sistema de seguridad premium
+│   ├── api/             # Cliente HTTP
+│   └── queue/           # Sistema de colas
 ├── docs/                # Documentación
 ├── .github/workflows/   # CI/CD pipelines
-└── config/              # Configuraciones
+├── config/              # Configuraciones
+└── scripts/             # Scripts de utilidad
 ```
 
 ## 🚀 Inicio Rápido
@@ -58,6 +63,40 @@ npm test   # o pytest
 
 # Ejecutar linting
 npm run lint
+
+# Inicializar sistema de seguridad
+npm run vault:init
+
+# Blindar archivos sensibles
+npm run vault:protect
+```
+
+## 🔒 Sistema de Seguridad Premium
+
+El proyecto incluye un sistema de seguridad avanzado con:
+
+- **Encriptación AES-256-GCM**: Protección de archivos sensibles
+- **Acceso Controlado**: Verificación premium para operaciones sensibles
+- **File Vault**: Almacenamiento seguro y encriptado
+- **Rate Limiting**: Control de acceso por usuario
+- **Audit Logs**: Registro de accesos y operaciones
+
+Ver [Documentación de Seguridad](./docs/SECURITY_PREMIUM.md) para más detalles.
+
+### Comandos de Seguridad
+
+```bash
+# Inicializar vault
+npm run vault:init
+
+# Acceder al vault (CLI interactivo)
+npm run vault:access
+
+# Proteger archivos sensibles
+npm run vault:protect
+
+# Auditoría de seguridad
+npm run security:audit
 ```
 
 ## 🤖 Agentes Especializados
@@ -66,7 +105,7 @@ Los agentes son componentes autónomos que realizan tareas específicas:
 
 - **Build Agent**: Construcción y compilación
 - **Test Agent**: Ejecución de pruebas automatizadas
-- **Security Agent**: Análisis de seguridad
+- **Security Agent**: Análisis de seguridad y vulnerabilidades
 - **Deploy Agent**: Despliegue automatizado
 - **Monitor Agent**: Monitoreo y alertas
 
@@ -76,7 +115,7 @@ El pipeline incluye los siguientes gates:
 
 1. **Lint Gate**: Validación de estilo de código
 2. **Test Gate**: Pruebas unitarias y de integración
-3. **Security Gate**: Análisis de vulnerabilidades
+3. **Security Gate**: Análisis de vulnerabilidades y secrets
 4. **Build Gate**: Compilación exitosa
 5. **Deploy Gate**: Despliegue automático
 
@@ -100,7 +139,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 👥 Autores
 
-- **Melampe001** - *Trabajo Inicial* - [Melampe001](https://github.com/Melampe001)
+- **Melampe001** - _Trabajo Inicial_ - [Melampe001](https://github.com/Melampe001)
 
 ## 🙏 Agradecimientos
 

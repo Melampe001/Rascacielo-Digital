@@ -6,10 +6,15 @@ yarn-error.log*
 package-lock.json
 yarn.lock
 
-# Environment files
+# Environment files and sensitive data
 .env
 .env.local
 .env.*.local
+.env.production
+config/secrets.js
+config/api-keys.js
+config/database.js
+scripts/deploy-keys.js
 
 # Build outputs
 dist/
@@ -41,3 +46,18 @@ temp/
 
 # Husky
 .husky/_
+
+# Vault encriptado (seguro para commit)
+.vault/
+!.vault/manifest.encrypted.json
+
+# Claves de encriptación (NUNCA commitear)
+.master-key
+*.pem
+*.key
+*.crt
+
+# Tokens y credenciales
+**/tokens.js
+**/credentials.json
+**/*-token.txt

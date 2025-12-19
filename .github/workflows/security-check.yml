@@ -1,0 +1,49 @@
+name: Security Premium Check
+
+on:
+  push:
+    branches: [Main]
+  pull_request:
+    branches: [Main]
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  security-scan:
+    name: 🔒 Security Premium Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Security Agent
+        env:
+          MASTER_ENCRYPTION_KEY: ${{ secrets.MASTER_ENCRYPTION_KEY }}
+          PREMIUM_TEAM: ${{ secrets.PREMIUM_TEAM }}
+        run: node agents/security-agent.js
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+
+      - name: Check for exposed secrets
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
