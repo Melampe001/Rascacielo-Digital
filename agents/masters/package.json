@@ -68,11 +68,14 @@
     "cli/bin/rascacielo"
   ],
   "dependencies": {
-    "commander": "^11.1.0",
     "chalk": "^4.1.2",
+    "commander": "^11.1.0",
     "ora": "^5.4.1"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0"
   }
 }
