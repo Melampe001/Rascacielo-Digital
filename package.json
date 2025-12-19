@@ -26,7 +26,8 @@
     "precommit": "npm run validate",
     "setup": "npm install && npm run config:check",
     "config:check": "node scripts/config-check.js",
-    "health-check": "node scripts/health-check.js"
+    "health-check": "node scripts/health-check.js",
+    "postinstall": "node scripts/post-install.js || true"
   },
   "keywords": [
     "modular",
@@ -60,5 +61,20 @@
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "winston": "^3.11.0",
+    "axios": "^1.12.0",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
+    "bull": "^4.12.2",
+    "redis": "^4.6.12",
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "inquirer": "^8.2.6",
+    "ora": "^5.4.1",
+    "fs-extra": "^11.2.0",
+    "glob": "^11.1.0",
+    "yaml": "^2.3.4"
+  }
 }
