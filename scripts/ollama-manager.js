@@ -40,7 +40,7 @@ async function main() {
     console.log('  ollama pull codellama:13b');
     console.log('  ollama pull mistral:7b');
   } else {
-    models.forEach((model) => {
+    models.forEach(model => {
       console.log(`  ✓ ${model.name} (${(model.size / 1e9).toFixed(1)}GB)`);
     });
   }

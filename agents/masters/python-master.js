@@ -17,9 +17,9 @@ class PythonMaster {
     this.useOllama = config.useOllama || false;
     this.ollama = this.useOllama
       ? new OllamaClient({
-          model: config.ollamaModel || 'codellama',
-          baseURL: config.ollamaURL || 'http://localhost:11434'
-        })
+        model: config.ollamaModel || 'codellama',
+        baseURL: config.ollamaURL || 'http://localhost:11434'
+      })
       : null;
   }
 
@@ -141,10 +141,10 @@ class PythonMaster {
 
     // Detectar docstrings faltantes
     const functionMatches = code.match(/def\s+\w+[^:]*:/g) || [];
-    functionMatches.forEach((func) => {
+    functionMatches.forEach(func => {
       const funcIndex = code.indexOf(func);
       const nextLines = code.substring(funcIndex).split('\n').slice(0, 3);
-      const hasDocstring = nextLines.some((line) => line.includes('"""'));
+      const hasDocstring = nextLines.some(line => line.includes('"""'));
       if (!hasDocstring) {
         issues.push({
           type: 'missing_docstring',
@@ -224,17 +224,19 @@ uvicorn main:app --reload
     }
 
     // Detectar SQL injection potencial
-    if (
-      code.includes('execute(') &&
-      code.match(/execute\([^)]*%s[^)]*\)/) === null &&
-      code.match(/execute\([^)]*f["'][^"']*\{[^}]*\}/)
-    ) {
-      issues.push({
-        type: 'sql_injection',
-        severity: 'high',
-        description: 'Potential SQL injection vulnerability',
-        fix: 'Use parameterized queries'
-      });
+    if (code.includes('execute(')) {
+      // Check for f-string in execute or in variable used with execute
+      const hasDirectFString = code.match(/execute\([^)]*f["'][^"']*\{[^}]*\}/);
+      const hasFStringQuery = code.match(/f["'][^"']*SELECT[^"']*\{[^}]*\}/i);
+      
+      if (hasDirectFString || (hasFStringQuery && code.includes('execute('))) {
+        issues.push({
+          type: 'sql_injection',
+          severity: 'high',
+          description: 'Potential SQL injection vulnerability',
+          fix: 'Use parameterized queries'
+        });
+      }
     }
 
     return issues;

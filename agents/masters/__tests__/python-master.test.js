@@ -63,7 +63,7 @@ async def main():
 
       const result = await master.analyze(code);
 
-      expect(result.issues.some((i) => i.type === 'missing_import')).toBe(
+      expect(result.issues.some(i => i.type === 'missing_import')).toBe(
         true
       );
     });
@@ -76,7 +76,7 @@ def without_docstring():
 
       const result = await master.analyze(code);
 
-      expect(result.issues.some((i) => i.type === 'missing_docstring')).toBe(
+      expect(result.issues.some(i => i.type === 'missing_docstring')).toBe(
         true
       );
     });
@@ -125,9 +125,9 @@ def without_docstring():
       const result = await master.scaffold('fastapi', { name: 'my-api' });
 
       expect(result).toHaveProperty('files');
-      expect(result.files).toHaveProperty('main.py');
-      expect(result.files).toHaveProperty('requirements.txt');
-      expect(result.files).toHaveProperty('README.md');
+      expect(result.files['main.py']).toBeDefined();
+      expect(result.files['requirements.txt']).toBeDefined();
+      expect(result.files['README.md']).toBeDefined();
       expect(result.generatedBy).toBe('template');
       expect(result.files['main.py']).toContain('FastAPI');
     });
@@ -185,7 +185,7 @@ result = eval(user_input)
       const result = await master.detectIssues(code);
 
       expect(
-        result.some((i) => i.type === 'dangerous_function')
+        result.some(i => i.type === 'dangerous_function')
       ).toBe(true);
       expect(result[0].severity).toBe('critical');
     });
@@ -198,7 +198,7 @@ cursor.execute(query)
 
       const result = await master.detectIssues(code);
 
-      expect(result.some((i) => i.type === 'sql_injection')).toBe(true);
+      expect(result.some(i => i.type === 'sql_injection')).toBe(true);
     });
 
     test('should use Ollama for additional security checks', async () => {
@@ -220,7 +220,7 @@ cursor.execute(query)
       const result = await masterWithOllama.detectIssues(code);
 
       expect(result.length).toBeGreaterThan(0);
-      expect(result.some((i) => i.type === 'xss')).toBe(true);
+      expect(result.some(i => i.type === 'xss')).toBe(true);
     });
 
     test('should fallback to basic detection if Ollama fails', async () => {
@@ -239,7 +239,7 @@ cursor.execute(query)
 
       expect(result.length).toBeGreaterThan(0);
       expect(
-        result.some((i) => i.type === 'dangerous_function')
+        result.some(i => i.type === 'dangerous_function')
       ).toBe(true);
     });
   });
@@ -321,8 +321,9 @@ from pydantic import BaseModel
 
       const result = master._parseScaffoldResponse(response);
 
-      expect(result).toHaveProperty('app.py');
-      expect(result).toHaveProperty('models.py');
+      expect(result['app.py']).toBeDefined();
+      expect(result['models.py']).toBeDefined();
+      expect(Object.keys(result).length).toBe(2);
     });
 
     test('should return full response if no files detected', () => {
@@ -330,7 +331,7 @@ from pydantic import BaseModel
 
       const result = master._parseScaffoldResponse(response);
 
-      expect(result).toHaveProperty('generated.py');
+      expect(result['generated.py']).toBeDefined();
       expect(result['generated.py']).toBe(response);
     });
   });
