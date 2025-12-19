@@ -8,7 +8,10 @@ on:
 
 jobs:
   auto-merge:
-    # Solo ejecutar si hay una aprobación o comentario con "Aprobado"
+    # Trigger on GitHub approval OR comment with approval keywords
+    # Supported approval keywords (Spanish & English):
+    #   - 'Aprobado' / 'aprobado' (Spanish)
+    # This workflow supports multi-language approval for international teams
     if: |
       (github.event.review.state == 'approved' || 
        contains(github.event.comment.body, 'Aprobado') ||
