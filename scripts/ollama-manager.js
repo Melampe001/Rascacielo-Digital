@@ -20,9 +20,7 @@ async function main() {
   if (!isHealthy) {
     console.log('❌ Ollama is not running or not installed');
     console.log('\nTo install Ollama:');
-    console.log(
-      '  macOS/Linux: curl -fsSL https://ollama.ai/install.sh | sh'
-    );
+    console.log('  macOS/Linux: curl -fsSL https://ollama.ai/install.sh | sh');
     console.log('  Windows: Download from https://ollama.ai/download\n');
     console.log('Then run: ollama serve');
     process.exit(1);

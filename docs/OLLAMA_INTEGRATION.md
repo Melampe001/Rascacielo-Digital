@@ -89,13 +89,13 @@ console.log(issues);
 
 ## Modelos Recomendados
 
-| Tarea              | Modelo           | RAM  | Descripción                   |
-| ------------------ | ---------------- | ---- | ----------------------------- |
-| Análisis código    | codellama:13b    | 16GB | Mejor precisión               |
-| Análisis rápido    | codellama:7b     | 8GB  | Balance velocidad/calidad     |
-| Generación         | codellama:34b    | 32GB | Mejor generación              |
-| Seguridad          | llama2:13b       | 16GB | Análisis de vulnerabilidades  |
-| Propósito general  | mistral:7b       | 8GB  | Uso general                   |
+| Tarea             | Modelo        | RAM  | Descripción                  |
+| ----------------- | ------------- | ---- | ---------------------------- |
+| Análisis código   | codellama:13b | 16GB | Mejor precisión              |
+| Análisis rápido   | codellama:7b  | 8GB  | Balance velocidad/calidad    |
+| Generación        | codellama:34b | 32GB | Mejor generación             |
+| Seguridad         | llama2:13b    | 16GB | Análisis de vulnerabilidades |
+| Propósito general | mistral:7b    | 8GB  | Uso general                  |
 
 ## Performance
 

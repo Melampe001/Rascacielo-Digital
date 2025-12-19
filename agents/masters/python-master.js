@@ -1,6 +1,6 @@
 /**
  * Python Master - Rascacielos Digital
- * 
+ *
  * Agente maestro especializado en Python con integración Ollama
  */
 
@@ -60,21 +60,14 @@ class PythonMaster {
     // Si Ollama está habilitado, generar con LLM
     if (this.useOllama && options.useAI) {
       try {
-        const aiScaffold = await this.ollama.generateScaffold(
-          projectType,
-          'python',
-          options
-        );
+        const aiScaffold = await this.ollama.generateScaffold(projectType, 'python', options);
 
         return {
           files: this._parseScaffoldResponse(aiScaffold),
           generatedBy: 'ollama-' + this.ollama.model
         };
       } catch (error) {
-        console.warn(
-          'Ollama scaffold failed, using templates:',
-          error.message
-        );
+        console.warn('Ollama scaffold failed, using templates:', error.message);
       }
     }
 
@@ -90,10 +83,7 @@ class PythonMaster {
 
     if (this.useOllama) {
       try {
-        const securityIssues = await this.ollama.detectSecurityIssues(
-          code,
-          'python'
-        );
+        const securityIssues = await this.ollama.detectSecurityIssues(code, 'python');
         return [...basicIssues, ...(securityIssues.vulnerabilities || [])];
       } catch (error) {
         return basicIssues;
@@ -228,7 +218,7 @@ uvicorn main:app --reload
       // Check for f-string in execute or in variable used with execute
       const hasDirectFString = code.match(/execute\([^)]*f["'][^"']*\{[^}]*\}/);
       const hasFStringQuery = code.match(/f["'][^"']*SELECT[^"']*\{[^}]*\}/i);
-      
+
       if (hasDirectFString || (hasFStringQuery && code.includes('execute('))) {
         issues.push({
           type: 'sql_injection',

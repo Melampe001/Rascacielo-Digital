@@ -63,17 +63,13 @@ describe('OllamaClient', () => {
         status: 500
       });
 
-      await expect(client.generate('Test prompt')).rejects.toThrow(
-        'Failed to connect to Ollama'
-      );
+      await expect(client.generate('Test prompt')).rejects.toThrow('Failed to connect to Ollama');
     });
 
     test('should throw error on network failure', async () => {
       global.fetch.mockRejectedValueOnce(new Error('Network error'));
 
-      await expect(client.generate('Test prompt')).rejects.toThrow(
-        'Failed to connect to Ollama'
-      );
+      await expect(client.generate('Test prompt')).rejects.toThrow('Failed to connect to Ollama');
     });
   });
 
@@ -88,11 +84,7 @@ describe('OllamaClient', () => {
         json: async () => mockResponse
       });
 
-      const result = await client.analyzeCode(
-        'def hello(): pass',
-        'python',
-        'Analyze this'
-      );
+      const result = await client.analyzeCode('def hello(): pass', 'python', 'Analyze this');
 
       expect(result).toHaveProperty('issues');
       expect(result).toHaveProperty('suggestions');
@@ -248,9 +240,7 @@ describe('OllamaClient', () => {
     test('should throw error on API failure', async () => {
       global.fetch.mockRejectedValueOnce(new Error('Connection error'));
 
-      await expect(client.listModels()).rejects.toThrow(
-        'Failed to list models'
-      );
+      await expect(client.listModels()).rejects.toThrow('Failed to list models');
     });
   });
 });

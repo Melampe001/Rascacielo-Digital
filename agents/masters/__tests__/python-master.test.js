@@ -63,9 +63,7 @@ async def main():
 
       const result = await master.analyze(code);
 
-      expect(result.issues.some(i => i.type === 'missing_import')).toBe(
-        true
-      );
+      expect(result.issues.some(i => i.type === 'missing_import')).toBe(true);
     });
 
     test('should detect missing docstrings', async () => {
@@ -76,9 +74,7 @@ def without_docstring():
 
       const result = await master.analyze(code);
 
-      expect(result.issues.some(i => i.type === 'missing_docstring')).toBe(
-        true
-      );
+      expect(result.issues.some(i => i.type === 'missing_docstring')).toBe(true);
     });
 
     test('should use Ollama for deep analysis when enabled', async () => {
@@ -158,9 +154,7 @@ app = FastAPI()
 
     test('should fallback to templates if Ollama fails', async () => {
       OllamaClient.mockImplementation(() => ({
-        generateScaffold: jest
-          .fn()
-          .mockRejectedValue(new Error('Ollama error'))
+        generateScaffold: jest.fn().mockRejectedValue(new Error('Ollama error'))
       }));
 
       const masterWithOllama = new PythonMaster({
@@ -184,9 +178,7 @@ result = eval(user_input)
 
       const result = await master.detectIssues(code);
 
-      expect(
-        result.some(i => i.type === 'dangerous_function')
-      ).toBe(true);
+      expect(result.some(i => i.type === 'dangerous_function')).toBe(true);
       expect(result[0].severity).toBe('critical');
     });
 
@@ -203,9 +195,7 @@ cursor.execute(query)
 
     test('should use Ollama for additional security checks', async () => {
       const mockIssues = {
-        vulnerabilities: [
-          { type: 'xss', severity: 'high', description: 'XSS vulnerability' }
-        ]
+        vulnerabilities: [{ type: 'xss', severity: 'high', description: 'XSS vulnerability' }]
       };
 
       OllamaClient.mockImplementation(() => ({
@@ -225,9 +215,7 @@ cursor.execute(query)
 
     test('should fallback to basic detection if Ollama fails', async () => {
       OllamaClient.mockImplementation(() => ({
-        detectSecurityIssues: jest
-          .fn()
-          .mockRejectedValue(new Error('Ollama error'))
+        detectSecurityIssues: jest.fn().mockRejectedValue(new Error('Ollama error'))
       }));
 
       const masterWithOllama = new PythonMaster({
@@ -238,9 +226,7 @@ cursor.execute(query)
       const result = await masterWithOllama.detectIssues(code);
 
       expect(result.length).toBeGreaterThan(0);
-      expect(
-        result.some(i => i.type === 'dangerous_function')
-      ).toBe(true);
+      expect(result.some(i => i.type === 'dangerous_function')).toBe(true);
     });
   });
 
