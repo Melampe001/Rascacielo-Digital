@@ -1,6 +1,10 @@
 /**
  * PR Manager Agent - Rascacielo Digital
  * Gestiona automáticamente pull requests usando GitHub API
+ * 
+ * NOTE: This is a simulation/template implementation.
+ * For production use, integrate with Octokit (@octokit/rest) for real GitHub API calls.
+ * Current implementation uses mock data for demonstration and testing purposes.
  */
 
 class PRManagerAgent {
@@ -41,6 +45,11 @@ class PRManagerAgent {
 
   /**
    * Obtiene PRs abiertos desde GitHub API
+   * 
+   * SIMULATION: Returns mock data for demonstration.
+   * For production, use: const { Octokit } = require('@octokit/rest');
+   * Then: const octokit = new Octokit({ auth: this.config.token });
+   * And: const { data } = await octokit.pulls.list({ owner, repo, state: 'open' });
    */
   async fetchOpenPRs() {
     // Simulación - en producción usar Octokit
@@ -96,6 +105,13 @@ class PRManagerAgent {
 
   /**
    * Verifica si es duplicado
+   * 
+   * SIMULATION: Uses hard-coded mappings for demonstration.
+   * For production, implement dynamic duplicate detection based on:
+   * - Title similarity (e.g., Levenshtein distance)
+   * - Changed files overlap
+   * - Base/head branch comparison
+   * - Timestamp and author patterns
    */
   checkDuplicate(pr) {
     const duplicates = {
@@ -109,6 +125,13 @@ class PRManagerAgent {
 
   /**
    * Genera recomendación
+   * 
+   * SIMULATION: Uses hard-coded PR numbers for demonstration.
+   * For production, replace with category-based logic:
+   * - Priority by category (ci-cd: HIGH, dependencies: HIGH, etc.)
+   * - Age-based priority (older PRs might need review)
+   * - Status checks (CI passing, reviews approved)
+   * - Labels and milestones
    */
   getRecommendation(pr) {
     const isDuplicate = this.checkDuplicate(pr);
@@ -262,18 +285,27 @@ class PRManagerAgent {
 
   /**
    * Cierra un PR (simulado)
+   * 
+   * SIMULATION: Only logs the action.
+   * For production, use Octokit:
+   * await octokit.pulls.update({ owner, repo, pull_number: prNumber, state: 'closed' });
+   * await octokit.issues.createComment({ owner, repo, issue_number: prNumber, body: reason });
    */
   async closePR(prNumber, reason) {
     console.log(`  ❌ Cerrando PR #${prNumber}: ${reason}`);
-    // En producción: gh pr close ${prNumber} --comment "${reason}"
+    // En producción: Usar Octokit para cerrar el PR y agregar comentario
   }
 
   /**
    * Mergea un PR (simulado)
+   * 
+   * SIMULATION: Only logs the action.
+   * For production, use Octokit:
+   * await octokit.pulls.merge({ owner, repo, pull_number: prNumber, merge_method: 'squash' });
    */
   async mergePR(prNumber) {
     console.log(`  ✅ Mergeando PR #${prNumber}`);
-    // En producción: gh pr merge ${prNumber} --squash --auto
+    // En producción: Usar Octokit para mergear el PR
   }
 }
 
