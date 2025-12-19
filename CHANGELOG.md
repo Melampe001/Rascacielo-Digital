@@ -5,6 +5,66 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-12-19
+
+### Updated Dependencies
+
+#### Production Dependencies
+- **dotenv**: Added ^16.4.7 - Environment variable management
+- **winston**: Added ^3.17.0 - Advanced logging with performance improvements
+- **axios**: Added ^1.7.9 - HTTP client with security fixes
+- **jsonwebtoken**: Added ^9.0.2 - JWT token management
+- **bcryptjs**: Added ^2.4.3 - Password hashing
+- **bull**: Added ^4.16.3 - Job queue with bug fixes
+- **redis**: Added ^4.7.0 - Redis client with performance improvements
+- **chalk**: Added ^4.1.2 - Terminal string styling
+- **commander**: Added ^11.1.0 - CLI framework
+- **inquirer**: Added ^8.2.6 - Interactive CLI prompts
+- **ora**: Added ^5.4.1 - Elegant terminal spinners
+- **fs-extra**: Added ^11.2.0 - Enhanced filesystem operations
+- **glob**: Added ^10.4.5 - File pattern matching with bug fixes
+- **yaml**: Added ^2.6.1 - YAML parser with security fixes
+
+#### Development Dependencies
+- **eslint**: 8.57.0 → 8.57.1 - Minor bug fixes
+- **prettier**: 3.2.5 → 3.3.3 - Formatting improvements
+- **jest**: 29.7.0 - Already up to date
+- **nodemon**: 3.1.0 → 3.1.7 - Bug fixes for file watching
+- **husky**: 8.0.3 - Maintained at v8 for compatibility
+- **@commitlint/cli**: 17.7.1 → 17.8.1 - Bug fixes
+- **@commitlint/config-conventional**: 17.7.0 → 17.8.1 - Bug fixes
+
+### Added
+
+- **scripts/update-dependencies.js** - Automated dependency update script with backup/restore
+- **scripts/validate-updates.sh** - Comprehensive validation script for updates
+- **npm scripts**:
+  - `update-deps` - Automated dependency updates
+  - `check-outdated` - Check for outdated packages
+
+### Security
+
+- 0 vulnerabilities after updates (npm audit clean)
+- All dependencies updated with latest security patches
+- Conservative update strategy to avoid breaking changes
+
+### Breaking Changes
+
+- None - All updates are backward compatible
+- No code changes required
+
+### Migration Notes
+
+- Run `npm install` to apply dependency updates
+- All existing functionality preserved
+- No ESM migration required (staying with CommonJS)
+
+### Notes
+
+- **Major version updates postponed**: ESLint 9, Husky 9, Commitlint 19, Chalk 5, Inquirer 12, Ora 8, Commander 12, Glob 11
+- These require ESM migration and will be addressed in a future release
+- Current updates focus on stability and security
+
 ## [1.0.0] - 2024-12-18
 
 ### Added

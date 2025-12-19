@@ -84,6 +84,65 @@ El pipeline incluye los siguientes gates:
 
 Para más información, consulta la [documentación completa](./docs/README.md).
 
+## 📦 Gestión de Dependencias
+
+### Mantener Dependencias Actualizadas
+
+```bash
+# Verificar paquetes desactualizados
+npm run check-outdated
+
+# Actualizar dependencias automáticamente
+npm run update-deps
+
+# Auditoría de seguridad
+npm audit
+
+# Corregir vulnerabilidades automáticamente
+npm audit fix
+
+# Validación completa después de actualizaciones
+./scripts/validate-updates.sh
+```
+
+### Stack Tecnológico (Actualizado 2025-12-19)
+
+**Core:**
+- Node.js: >=18.0.0
+- npm: >=9.0.0
+
+**Producción:**
+- **winston** ^3.17.0 - Sistema de logging avanzado
+- **axios** ^1.7.9 - Cliente HTTP con retry automático
+- **bull** ^4.16.3 - Gestión de colas de trabajos
+- **redis** ^4.7.0 - Almacenamiento de datos
+- **jsonwebtoken** ^9.0.2 - Autenticación JWT
+- **bcryptjs** ^2.4.3 - Hash de contraseñas
+- **dotenv** ^16.4.7 - Variables de entorno
+- **chalk** ^4.1.2 - Colores en terminal
+- **commander** ^11.1.0 - Framework CLI
+- **inquirer** ^8.2.6 - Prompts interactivos
+- **ora** ^5.4.1 - Spinners de terminal
+- **fs-extra** ^11.2.0 - Operaciones de archivos
+- **glob** ^10.4.5 - Pattern matching de archivos
+- **yaml** ^2.6.1 - Parser YAML
+
+**Desarrollo:**
+- **eslint** ^8.57.1 - Linting de código
+- **prettier** ^3.3.3 - Formateo de código
+- **jest** ^29.7.0 - Framework de testing
+- **nodemon** ^3.1.7 - Auto-restart en desarrollo
+- **husky** ^8.0.3 - Git hooks
+- **@commitlint/cli** ^17.8.1 - Validación de commits
+
+### Estrategia de Actualización
+
+Se utiliza una estrategia conservadora que prioriza la estabilidad:
+- ✅ Actualizaciones patch y minor automáticas
+- ⚠️ Actualizaciones major requieren análisis y testing
+- 🔒 Auditorías de seguridad en cada actualización
+- 📝 CHANGELOG actualizado con cada cambio
+
 ## 🤝 Contribuir
 
 Las contribuciones son bienvenidas. Por favor:
