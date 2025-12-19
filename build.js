@@ -74,7 +74,8 @@ class BuildScript {
       'agents',
       'modules',
       'config',
-      'docs'
+      'docs',
+      'public'
     ];
 
     const excludePatterns = [
