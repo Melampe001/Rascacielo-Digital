@@ -1,0 +1,59 @@
+{
+  "mode": "parallel",
+  "timestamp": "2025-12-19T04:20:12.109Z",
+  "metrics": {
+    "startTime": 1766118012109,
+    "endTime": 1766118012109,
+    "duration": 0,
+    "cpu": {
+      "user": "0 ms",
+      "system": "0 ms"
+    },
+    "memory": {
+      "heapUsed": "0 MB",
+      "total": "38 MB"
+    },
+    "memoryStart": 40283840,
+    "cpuStart": {
+      "user": 1185892,
+      "system": 137219
+    }
+  },
+  "summary": {
+    "total": 3,
+    "successful": 2,
+    "failed": 1,
+    "successRate": "66.67%",
+    "totalDuration": "0ms"
+  },
+  "results": [
+    {
+      "success": true,
+      "agent": "build",
+      "method": "build",
+      "result": {
+        "success": true,
+        "artifacts": [
+          "file1.js",
+          "file2.js"
+        ]
+      }
+    },
+    {
+      "success": false,
+      "agent": "failing",
+      "method": "fail",
+      "error": "Simulated failure"
+    },
+    {
+      "success": true,
+      "agent": "security",
+      "method": "scan",
+      "result": {
+        "success": true,
+        "vulnerabilities": 0
+      }
+    }
+  ],
+  "status": "FAILED"
+}

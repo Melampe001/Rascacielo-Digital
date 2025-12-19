@@ -1,0 +1,47 @@
+{
+  "mode": "sequential",
+  "timestamp": "2025-12-19T04:20:12.104Z",
+  "metrics": {
+    "startTime": null,
+    "endTime": 1766118012104,
+    "duration": 1766118012104,
+    "cpu": null,
+    "memory": {
+      "heapUsed": "NaN MB",
+      "total": "37 MB"
+    }
+  },
+  "summary": {
+    "total": 2,
+    "successful": 2,
+    "failed": 0,
+    "successRate": "100.00%",
+    "totalDuration": "0ms"
+  },
+  "results": [
+    {
+      "step": "build",
+      "agent": "build",
+      "success": true,
+      "duration": 0,
+      "result": {
+        "success": true,
+        "artifacts": [
+          "file1.js",
+          "file2.js"
+        ]
+      }
+    },
+    {
+      "step": "security",
+      "agent": "security",
+      "success": true,
+      "duration": 0,
+      "result": {
+        "success": true,
+        "vulnerabilities": 0
+      }
+    }
+  ],
+  "status": "SUCCESS"
+}

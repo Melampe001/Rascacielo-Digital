@@ -1,0 +1,55 @@
+{
+  "mode": "sequential",
+  "timestamp": "2025-12-19T04:20:48.080Z",
+  "metrics": {
+    "startTime": 1766118048079,
+    "endTime": 1766118048080,
+    "duration": 1,
+    "cpu": {
+      "user": "0 ms",
+      "system": "0 ms"
+    },
+    "memory": {
+      "heapUsed": "0 MB",
+      "total": "46 MB"
+    },
+    "memoryStart": 47729160,
+    "cpuStart": {
+      "user": 915456,
+      "system": 119518
+    }
+  },
+  "summary": {
+    "total": 2,
+    "successful": 2,
+    "failed": 0,
+    "successRate": "100.00%",
+    "totalDuration": "0ms"
+  },
+  "results": [
+    {
+      "step": "build",
+      "agent": "build",
+      "success": true,
+      "duration": 0,
+      "result": {
+        "success": true,
+        "artifacts": [
+          "file1.js",
+          "file2.js"
+        ]
+      }
+    },
+    {
+      "step": "deploy",
+      "agent": "deploy",
+      "success": true,
+      "duration": 0,
+      "result": {
+        "success": true,
+        "url": "https://example.com"
+      }
+    }
+  ],
+  "status": "SUCCESS"
+}

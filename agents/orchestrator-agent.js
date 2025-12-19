@@ -181,7 +181,12 @@ class OrchestratorAgent {
   async executeAgent(agentName, method, params = {}) {
     const agent = this.getAgent(agentName);
     if (!agent) {
-      throw new Error(`Agent ${agentName} not found`);
+      return {
+        success: false,
+        agent: agentName,
+        method,
+        error: `Agent ${agentName} not found`
+      };
     }
 
     this.config.logger.info(`[Orchestrator] Ejecutando ${agentName}.${method}()`);
