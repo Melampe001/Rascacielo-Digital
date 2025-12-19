@@ -344,21 +344,21 @@ async function runOrchestratorCLI(orchestrator, mode) {
 
   try {
     switch (mode) {
-      case 'full':
-        report = await orchestrator.executeFullPipeline();
-        break;
-      case 'fast':
-        report = await orchestrator.executeFastPipeline();
-        break;
-      case 'parallel':
-        report = await orchestrator.executeParallel([
-          { agent: 'build', method: 'build' },
-          { agent: 'security', method: 'scan' }
-        ]);
-        break;
-      default:
-        console.error(`Modo desconocido: ${mode}`);
-        process.exit(1);
+    case 'full':
+      report = await orchestrator.executeFullPipeline();
+      break;
+    case 'fast':
+      report = await orchestrator.executeFastPipeline();
+      break;
+    case 'parallel':
+      report = await orchestrator.executeParallel([
+        { agent: 'build', method: 'build' },
+        { agent: 'security', method: 'scan' }
+      ]);
+      break;
+    default:
+      console.error(`Modo desconocido: ${mode}`);
+      process.exit(1);
     }
 
     console.log('\n📊 Reporte Final:');
