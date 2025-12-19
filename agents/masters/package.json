@@ -45,6 +45,7 @@
   },
   "files": [
     "*.js",
+    "*.d.ts",
     "!**/*.test.js",
     "README.md",
     "LICENSE"
