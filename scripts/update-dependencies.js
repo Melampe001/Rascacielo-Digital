@@ -15,7 +15,7 @@ class DependencyUpdater {
       // Production dependencies - patch and minor updates only
       'dotenv@^16.4.7',
       'winston@^3.17.0',
-      'axios@^1.7.9',
+      'axios@^1.13.2',
       'jsonwebtoken@^9.0.2',
       'bcryptjs@^2.4.3',
       'bull@^4.16.3',
@@ -25,7 +25,7 @@ class DependencyUpdater {
       'inquirer@^8.2.6',
       'ora@^5.4.1',
       'fs-extra@^11.2.0',
-      'glob@^10.4.5',
+      'glob@^10.5.0',
       'yaml@^2.6.1',
 
       // Development dependencies - patch and minor updates only

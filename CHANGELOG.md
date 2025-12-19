@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **dotenv**: Added ^16.4.7 - Environment variable management
 - **winston**: Added ^3.17.0 - Advanced logging with performance improvements
-- **axios**: Added ^1.7.9 - HTTP client with security fixes
+- **axios**: Added ^1.13.2 - HTTP client (patched SSRF, credential leakage, and DoS vulnerabilities)
 - **jsonwebtoken**: Added ^9.0.2 - JWT token management
 - **bcryptjs**: Added ^2.4.3 - Password hashing
 - **bull**: Added ^4.16.3 - Job queue with bug fixes
@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **inquirer**: Added ^8.2.6 - Interactive CLI prompts
 - **ora**: Added ^5.4.1 - Elegant terminal spinners
 - **fs-extra**: Added ^11.2.0 - Enhanced filesystem operations
-- **glob**: Added ^10.4.5 - File pattern matching with bug fixes
+- **glob**: Added ^10.5.0 - File pattern matching (patched command injection vulnerability)
 - **yaml**: Added ^2.6.1 - YAML parser with security fixes
 
 #### Development Dependencies

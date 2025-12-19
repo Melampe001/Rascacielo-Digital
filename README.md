@@ -115,7 +115,7 @@ npm audit fix
 **Producción:**
 
 - **winston** ^3.17.0 - Sistema de logging avanzado
-- **axios** ^1.7.9 - Cliente HTTP con retry automático
+- **axios** ^1.13.2 - Cliente HTTP con retry automático (seguro contra SSRF y DoS)
 - **bull** ^4.16.3 - Gestión de colas de trabajos
 - **redis** ^4.7.0 - Almacenamiento de datos
 - **jsonwebtoken** ^9.0.2 - Autenticación JWT
@@ -126,7 +126,7 @@ npm audit fix
 - **inquirer** ^8.2.6 - Prompts interactivos
 - **ora** ^5.4.1 - Spinners de terminal
 - **fs-extra** ^11.2.0 - Operaciones de archivos
-- **glob** ^10.4.5 - Pattern matching de archivos
+- **glob** ^10.5.0 - Pattern matching de archivos (seguro contra command injection)
 - **yaml** ^2.6.1 - Parser YAML
 
 **Desarrollo:**
