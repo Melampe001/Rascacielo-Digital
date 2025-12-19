@@ -62,13 +62,70 @@ npm run lint
 
 ## 🤖 Agentes Especializados
 
-Los agentes son componentes autónomos que realizan tareas específicas:
+El sistema incluye agentes autónomos que realizan tareas específicas:
+
+### Agentes Core
 
 - **Build Agent**: Construcción y compilación
 - **Test Agent**: Ejecución de pruebas automatizadas
 - **Security Agent**: Análisis de seguridad
 - **Deploy Agent**: Despliegue automatizado
 - **Monitor Agent**: Monitoreo y alertas
+
+### Sistema de Maestros (35 Agentes Especializados)
+
+Rascacielos Digital incluye **35 Agentes Maestros** especializados en diferentes tecnologías:
+
+#### Lenguajes de Programación (7)
+- Python, JavaScript, TypeScript, Java, Go, Rust, PHP
+
+#### Frontend Frameworks (3)
+- React, Vue, Angular
+
+#### Mobile (4)
+- Flutter, React Native, iOS (Swift), Android (Kotlin)
+
+#### DevOps & Infrastructure (5)
+- Docker, Kubernetes, Linux, CI/CD, Terraform
+
+#### Cloud & Deploy (4)
+- Vercel, AWS, Azure, GCP
+
+#### Databases (3)
+- SQL, NoSQL, GraphQL
+
+#### Design & UI/UX (3)
+- Figma, CSS, SVG
+
+#### Formatos & Data (4)
+- JSON, Markdown, YAML, XML
+
+#### Testing & Quality (2)
+- Testing, Security
+
+**Ver documentación completa**: [AGENTS-MASTERS-LIBRARY.md](./AGENTS-MASTERS-LIBRARY.md)
+
+### Uso de Maestros
+
+```javascript
+const RascacielosDigital = require('./index');
+
+const app = new RascacielosDigital();
+await app.start();
+
+// Obtener un maestro específico
+const pythonMaster = app.getMaster('python');
+
+// Analizar código
+const analysis = await pythonMaster.analyze(code);
+
+// Generar proyecto
+const scaffold = await pythonMaster.scaffold('fastapi', { name: 'my-api' });
+
+// Listar todos los maestros disponibles
+const masters = app.listMasters();
+console.log('Maestros disponibles:', masters);
+```
 
 ## 🔄 CI/CD Pipeline
 
