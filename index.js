@@ -7,6 +7,7 @@
 const { Logger, Config } = require('./modules/core');
 const BuildAgent = require('./agents/build-agent');
 const SecurityAgent = require('./agents/security-agent');
+const { initializeAll: initializeMasters, listMasters } = require('./agents/masters');
 
 class RascacielosDigital {
   constructor(config = {}) {
@@ -21,6 +22,9 @@ class RascacielosDigital {
       build: new BuildAgent(),
       security: new SecurityAgent()
     };
+    
+    // Inicializar maestros
+    this.masters = config.loadMasters !== false ? initializeMasters(config) : {};
   }
 
   async initialize() {
@@ -31,6 +35,12 @@ class RascacielosDigital {
     // Verificar agentes disponibles
     const agentCount = Object.keys(this.agents).length;
     this.logger.info(`Agentes cargados: ${agentCount}`);
+    
+    // Verificar maestros disponibles
+    const masterCount = Object.keys(this.masters).length;
+    if (masterCount > 0) {
+      this.logger.info(`Maestros especializados cargados: ${masterCount}`);
+    }
     
     return true;
   }
@@ -59,12 +69,35 @@ class RascacielosDigital {
     }
   }
 
+  /**
+   * Obtiene un maestro especializado
+   * @param {string} name - Nombre del maestro
+   * @returns {Object} Instancia del maestro
+   */
+  getMaster(name) {
+    if (!this.masters[name]) {
+      throw new Error(`Master "${name}" no encontrado o no cargado`);
+    }
+    return this.masters[name];
+  }
+
+  /**
+   * Lista todos los maestros disponibles
+   * @returns {Array} Lista de nombres de maestros
+   */
+  listMasters() {
+    return Object.keys(this.masters);
+  }
+
   async start() {
     await this.initialize();
     
     this.logger.info('='.repeat(50));
     this.logger.info('Rascacielos Digital está listo');
     this.logger.info('Sistema modular con agentes especializados');
+    if (Object.keys(this.masters).length > 0) {
+      this.logger.info(`${Object.keys(this.masters).length} maestros especializados disponibles`);
+    }
     this.logger.info('='.repeat(50));
     
     return this;
