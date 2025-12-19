@@ -40,7 +40,7 @@ class BaseAgent {
   /**
    * Método principal de ejecución - debe ser implementado por subclases
    */
-  async execute(context) {
+  async execute(_context) {
     throw new Error(`execute() must be implemented by ${this.name}`);
   }
 
@@ -67,7 +67,7 @@ class BaseAgent {
   /**
    * Obtener recomendaciones basadas en el análisis
    */
-  async getRecommendations(analysisResult) {
+  async getRecommendations(_analysisResult) {
     this.logger.debug('Generating recommendations...');
     return [];
   }

@@ -98,7 +98,7 @@ class CorregirAgent extends BaseAgent {
     return fixed;
   }
 
-  async _fixTypeErrors(context) {
+  async _fixTypeErrors(_context) {
     return []; // Requiere análisis de tipos más profundo
   }
 }
