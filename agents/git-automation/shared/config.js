@@ -79,13 +79,22 @@ class Config {
     
     for (let i = 0; i < keys.length - 1; i++) {
       const k = keys[i];
+      // Protect against prototype pollution
+      if (k === '__proto__' || k === 'constructor' || k === 'prototype') {
+        throw new Error('Invalid property name');
+      }
       if (!(k in current)) {
         current[k] = {};
       }
       current = current[k];
     }
     
-    current[keys[keys.length - 1]] = value;
+    const lastKey = keys[keys.length - 1];
+    // Protect against prototype pollution
+    if (lastKey === '__proto__' || lastKey === 'constructor' || lastKey === 'prototype') {
+      throw new Error('Invalid property name');
+    }
+    current[lastKey] = value;
   }
 
   merge(customConfig) {
@@ -96,6 +105,10 @@ class Config {
     const result = { ...target };
     
     for (const key in source) {
+      // Protect against prototype pollution
+      if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+        continue;
+      }
       if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
         result[key] = this._merge(result[key] || {}, source[key]);
       } else {
