@@ -1,0 +1,82 @@
+{
+  "name": "@melampe001/rascacielo-git-agents",
+  "version": "1.0.0",
+  "description": "29 Premium Elite Git Automation Agents - Imperial Quality",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{js,json,md}\"",
+    "format:check": "prettier --check \"**/*.{js,json,md}\"",
+    "audit": "npm audit",
+    "prepublishOnly": "npm test && npm run lint",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "git",
+    "github",
+    "automation",
+    "ci-cd",
+    "code-review",
+    "quality",
+    "security",
+    "refactoring",
+    "testing",
+    "deployment",
+    "agents",
+    "workflow",
+    "devops",
+    "owasp",
+    "clean-code",
+    "solid"
+  ],
+  "author": "Melampe001 <234979826+Melampe001@users.noreply.github.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Melampe001/Rascacielo-Digital.git",
+    "directory": "agents/git-automation"
+  },
+  "bugs": {
+    "url": "https://github.com/Melampe001/Rascacielo-Digital/issues"
+  },
+  "homepage": "https://github.com/Melampe001/Rascacielo-Digital/tree/main/agents/git-automation#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.0"
+  },
+  "dependencies": {},
+  "files": [
+    "1-core-review/",
+    "2-development/",
+    "3-security/",
+    "4-documentation/",
+    "5-transformation/",
+    "6-production/",
+    "shared/",
+    "orchestrator/",
+    "index.js",
+    "README.md",
+    "ARCHITECTURE.md"
+  ],
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "**/*.js",
+      "!**/node_modules/**",
+      "!**/coverage/**"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ]
+  }
+}
