@@ -21,7 +21,10 @@ class WebSocketClient {
             final data = json.decode(message as String) as Map<String, dynamic>;
             _messageController.add(data);
           } catch (e) {
-            // Ignore invalid JSON
+            // Log invalid JSON for debugging
+            // In production, consider using a proper logging framework
+            // ignore: avoid_print
+            print('WebSocket: Invalid JSON received: $e');
           }
         },
         onError: (error) {

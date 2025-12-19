@@ -31,7 +31,7 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
 
       _buildTimes = List<double>.from(result['buildTimes'] ?? []);
 
-      // ML Prediction en el edge
+      // ML Prediction on the edge
       _predictions = await mlEngine.predictPattern(_buildTimes);
 
       setState(() => _loading = false);
@@ -127,7 +127,7 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
                           ),
                           borderData: FlBorderData(show: true),
                           lineBarsData: [
-                            // Datos reales
+                            // Historical data
                             LineChartBarData(
                               spots: _buildTimes.asMap().entries.map((e) {
                                 return FlSpot(e.key.toDouble(), e.value);
@@ -141,7 +141,7 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
                                 color: Colors.blue.withOpacity(0.1),
                               ),
                             ),
-                            // Predicciones ML
+                            // ML predictions
                             LineChartBarData(
                               spots: _predictions.asMap().entries.map((e) {
                                 return FlSpot(

@@ -15,10 +15,13 @@ class EdgeMLEngine {
     final trend = _calculateTrend(historicalData);
     final lastValue = historicalData.last;
 
+    // Use seeded random for reproducible predictions
+    final random = Random(42);
+    
     for (var i = 0; i < predictionCount; i++) {
       final predicted = lastValue + (trend * (i + 1));
-      // Add some variance for realism
-      final variance = Random().nextDouble() * 2 - 1;
+      // Add some variance for realism (variance is intentionally random)
+      final variance = random.nextDouble() * 2 - 1;
       predictions.add(max(0, predicted + variance));
     }
 
