@@ -26,7 +26,11 @@
     "precommit": "npm run validate",
     "setup": "npm install && npm run config:check",
     "config:check": "node scripts/config-check.js",
-    "health-check": "node scripts/health-check.js"
+    "health-check": "node scripts/health-check.js",
+    "pr:analyze": "node agents/pr-manager-agent.js --analyze-only",
+    "pr:manage": "node agents/pr-manager-agent.js",
+    "pr:execute": "node agents/pr-manager-agent.js --execute",
+    "pr:report": "node agents/pr-manager-agent.js --analyze-only"
   },
   "keywords": [
     "modular",
