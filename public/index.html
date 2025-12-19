@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema modular con agentes especializados, CI/CD automatizado y arquitectura de microservicios">
+    <meta name="keywords" content="agents, ai, automation, ci-cd, microservices, orchestration, devops">
+    <title>Rascacielo Digital - Sistema de Agentes Inteligentes</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6; color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh; display: flex; align-items: center;
+            justify-content: center; padding: 20px;
+        }
+        .container {
+            max-width: 900px; background: white; border-radius: 20px;
+            padding: 50px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease-in;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        h1 { font-size: 3em; color: #667eea; margin-bottom: 20px; text-align: center; }
+        .tagline { font-size: 1.2em; color: #666; text-align: center; margin-bottom: 40px; }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin: 40px 0; }
+        .feature { padding: 25px; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #667eea; transition: transform 0.3s ease; }
+        .feature:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); }
+        .feature h3 { color: #667eea; margin-bottom: 10px; font-size: 1.3em; }
+        .feature p { color: #666; font-size: 0.95em; }
+        .agents { margin: 40px 0; padding: 30px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 10px; }
+        .agents h2 { color: #764ba2; margin-bottom: 20px; text-align: center; }
+        .agent-list { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+        .agent { padding: 15px 25px; background: white; border-radius: 25px; font-weight: 600; color: #764ba2; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
+        .status { text-align: center; margin: 30px 0; padding: 20px; background: #e8f5e9; border-radius: 10px; border: 2px solid #4caf50; }
+        .status h3 { color: #2e7d32; font-size: 1.5em; }
+        .status-indicator { display: inline-block; width: 12px; height: 12px; background: #4caf50; border-radius: 50%; margin-right: 8px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .links { display: flex; gap: 20px; justify-content: center; margin-top: 40px; flex-wrap: wrap; }
+        .btn { padding: 15px 30px; border-radius: 25px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; display: inline-block; }
+        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4); }
+        .btn-secondary { background: white; color: #667eea; border: 2px solid #667eea; }
+        .btn-secondary:hover { background: #667eea; color: white; }
+        .api-status { margin-top: 40px; padding: 20px; background: #fff3cd; border-radius: 10px; border-left: 4px solid #ffc107; }
+        .api-status h3 { color: #856404; margin-bottom: 10px; }
+        .api-endpoint { font-family: 'Courier New', monospace; background: white; padding: 10px; border-radius: 5px; margin: 5px 0; color: #333; }
+        footer { text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid #e0e0e0; color: #999; }
+        @media (max-width: 768px) { .container { padding: 30px 20px; } h1 { font-size: 2em; } .features { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏗️ Rascacielo Digital</h1>
+        <p class="tagline">Sistema modular con agentes especializados y arquitectura de microservicios</p>
+        <div class="status"><h3><span class="status-indicator"></span>Sistema Operacional</h3><p>Todos los agentes funcionando correctamente</p></div>
+        <div class="features">
+            <div class="feature"><h3>🤖 Agentes Inteligentes</h3><p>Sistema de agentes especializados para construcción, seguridad y despliegue automatizado</p></div>
+            <div class="feature"><h3>🚀 CI/CD Automatizado</h3><p>Pipeline completo con 5 gates: lint, test, security, build y deploy</p></div>
+            <div class="feature"><h3>🎭 Orchestrator</h3><p>Coordinación inteligente de múltiples agentes con ejecución secuencial y paralela</p></div>
+            <div class="feature"><h3>🔒 Seguridad Enterprise</h3><p>Headers de seguridad, análisis de vulnerabilidades y auditorías automatizadas</p></div>
+            <div class="feature"><h3>📊 Métricas en Tiempo Real</h3><p>Monitoreo de CPU, memoria, tiempos de ejecución y reportes detallados</p></div>
+            <div class="feature"><h3>🔄 Rollback Automático</h3><p>Reversión inteligente ante fallos con estado consistente garantizado</p></div>
+        </div>
+        <div class="agents"><h2>Agentes Disponibles</h2><div class="agent-list"><div class="agent">🔨 Build Agent</div><div class="agent">🔒 Security Agent</div><div class="agent">🚀 Deploy Agent</div><div class="agent">🎭 Orchestrator Agent</div></div></div>
+        <div class="api-status"><h3>📡 API Endpoints</h3><div class="api-endpoint">GET /api/health - Health Check</div><div class="api-endpoint">POST /api/build - Ejecutar Build Agent</div><div class="api-endpoint">POST /api/security - Ejecutar Security Agent</div></div>
+        <div class="links"><a href="https://github.com/Melampe001/Rascacielo-Digital" class="btn btn-primary" target="_blank">📚 Ver en GitHub</a><a href="/api/health" class="btn btn-secondary">✅ Health Check</a></div>
+        <footer><p><strong>Rascacielo Digital v1.1.0</strong></p><p>Sistema modular con agentes especializados</p><p>&copy; 2024 Melampe001 - MIT License</p></footer>
+    </div>
+    <script>fetch('/api/health').then(r=>r.json()).then(d=>console.log('Health Check:',d)).catch(e=>console.error('Health Check failed:',e));</script>
+</body>
+</html>

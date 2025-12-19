@@ -1,7 +1,7 @@
 {
-  "name": "rascacielos-digital",
-  "version": "1.0.0",
-  "description": "Sistema modular con agentes especializados y CI/CD",
+  "name": "rascacielo-digital",
+  "version": "1.1.0",
+  "description": "Sistema modular con agentes especializados, CI/CD automatizado y arquitectura de microservicios",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -15,27 +15,40 @@
     "format:check": "prettier --check \"**/*.{js,json,md}\"",
     "build": "node build.js",
     "clean": "rm -rf dist/ coverage/",
+    "cleanup": "bash scripts/cleanup.sh",
+    "audit": "bash scripts/audit-dependencies.sh",
+    "lint-and-format": "bash scripts/lint-and-format.sh",
+    "check": "npm run lint && npm run format:check && npm test",
     "security": "node agents/security-agent.js",
     "deploy": "node scripts/treesit-cli.js deploy",
     "deploy:status": "node scripts/treesit-cli.js status",
     "deploy:rollback": "node scripts/treesit-cli.js rollback",
     "deploy:logs": "node scripts/treesit-cli.js logs",
     "deploy:health": "node scripts/treesit-cli.js health",
+    "orchestrate:full": "node agents/orchestrator-agent.js --mode=full",
+    "orchestrate:fast": "node agents/orchestrator-agent.js --mode=fast",
+    "orchestrate:parallel": "node agents/orchestrator-agent.js --mode=parallel",
+    "agents:all": "npm run orchestrate:full",
+    "agents:build": "node agents/build-agent.js",
+    "agents:security": "node agents/security-agent.js",
+    "agents:deploy": "node agents/deploy-agent.js",
     "validate": "npm run lint && npm run format:check && npm test",
     "prepare": "node -e \"try{require('husky').install()}catch(e){}\"",
     "precommit": "npm run validate",
     "setup": "npm install && npm run config:check",
     "config:check": "node scripts/config-check.js",
-    "health-check": "node scripts/health-check.js"
+    "health-check": "node scripts/health-check.js",
+    "vercel-build": "echo 'Build completed'"
   },
   "keywords": [
-    "modular",
-    "architecture",
     "agents",
-    "ci-cd",
+    "ai",
     "automation",
+    "ci-cd",
+    "microservices",
+    "orchestration",
     "devops",
-    "treesit-cloud"
+    "modular-architecture"
   ],
   "author": "Melampe001",
   "license": "MIT",
@@ -60,5 +73,20 @@
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "winston": "^3.17.0",
+    "axios": "^1.7.9",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
+    "bull": "^4.16.3",
+    "redis": "^4.7.0",
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "inquirer": "^8.2.6",
+    "ora": "^5.4.1",
+    "fs-extra": "^11.2.0",
+    "glob": "^10.5.0",
+    "yaml": "^2.6.1"
+  }
 }

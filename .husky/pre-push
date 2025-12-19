@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🚀 Running pre-push checks..."
+
+# Run linter
+echo "📋 Running linter..."
+npm run lint || {
+    echo "❌ Linting failed. Please fix errors before pushing."
+    exit 1
+}
+
+# Run tests
+echo "🧪 Running tests..."
+npm test || {
+    echo "❌ Tests failed. Please fix failing tests before pushing."
+    exit 1
+}
+
+# Run security audit
+echo "🔒 Running security audit..."
+npm audit --audit-level=high || {
+    echo "⚠️ High or critical vulnerabilities found. Consider fixing before pushing."
+    # Don't fail the push, just warn
+}
+
+echo "✅ All pre-push checks passed!"

@@ -1,6 +1,6 @@
 /**
  * Build Agent - Rascacielos Digital
- * 
+ *
  * Agente especializado en construcción y compilación de código
  */
 
@@ -22,30 +22,29 @@ class BuildAgent {
    */
   async build(params = {}) {
     const startTime = Date.now();
-    
+
     try {
       console.log('[Build Agent] Iniciando construcción...');
-      
+
       // Validar parámetros
       await this.validate(params);
-      
+
       // Detectar tipo de proyecto
       const projectType = await this.detectProjectType();
       console.log(`[Build Agent] Tipo de proyecto detectado: ${projectType}`);
-      
+
       // Ejecutar build según el tipo
       const result = await this.executeBuild(projectType, params);
-      
+
       const duration = Date.now() - startTime;
       console.log(`[Build Agent] Build completado en ${duration}ms`);
-      
+
       return {
         success: true,
         duration,
         artifacts: result.artifacts,
         projectType
       };
-      
     } catch (error) {
       console.error('[Build Agent] Error durante el build:', error.message);
       throw error;
@@ -74,12 +73,12 @@ class BuildAgent {
   /**
    * Ejecuta el build según el tipo de proyecto
    */
-  async executeBuild(projectType, params) {
+  async executeBuild(projectType, _params) {
     const builders = {
-      javascript: () => this.buildJavaScript(params),
-      python: () => this.buildPython(params),
-      java: () => this.buildJava(params),
-      go: () => this.buildGo(params)
+      javascript: () => this.buildJavaScript(),
+      python: () => this.buildPython(),
+      java: () => this.buildJava(),
+      go: () => this.buildGo()
     };
 
     const builder = builders[projectType];
@@ -93,7 +92,7 @@ class BuildAgent {
   /**
    * Build para proyectos JavaScript/Node.js
    */
-  async buildJavaScript(params) {
+  async buildJavaScript(_params) {
     console.log('[Build Agent] Ejecutando build JavaScript...');
     return {
       artifacts: ['dist/bundle.js', 'dist/bundle.css']
@@ -103,7 +102,7 @@ class BuildAgent {
   /**
    * Build para proyectos Python
    */
-  async buildPython(params) {
+  async buildPython(_params) {
     console.log('[Build Agent] Ejecutando build Python...');
     return {
       artifacts: ['dist/package.whl']
@@ -113,7 +112,7 @@ class BuildAgent {
   /**
    * Build para proyectos Java
    */
-  async buildJava(params) {
+  async buildJava(_params) {
     console.log('[Build Agent] Ejecutando build Java...');
     return {
       artifacts: ['target/application.jar']
@@ -123,7 +122,7 @@ class BuildAgent {
   /**
    * Build para proyectos Go
    */
-  async buildGo(params) {
+  async buildGo(_params) {
     console.log('[Build Agent] Ejecutando build Go...');
     return {
       artifacts: ['bin/application']
