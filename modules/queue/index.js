@@ -7,5 +7,5 @@ const JobQueue = require('./queue');
 
 module.exports = {
   JobQueue,
-  createQueue: (config) => new JobQueue(config)
+  createQueue: config => new JobQueue(config)
 };
