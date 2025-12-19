@@ -7,5 +7,5 @@ const HTTPClient = require('./client');
 
 module.exports = {
   HTTPClient,
-  createClient: (config) => new HTTPClient(config)
+  createClient: config => new HTTPClient(config)
 };

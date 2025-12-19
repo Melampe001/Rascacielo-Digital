@@ -41,3 +41,9 @@ temp/
 
 # Husky
 .husky/_
+
+# Orchestrator reports
+reports/
+*.report.json
+*.report.txt
+test-reports/

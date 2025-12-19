@@ -26,7 +26,17 @@
     "precommit": "npm run validate",
     "setup": "npm install && npm run config:check",
     "config:check": "node scripts/config-check.js",
-    "health-check": "node scripts/health-check.js"
+    "health-check": "node scripts/health-check.js",
+    "agents:all": "node agents/orchestrator-agent.js --mode=full",
+    "agents:build": "node agents/build-agent.js",
+    "agents:security": "node agents/security-agent.js",
+    "agents:deploy": "node agents/deploy-agent.js",
+    "agents:maintain": "bash scripts/cleanup.sh",
+    "pipeline:fast": "npm run build && npm run deploy",
+    "pipeline:full": "npm run agents:maintain && npm run security && npm run build && npm run deploy",
+    "orchestrate:full": "node agents/orchestrator-agent.js --mode=full",
+    "orchestrate:fast": "node agents/orchestrator-agent.js --mode=fast",
+    "orchestrate:parallel": "node agents/orchestrator-agent.js --mode=parallel"
   },
   "keywords": [
     "modular",

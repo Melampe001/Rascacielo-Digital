@@ -1,0 +1,199 @@
+name: Orchestrator Pipeline
+
+on:
+  push:
+    branches: [main, Main]
+  pull_request:
+    branches: [main, Main]
+  schedule:
+    - cron: '0 2 * * *'  # Diario a las 2 AM UTC
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Pipeline mode'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - fast
+          - parallel
+
+jobs:
+  orchestrate:
+    name: Run Orchestrator Pipeline
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create reports directory
+        run: mkdir -p reports
+
+      - name: Determine mode
+        id: mode
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "mode=${{ inputs.mode }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "mode=fast" >> $GITHUB_OUTPUT
+          else
+            echo "mode=full" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run Orchestrator - Full Pipeline
+        if: steps.mode.outputs.mode == 'full'
+        run: npm run orchestrate:full
+        continue-on-error: false
+
+      - name: Run Orchestrator - Fast Pipeline
+        if: steps.mode.outputs.mode == 'fast'
+        run: npm run orchestrate:fast
+        continue-on-error: false
+
+      - name: Run Orchestrator - Parallel Mode
+        if: steps.mode.outputs.mode == 'parallel'
+        run: npm run orchestrate:parallel
+        continue-on-error: false
+
+      - name: Display Report Summary
+        if: always()
+        run: |
+          if [ -f reports/orchestrator-report.txt ]; then
+            echo "=== Orchestrator Report Summary ==="
+            cat reports/orchestrator-report.txt
+          else
+            echo "Report file not found"
+          fi
+
+      - name: Upload Orchestrator Report (JSON)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: orchestrator-report-json-${{ steps.mode.outputs.mode }}-${{ github.run_number }}
+          path: reports/orchestrator-report.json
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Upload Orchestrator Report (Text)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: orchestrator-report-text-${{ steps.mode.outputs.mode }}-${{ github.run_number }}
+          path: reports/orchestrator-report.txt
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Upload All Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-reports-${{ steps.mode.outputs.mode }}-${{ github.run_number }}
+          path: reports/
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Check Pipeline Status
+        if: always()
+        run: |
+          if [ -f reports/orchestrator-report.json ]; then
+            # Extract summary from JSON report
+            TOTAL=$(jq -r '.summary.total // 0' reports/orchestrator-report.json)
+            SUCCESSFUL=$(jq -r '.summary.successful // 0' reports/orchestrator-report.json)
+            FAILED=$(jq -r '.summary.failed // 0' reports/orchestrator-report.json)
+            
+            echo "Pipeline Summary:"
+            echo "  Total tasks: $TOTAL"
+            echo "  Successful: $SUCCESSFUL"
+            echo "  Failed: $FAILED"
+            
+            if [ "$FAILED" -gt 0 ]; then
+              echo "::error::Pipeline completed with $FAILED failed task(s)"
+              exit 1
+            fi
+          fi
+
+      - name: Comment PR with Report
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const reportPath = 'reports/orchestrator-report.json';
+            
+            if (!fs.existsSync(reportPath)) {
+              console.log('Report file not found');
+              return;
+            }
+            
+            const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
+            
+            const body = `## 🤖 Orchestrator Pipeline Report
+            
+            **Mode:** ${{ steps.mode.outputs.mode }}
+            **Status:** ${report.summary.failed === 0 ? '✅ Success' : '❌ Failed'}
+            **Duration:** ${report.execution.durationFormatted}
+            
+            ### Summary
+            - Total Tasks: ${report.summary.total}
+            - ✅ Successful: ${report.summary.successful}
+            - ❌ Failed: ${report.summary.failed}
+            - ⊘ Skipped: ${report.summary.skipped}
+            
+            ### Tasks
+            ${report.tasks.map(task => {
+              const icon = task.status === 'success' ? '✅' : task.status === 'failed' ? '❌' : '⊘';
+              return `${icon} **${task.name}** - ${task.description} (${task.duration}ms)`;
+            }).join('\n')}
+            
+            ### System Info
+            - Platform: ${report.system.platform}
+            - Node.js: ${report.system.nodeVersion}
+            - CPUs: ${report.system.cpus}
+            
+            <details>
+            <summary>📊 Metrics</summary>
+            
+            **Memory Usage:**
+            - Heap Used (max): ${report.metrics.memory.heapUsed?.maxFormatted || 'N/A'}
+            - RSS (max): ${report.metrics.memory.rss?.maxFormatted || 'N/A'}
+            
+            **Samples:** ${report.metrics.memory.samples || 0}
+            </details>
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+
+  notify:
+    name: Notify Results
+    runs-on: ubuntu-latest
+    needs: orchestrate
+    if: always() && (github.event_name == 'push' || github.event_name == 'schedule')
+    permissions:
+      contents: read
+    
+    steps:
+      - name: Send notification
+        run: |
+          echo "Pipeline completed with status: ${{ needs.orchestrate.result }}"
+          # Aquí se pueden agregar notificaciones a Slack, Discord, etc.
+          # Por ejemplo, usando un webhook:
+          # curl -X POST $SLACK_WEBHOOK_URL -d '{"text":"Pipeline completed"}'

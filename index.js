@@ -7,6 +7,7 @@
 const { Logger, Config } = require('./modules/core');
 const BuildAgent = require('./agents/build-agent');
 const SecurityAgent = require('./agents/security-agent');
+const OrchestratorAgent = require('./agents/orchestrator-agent');
 
 class RascacielosDigital {
   constructor(config = {}) {
@@ -21,6 +22,13 @@ class RascacielosDigital {
       build: new BuildAgent(),
       security: new SecurityAgent()
     };
+
+    // Initialize orchestrator with configured agents
+    this.orchestrator = new OrchestratorAgent({
+      agents: this.agents,
+      logger: this.logger,
+      ...config.orchestrator
+    });
   }
 
   async initialize() {
@@ -59,6 +67,30 @@ class RascacielosDigital {
     }
   }
 
+  async runFullPipeline(config = {}) {
+    this.logger.info('Ejecutando Pipeline Completo...');
+    try {
+      const result = await this.orchestrator.executeFullPipeline(config);
+      this.logger.info('Pipeline completo finalizado');
+      return result;
+    } catch (error) {
+      this.logger.error('Error en Pipeline Completo:', error.message);
+      throw error;
+    }
+  }
+
+  async runFastPipeline(config = {}) {
+    this.logger.info('Ejecutando Pipeline Rápido...');
+    try {
+      const result = await this.orchestrator.executeFastPipeline(config);
+      this.logger.info('Pipeline rápido finalizado');
+      return result;
+    } catch (error) {
+      this.logger.error('Error en Pipeline Rápido:', error.message);
+      throw error;
+    }
+  }
+
   async start() {
     await this.initialize();
     
@@ -76,7 +108,7 @@ if (require.main === module) {
   const app = new RascacielosDigital();
   
   app.start()
-    .then(async (instance) => {
+    .then(async instance => {
       // Demostración de agentes
       console.log('\n--- Demostración de Agentes ---\n');
       
