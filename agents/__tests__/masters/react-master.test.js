@@ -49,7 +49,7 @@ function MyComponent() {
   test('should scaffold React app', async () => {
     const result = await master.scaffold('app', { name: 'test-app' });
     expect(result).toHaveProperty('files');
-    expect(result.files).toHaveProperty('App.tsx');
+    expect(result.files['App.tsx']).toBeDefined();
     expect(result.files['App.tsx']).toContain('useState');
   });
 

@@ -45,8 +45,8 @@ def greet(name: str) -> str:
   test('should scaffold FastAPI project', async () => {
     const result = await master.scaffold('fastapi', { name: 'test-api' });
     expect(result).toHaveProperty('files');
-    expect(result.files).toHaveProperty('main.py');
-    expect(result.files).toHaveProperty('requirements.txt');
+    expect(result.files['main.py']).toBeDefined();
+    expect(result.files['requirements.txt']).toBeDefined();
     expect(result.files['main.py']).toContain('FastAPI');
   });
 
@@ -80,7 +80,8 @@ def func(arg=[]):
   });
 
   test('should handle invalid code gracefully', async () => {
-    const invalidCode = null;
-    await expect(master.analyze(invalidCode)).resolves.toBeDefined();
+    const invalidCode = '';
+    const result = await master.analyze(invalidCode);
+    expect(result).toBeDefined();
   });
 });

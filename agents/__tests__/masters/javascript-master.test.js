@@ -39,8 +39,8 @@ const greet = (name) => {
   test('should scaffold Express project', async () => {
     const result = await master.scaffold('express', { name: 'test-api' });
     expect(result).toHaveProperty('files');
-    expect(result.files).toHaveProperty('index.js');
-    expect(result.files).toHaveProperty('package.json');
+    expect(result.files['index.js']).toBeDefined();
+    expect(result.files['package.json']).toBeDefined();
     expect(result.files['index.js']).toContain('express');
   });
 
