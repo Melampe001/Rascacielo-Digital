@@ -1,0 +1,82 @@
+name: PR Automation Agent
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Cada 6 horas
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Execution mode'
+        required: true
+        default: 'analyze'
+        type: choice
+        options:
+          - analyze
+          - execute
+      dry_run:
+        description: 'Dry run (simulate only)'
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  pr-automation:
+    name: 🤖 Automated PR Management
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run PR Manager Agent
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ inputs.mode }}" = "execute" ] && [ "${{ inputs.dry_run }}" = "false" ]; then
+            node agents/pr-manager-agent.js --execute
+          else
+            node agents/pr-manager-agent.js
+          fi
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-automation-report
+          path: pr-automation-report.json
+          retention-days: 30
+        if: always()
+        continue-on-error: true
+
+      - name: Comment Results
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            if (fs.existsSync('pr-automation-report.json')) {
+              const report = JSON.parse(fs.readFileSync('pr-automation-report.json'));
+              github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number || 1,
+                body: `## 🤖 PR Automation Report\n\n${JSON.stringify(report, null, 2)}`
+              });
+            }
+        continue-on-error: true
