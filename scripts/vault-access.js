@@ -32,41 +32,41 @@ async function main() {
 
   try {
     switch (action) {
-      case '1': {
-        const files = await fileVault.listProtected(user);
-        console.log('\n📂 Archivos protegidos:');
-        files.forEach((f, i) => console.log(`   ${i + 1}. ${f}`));
-        break;
-      }
+    case '1': {
+      const files = await fileVault.listProtected(user);
+      console.log('\n📂 Archivos protegidos:');
+      files.forEach((f, i) => console.log(`   ${i + 1}. ${f}`));
+      break;
+    }
 
-      case '2': {
-        const filePath = await question('\n📄 Ruta del archivo: ');
-        const content = await fileVault.accessFile(filePath, user);
-        console.log('\n✅ Contenido desencriptado:\n');
-        console.log(content);
-        break;
-      }
+    case '2': {
+      const filePath = await question('\n📄 Ruta del archivo: ');
+      const content = await fileVault.accessFile(filePath, user);
+      console.log('\n✅ Contenido desencriptado:\n');
+      console.log(content);
+      break;
+    }
 
-      case '3': {
-        const filePath = await question('\n📄 Ruta del archivo a blindar: ');
-        await fileVault.protectFile(filePath, user);
-        console.log('\n✅ Archivo blindado exitosamente');
-        break;
-      }
+    case '3': {
+      const filePath = await question('\n📄 Ruta del archivo a blindar: ');
+      await fileVault.protectFile(filePath, user);
+      console.log('\n✅ Archivo blindado exitosamente');
+      break;
+    }
 
-      case '4': {
-        const confirm = await question('\n⚠️  ¿Blindar TODOS los archivos sensibles? (yes/no): ');
-        if (confirm.toLowerCase() === 'yes') {
-          await fileVault.protectAll(user);
-          console.log('\n✅ Blindaje completado');
-        } else {
-          console.log('\n❌ Operación cancelada');
-        }
-        break;
+    case '4': {
+      const confirm = await question('\n⚠️  ¿Blindar TODOS los archivos sensibles? (yes/no): ');
+      if (confirm.toLowerCase() === 'yes') {
+        await fileVault.protectAll(user);
+        console.log('\n✅ Blindaje completado');
+      } else {
+        console.log('\n❌ Operación cancelada');
       }
+      break;
+    }
 
-      default:
-        console.log('\n❌ Opción inválida');
+    default:
+      console.log('\n❌ Opción inválida');
     }
   } catch (error) {
     console.error(`\n❌ ${error.message}`);
