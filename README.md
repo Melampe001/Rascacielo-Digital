@@ -11,6 +11,9 @@ Rascacielos Digital es un sistema modular de desarrollo arquitectónico que util
 - **Arquitectura Modular**: Componentes independientes y reutilizables
 - **Agentes Especializados**: Sistema de agentes para tareas específicas
 - **CI/CD Gates**: Pipeline automatizado con validaciones de calidad
+- **Flutter Web UI**: Interfaz moderna y responsive con Material Design 3
+- **ML Analytics**: Predicciones en el edge con machine learning
+- **Real-time Updates**: Conexiones WebSocket para actualizaciones en vivo
 - **Escalabilidad**: Diseño preparado para crecimiento horizontal
 - **Seguridad**: Validaciones de seguridad integradas
 
@@ -19,8 +22,16 @@ Rascacielos Digital es un sistema modular de desarrollo arquitectónico que util
 ```
 .
 ├── agents/              # Agentes especializados
+├── flutter_web/         # Aplicación Flutter Web
+│   ├── lib/            # Código fuente Flutter
+│   │   ├── core/       # Servicios core (API, WebSocket, ML)
+│   │   ├── features/   # Features (Dashboard, Agents, Analytics)
+│   │   └── main.dart   # Entry point
+│   └── integration_test/ # Tests de integración
 ├── modules/             # Módulos del sistema
 ├── docs/                # Documentación
+│   ├── USER_GUIDE.md   # Guía de usuario
+│   └── TESTING.md      # Documentación de testing
 ├── .github/workflows/   # CI/CD pipelines
 └── config/              # Configuraciones
 ```
@@ -29,7 +40,8 @@ Rascacielos Digital es un sistema modular de desarrollo arquitectónico que util
 
 ### Requisitos Previos
 
-- Node.js >= 18.x o Python >= 3.9
+- Node.js >= 18.x (para backend)
+- Flutter SDK >= 3.0.0 (para frontend)
 - Git
 - Docker (opcional)
 
@@ -49,15 +61,40 @@ cp .env.example .env
 
 ### Uso Básico
 
+**Backend:**
 ```bash
-# Ejecutar el sistema
-npm start  # o python main.py
+# Ejecutar el sistema backend
+npm start
 
 # Ejecutar tests
-npm test   # o pytest
+npm test
 
 # Ejecutar linting
 npm run lint
+```
+
+**Frontend (Flutter Web):**
+```bash
+# Navegar al directorio Flutter
+cd flutter_web
+
+# Instalar dependencias
+flutter pub get
+
+# Ejecutar en modo desarrollo
+flutter run -d chrome
+
+# Build para producción
+flutter build web --release
+
+# Ejecutar tests
+flutter test
+```
+
+**Build completo:**
+```bash
+# Build backend y frontend
+./build-flutter.sh
 ```
 
 ## 🤖 Agentes Especializados
@@ -80,9 +117,21 @@ El pipeline incluye los siguientes gates:
 4. **Build Gate**: Compilación exitosa
 5. **Deploy Gate**: Despliegue automático
 
+## 🎨 Flutter Web Application
+
+La aplicación Flutter Web proporciona una interfaz moderna para:
+
+- **Dashboard**: Monitoreo en tiempo real de estadísticas y agentes
+- **Agent Management**: Ejecución y monitoreo de agentes especializados
+- **ML Analytics**: Predicciones y análisis con machine learning en el edge
+
+Ver [Flutter Web README](./flutter_web/README.md) para más detalles.
+
 ## 📚 Documentación
 
-Para más información, consulta la [documentación completa](./docs/README.md).
+- [Guía de Usuario](./docs/USER_GUIDE.md) - Cómo usar la aplicación
+- [Testing](./docs/TESTING.md) - Guía de testing y cobertura
+- [Flutter Web](./flutter_web/README.md) - Documentación del frontend
 
 ## 🤝 Contribuir
 
