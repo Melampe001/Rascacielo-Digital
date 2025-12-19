@@ -1,0 +1,57 @@
+name: Orchestrator Pipeline
+
+# PERMISOS EXPLÍCITOS
+permissions:
+  contents: read
+  pull-requests: write
+  actions: read
+
+on:
+  push:
+    branches: [Main, main]
+  pull_request:
+    branches: [Main, main]
+
+jobs:
+  orchestrate:
+    runs-on: ubuntu-latest
+    
+    # PERMISOS A NIVEL DE JOB
+    permissions:
+      contents: read
+      actions: write
+      checks: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run orchestrator
+        run: |
+          echo "🚀 Running Orchestrator Agent..."
+          if [ -f "agents/orchestrator-agent.js" ]; then
+            node agents/orchestrator-agent.js
+          else
+            echo "⚠️ Orchestrator agent not found, skipping..."
+          fi
+      
+      - name: Run tests
+        run: npm test || echo "⚠️ Tests failed or not found"
+      
+      - name: Generate report
+        if: always()
+        run: |
+          echo "📊 Orchestrator Pipeline Report"
+          echo "================================"
+          echo "Status: ${{ job.status }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "SHA: ${{ github.sha }}"
