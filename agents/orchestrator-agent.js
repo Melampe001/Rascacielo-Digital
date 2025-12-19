@@ -155,7 +155,7 @@ class OrchestratorAgent {
   async executeParallel(tasks) {
     this.logger.info(`Ejecutando ${tasks.length} tareas en paralelo...`);
 
-    const taskPromises = tasks.map(async (task) => {
+    const taskPromises = tasks.map(async task => {
       const taskStart = Date.now();
       this.logger.info(`[${task.name}] Iniciando...`);
 
@@ -681,33 +681,33 @@ if (require.main === module) {
       let result;
 
       switch (mode) {
-        case 'full':
-          result = await orchestrator.executeFullPipeline(config);
-          break;
+      case 'full':
+        result = await orchestrator.executeFullPipeline(config);
+        break;
 
-        case 'fast':
-          result = await orchestrator.executeFastPipeline(config);
-          break;
+      case 'fast':
+        result = await orchestrator.executeFastPipeline(config);
+        break;
 
-        case 'parallel':
-          if (tasks.length === 0) {
-            tasks = ['build', 'security'];
-          }
-          result = await orchestrator.executeCustom(tasks, 'parallel');
-          break;
+      case 'parallel':
+        if (tasks.length === 0) {
+          tasks = ['build', 'security'];
+        }
+        result = await orchestrator.executeCustom(tasks, 'parallel');
+        break;
 
-        case 'sequential':
-          if (tasks.length === 0) {
-            console.error('Error: --tasks requerido para modo sequential');
-            process.exit(1);
-          }
-          result = await orchestrator.executeCustom(tasks, 'sequential');
-          break;
-
-        default:
-          console.error(`Modo desconocido: ${mode}`);
-          console.log('Modos disponibles: full, fast, parallel, sequential');
+      case 'sequential':
+        if (tasks.length === 0) {
+          console.error('Error: --tasks requerido para modo sequential');
           process.exit(1);
+        }
+        result = await orchestrator.executeCustom(tasks, 'sequential');
+        break;
+
+      default:
+        console.error(`Modo desconocido: ${mode}`);
+        console.log('Modos disponibles: full, fast, parallel, sequential');
+        process.exit(1);
       }
 
       console.log('\n' + '='.repeat(70));
