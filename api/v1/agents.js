@@ -20,23 +20,23 @@ module.exports = async (req, res) => {
     let result;
     
     switch (agent) {
-      case 'build':
-        const buildAgent = new BuildAgent();
-        result = await buildAgent.build(params);
-        break;
-        
-      case 'security':
-        const securityAgent = new SecurityAgent();
-        result = await securityAgent.scan(params);
-        break;
-        
-      case 'orchestrator':
-        const orchestrator = new OrchestratorAgent();
-        result = await orchestrator.executeFullPipeline(params);
-        break;
-        
-      default:
-        return res.status(400).json({ error: 'Invalid agent' });
+    case 'build': {
+      const buildAgent = new BuildAgent();
+      result = await buildAgent.build(params);
+      break;
+    }
+    case 'security': {
+      const securityAgent = new SecurityAgent();
+      result = await securityAgent.scan(params);
+      break;
+    }
+    case 'orchestrator': {
+      const orchestrator = new OrchestratorAgent();
+      result = await orchestrator.executeFullPipeline(params);
+      break;
+    }
+    default:
+      return res.status(400).json({ error: 'Invalid agent' });
     }
 
     res.status(200).json({

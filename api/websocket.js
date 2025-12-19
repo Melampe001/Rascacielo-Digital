@@ -1,9 +1,10 @@
 // api/websocket.js - WebSocket server via Vercel Edge
+/* global Deno, WebSocket */
 
 const clients = new Set();
 
 export const config = {
-  runtime: 'edge',
+  runtime: 'edge'
 };
 
 export default async function handler(req) {
@@ -18,7 +19,7 @@ export default async function handler(req) {
     console.log('✅ Client connected');
   };
 
-  socket.onmessage = async (event) => {
+  socket.onmessage = async event => {
     const message = JSON.parse(event.data);
     
     // Broadcast a todos los clientes

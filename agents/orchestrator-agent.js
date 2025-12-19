@@ -115,14 +115,14 @@ class OrchestratorAgent {
     
     const promises = agents.map(agent => {
       switch (agent.type) {
-        case 'build':
-          return this.buildAgent.build(agent.params || {});
-        case 'security':
-          return this.securityAgent.scan(agent.params || {});
-        case 'deploy':
-          return this.deployAgent.deploy(agent.params || {});
-        default:
-          throw new Error(`Tipo de agente desconocido: ${agent.type}`);
+      case 'build':
+        return this.buildAgent.build(agent.params || {});
+      case 'security':
+        return this.securityAgent.scan(agent.params || {});
+      case 'deploy':
+        return this.deployAgent.deploy(agent.params || {});
+      default:
+        throw new Error(`Tipo de agente desconocido: ${agent.type}`);
       }
     });
 
