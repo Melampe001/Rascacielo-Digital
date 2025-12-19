@@ -80,12 +80,14 @@ Maintain → Security → Build → Deploy
 ```
 
 **Características:**
+
 - Mantenimiento del código (limpieza, optimización)
 - Análisis de seguridad completo
 - Build de producción
 - Despliegue automático
 
 **Uso:**
+
 ```bash
 npm run orchestrate:full
 ```
@@ -99,11 +101,13 @@ Build → Deploy
 ```
 
 **Características:**
+
 - Build optimizado
 - Despliegue directo
 - Ideal para hotfixes
 
 **Uso:**
+
 ```bash
 npm run orchestrate:fast
 ```
@@ -119,11 +123,13 @@ Security ┘
 ```
 
 **Características:**
+
 - Máximo paralelismo
 - Reducción de tiempo total
 - Ideal para análisis independientes
 
 **Uso:**
+
 ```bash
 npm run orchestrate:parallel
 ```
@@ -134,12 +140,12 @@ npm run orchestrate:parallel
 
 ```javascript
 new OrchestratorAgent({
-  agents: {},              // Mapa de agentes disponibles
-  logger: console,         // Logger para output
-  reportDir: './reports',  // Directorio para reportes
-  continueOnError: false,  // Continuar tras errores
-  timeout: 300000          // Timeout en ms (5 min)
-})
+  agents: {}, // Mapa de agentes disponibles
+  logger: console, // Logger para output
+  reportDir: './reports', // Directorio para reportes
+  continueOnError: false, // Continuar tras errores
+  timeout: 300000 // Timeout en ms (5 min)
+});
 ```
 
 ### Opciones Avanzadas
@@ -153,7 +159,7 @@ const customPipeline = [
 ];
 
 const report = await orchestrator.executeSequential(customPipeline, {
-  autoRollback: true  // Habilitar rollback automático
+  autoRollback: true // Habilitar rollback automático
 });
 ```
 
@@ -201,6 +207,7 @@ Cada ejecución genera un reporte detallado en JSON:
 ### Ubicación de Reportes
 
 Los reportes se guardan en `./reports/` con nombres descriptivos:
+
 - `orchestrator-full-1702951200000.json`
 - `orchestrator-fast-1702951230000.json`
 - `orchestrator-parallel-1702951260000.json`
@@ -392,22 +399,25 @@ if (report.status === 'SUCCESS') {
 ### Ejemplo 2: Pipeline con Configuración Personalizada
 
 ```javascript
-const report = await orchestrator.executeSequential([
+const report = await orchestrator.executeSequential(
+  [
+    {
+      name: 'security',
+      agent: 'security',
+      method: 'scan',
+      params: { level: 'strict' }
+    },
+    {
+      name: 'build',
+      agent: 'build',
+      method: 'build',
+      params: { optimize: true, minify: true }
+    }
+  ],
   {
-    name: 'security',
-    agent: 'security',
-    method: 'scan',
-    params: { level: 'strict' }
-  },
-  {
-    name: 'build',
-    agent: 'build',
-    method: 'build',
-    params: { optimize: true, minify: true }
+    autoRollback: true
   }
-], {
-  autoRollback: true
-});
+);
 ```
 
 ### Ejemplo 3: Ejecución Paralela Avanzada
@@ -432,6 +442,7 @@ console.log(`Success rate: ${report.summary.successRate}`);
 ## 📝 Changelog
 
 ### Version 1.1.0
+
 - ✨ Implementación inicial del Orchestrator Agent
 - ✨ Soporte para ejecución secuencial y paralela
 - ✨ Rollback automático

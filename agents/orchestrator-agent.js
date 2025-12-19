@@ -1,6 +1,6 @@
 /**
  * Orchestrator Agent - Rascacielo Digital
- * 
+ *
  * Coordina la ejecución de múltiples agentes con diferentes estrategias
  * Incluye pipelines completos, ejecución paralela, y rollback automático
  */
@@ -51,7 +51,7 @@ class OrchestratorAgent {
   /**
    * Ejecuta pipeline rápido: build → deploy
    */
-  async executeFastPipeline(options = {}) {
+  async executeFastPipeline(_options = {}) {
     this.config.logger.info('[Orchestrator] Iniciando pipeline rápido...');
     this.startMetrics();
 
@@ -60,23 +60,22 @@ class OrchestratorAgent {
       { name: 'deploy', agent: 'deploy', method: 'deploy' }
     ];
 
-    return await this.executeSequential(pipeline, options);
+    return await this.executeSequential(pipeline, _options);
   }
 
   /**
    * Ejecuta agentes en paralelo
    */
-  async executeParallel(agentConfigs, options = {}) {
+  async executeParallel(agentConfigs, _options = {}) {
     this.config.logger.info('[Orchestrator] Ejecutando agentes en paralelo...');
     this.startMetrics();
 
-    const promises = agentConfigs.map(config => 
-      this.executeAgent(config.agent, config.method, config.params || {})
-        .catch(error => ({
-          success: false,
-          agent: config.agent,
-          error: error.message
-        }))
+    const promises = agentConfigs.map(config =>
+      this.executeAgent(config.agent, config.method, config.params || {}).catch(error => ({
+        success: false,
+        agent: config.agent,
+        error: error.message
+      }))
     );
 
     const results = await Promise.all(promises);
@@ -99,18 +98,14 @@ class OrchestratorAgent {
     for (const step of pipeline) {
       try {
         this.config.logger.info(`[Orchestrator] Ejecutando: ${step.name}...`);
-        
+
         const agent = this.getAgent(step.agent);
         if (!agent) {
           throw new Error(`Agent ${step.agent} not found`);
         }
 
         const startTime = performance.now();
-        const result = await this.executeWithTimeout(
-          agent,
-          step.method,
-          step.params || options
-        );
+        const result = await this.executeWithTimeout(agent, step.method, step.params || options);
         const duration = performance.now() - startTime;
 
         results.push({
@@ -121,11 +116,12 @@ class OrchestratorAgent {
           result
         });
 
-        this.config.logger.info(`[Orchestrator] ✓ ${step.name} completado (${Math.round(duration)}ms)`);
-
+        this.config.logger.info(
+          `[Orchestrator] ✓ ${step.name} completado (${Math.round(duration)}ms)`
+        );
       } catch (error) {
         this.config.logger.error(`[Orchestrator] ✗ Error en ${step.name}: ${error.message}`);
-        
+
         results.push({
           step: step.name,
           agent: step.agent,
@@ -190,7 +186,7 @@ class OrchestratorAgent {
     }
 
     this.config.logger.info(`[Orchestrator] Ejecutando ${agentName}.${method}()`);
-    
+
     try {
       const result = await agent[method](params);
       return {
@@ -258,7 +254,8 @@ class OrchestratorAgent {
         total: totalSteps,
         successful: successfulSteps,
         failed: failedSteps,
-        successRate: totalSteps > 0 ? (successfulSteps / totalSteps * 100).toFixed(2) + '%' : '0%',
+        successRate:
+          totalSteps > 0 ? ((successfulSteps / totalSteps) * 100).toFixed(2) + '%' : '0%',
         totalDuration: totalDuration + 'ms'
       },
       results,
@@ -290,7 +287,7 @@ class OrchestratorAgent {
    */
   startMetrics() {
     this.metrics.startTime = Date.now();
-    
+
     if (process.memoryUsage) {
       const memBefore = process.memoryUsage();
       this.metrics.memoryStart = memBefore.heapUsed;
@@ -338,6 +335,49 @@ class OrchestratorAgent {
   }
 }
 
+// CLI runner function
+async function runOrchestratorCLI(orchestrator, mode) {
+  console.log(`🎭 Orchestrator Agent - Modo: ${mode}`);
+  console.log('='.repeat(50));
+
+  let report;
+
+  try {
+    switch (mode) {
+      case 'full':
+        report = await orchestrator.executeFullPipeline();
+        break;
+      case 'fast':
+        report = await orchestrator.executeFastPipeline();
+        break;
+      case 'parallel':
+        report = await orchestrator.executeParallel([
+          { agent: 'build', method: 'build' },
+          { agent: 'security', method: 'scan' }
+        ]);
+        break;
+      default:
+        console.error(`Modo desconocido: ${mode}`);
+        process.exit(1);
+    }
+
+    console.log('\n📊 Reporte Final:');
+    console.log('='.repeat(50));
+    console.log(`Status: ${report.status}`);
+    console.log(`Total Steps: ${report.summary.total}`);
+    console.log(`Successful: ${report.summary.successful}`);
+    console.log(`Failed: ${report.summary.failed}`);
+    console.log(`Success Rate: ${report.summary.successRate}`);
+    console.log(`Duration: ${report.summary.totalDuration}`);
+    console.log('='.repeat(50));
+
+    process.exit(report.status === 'SUCCESS' ? 0 : 1);
+  } catch (error) {
+    console.error('❌ Error en orchestrator:', error.message);
+    process.exit(1);
+  }
+}
+
 // CLI Support
 if (require.main === module) {
   const BuildAgent = require('./build-agent');
@@ -356,50 +396,7 @@ if (require.main === module) {
     logger: console
   });
 
-  async function runOrchestrator() {
-    console.log(`🎭 Orchestrator Agent - Modo: ${mode}`);
-    console.log('='.repeat(50));
-
-    let report;
-
-    try {
-      switch (mode) {
-        case 'full':
-          report = await orchestrator.executeFullPipeline();
-          break;
-        case 'fast':
-          report = await orchestrator.executeFastPipeline();
-          break;
-        case 'parallel':
-          report = await orchestrator.executeParallel([
-            { agent: 'build', method: 'build' },
-            { agent: 'security', method: 'scan' }
-          ]);
-          break;
-        default:
-          console.error(`Modo desconocido: ${mode}`);
-          process.exit(1);
-      }
-
-      console.log('\n📊 Reporte Final:');
-      console.log('='.repeat(50));
-      console.log(`Status: ${report.status}`);
-      console.log(`Total Steps: ${report.summary.total}`);
-      console.log(`Successful: ${report.summary.successful}`);
-      console.log(`Failed: ${report.summary.failed}`);
-      console.log(`Success Rate: ${report.summary.successRate}`);
-      console.log(`Duration: ${report.summary.totalDuration}`);
-      console.log('='.repeat(50));
-
-      process.exit(report.status === 'SUCCESS' ? 0 : 1);
-
-    } catch (error) {
-      console.error('❌ Error en orchestrator:', error.message);
-      process.exit(1);
-    }
-  }
-
-  runOrchestrator();
+  runOrchestratorCLI(orchestrator, mode);
 }
 
 module.exports = OrchestratorAgent;

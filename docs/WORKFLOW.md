@@ -84,12 +84,14 @@ Usamos una estrategia de branching simplificada basada en **GitHub Flow** con ex
 ### Branches Principales
 
 #### `main`
+
 - **Propósito**: Production-ready code
 - **Protección**: Requiere PR y reviews
 - **CI/CD**: Deploy automático a production
 - **Naming**: `main`
 
 #### `develop`
+
 - **Propósito**: Integration branch para features
 - **Protección**: Requiere PR
 - **CI/CD**: Deploy automático a staging
@@ -98,6 +100,7 @@ Usamos una estrategia de branching simplificada basada en **GitHub Flow** con ex
 ### Branches de Trabajo
 
 #### Feature Branches
+
 ```bash
 # Formato: feature/descripcion-corta
 git checkout -b feature/add-new-agent
@@ -105,12 +108,14 @@ git checkout -b feature/improve-performance
 ```
 
 **Características:**
+
 - Base: `develop` o `main`
 - Merge to: `develop`
 - Lifetime: Corto (días)
 - Delete: Después de merge
 
 #### Bugfix Branches
+
 ```bash
 # Formato: bugfix/descripcion-del-bug
 git checkout -b bugfix/fix-memory-leak
@@ -118,12 +123,14 @@ git checkout -b bugfix/correct-validation
 ```
 
 **Características:**
+
 - Base: `develop` o `main`
 - Merge to: `develop`
 - Priority: Media
 - Delete: Después de merge
 
 #### Hotfix Branches
+
 ```bash
 # Formato: hotfix/descripcion-critica
 git checkout -b hotfix/security-vulnerability
@@ -131,6 +138,7 @@ git checkout -b hotfix/production-crash
 ```
 
 **Características:**
+
 - Base: `main`
 - Merge to: `main` AND `develop`
 - Priority: Crítica
@@ -138,12 +146,14 @@ git checkout -b hotfix/production-crash
 - Deploy: Inmediato
 
 #### Release Branches
+
 ```bash
 # Formato: release/vX.Y.Z
 git checkout -b release/v1.2.0
 ```
 
 **Características:**
+
 - Base: `develop`
 - Merge to: `main` AND `develop`
 - Purpose: Preparar release
@@ -152,6 +162,7 @@ git checkout -b release/v1.2.0
 ### Branch Protection Rules
 
 #### `main` branch
+
 - ✅ Require pull request reviews (2)
 - ✅ Require status checks to pass
 - ✅ Require branches to be up to date
@@ -160,6 +171,7 @@ git checkout -b release/v1.2.0
 - ✅ Restrict deletions
 
 #### `develop` branch
+
 - ✅ Require pull request reviews (1)
 - ✅ Require status checks to pass
 - ✅ Restrict force push
@@ -185,6 +197,7 @@ git status
 ### 2. Crear Pull Request
 
 #### Título del PR
+
 Usar formato de **Conventional Commits**:
 
 ```
@@ -202,25 +215,31 @@ Usar template:
 
 ```markdown
 ## 📝 Descripción
+
 Breve descripción de los cambios
 
 ## 🎯 Motivación
+
 Por qué son necesarios estos cambios
 
 ## 🔧 Cambios Realizados
+
 - [ ] Cambio 1
 - [ ] Cambio 2
 - [ ] Cambio 3
 
 ## 🧪 Testing
+
 - [ ] Unit tests añadidos/actualizados
 - [ ] Integration tests pasan
 - [ ] Manual testing realizado
 
 ## 📸 Screenshots (si aplica)
+
 [Agregar screenshots de UI changes]
 
 ## ✅ Checklist
+
 - [ ] Tests pasan
 - [ ] Linter pasa
 - [ ] Documentación actualizada
@@ -231,12 +250,14 @@ Por qué son necesarios estos cambios
 ### 3. Code Review
 
 #### Para el Autor
+
 - Responder a todos los comentarios
 - Hacer cambios solicitados
 - Re-request review después de cambios
 - Resolver conversaciones cuando corresponda
 
 #### Para los Reviewers
+
 - Revisar dentro de 24-48 horas
 - Ser constructivo y específico
 - Aprobar solo si está listo para producción
@@ -265,6 +286,7 @@ Por qué son necesarios estos cambios
 Cada PR pasa por 5 gates automáticos:
 
 #### 1. Lint Gate
+
 ```yaml
 - ESLint checks
 - Code style validation
@@ -272,6 +294,7 @@ Cada PR pasa por 5 gates automáticos:
 ```
 
 #### 2. Test Gate
+
 ```yaml
 - Unit tests
 - Integration tests
@@ -279,6 +302,7 @@ Cada PR pasa por 5 gates automáticos:
 ```
 
 #### 3. Security Gate
+
 ```yaml
 - npm audit
 - Trivy scan
@@ -286,6 +310,7 @@ Cada PR pasa por 5 gates automáticos:
 ```
 
 #### 4. Build Gate
+
 ```yaml
 - Production build
 - Artifact generation
@@ -293,6 +318,7 @@ Cada PR pasa por 5 gates automáticos:
 ```
 
 #### 5. Deploy Gate (main only)
+
 ```yaml
 - Deploy to production
 - Health checks
@@ -302,10 +328,13 @@ Cada PR pasa por 5 gates automáticos:
 ### Workflow Files
 
 #### `.github/workflows/ci-cd.yml`
+
 Main CI/CD pipeline con 5 gates
 
 #### `.github/workflows/orchestrator-pipeline.yml`
+
 Pipeline especializado para orchestrator
+
 - Scheduled runs (daily)
 - Manual triggers
 - Report generation
@@ -313,6 +342,7 @@ Pipeline especializado para orchestrator
 ### Status Checks
 
 Todos los PRs deben pasar:
+
 - ✅ Lint Gate
 - ✅ Test Gate
 - ✅ Security Gate
@@ -423,6 +453,7 @@ git push origin --delete release/v1.2.0
 ### Release Notes
 
 Generar release notes en GitHub:
+
 1. Go to Releases
 2. Click "Draft a new release"
 3. Select tag v1.2.0
@@ -436,6 +467,7 @@ Generar release notes en GitHub:
 ### Coding Style
 
 #### ESLint Rules
+
 - No unused variables
 - Consistent indentation (2 spaces)
 - Semicolons required
@@ -443,6 +475,7 @@ Generar release notes en GitHub:
 - No console.log in production
 
 #### Prettier Configuration
+
 ```json
 {
   "semi": true,
@@ -456,22 +489,24 @@ Generar release notes en GitHub:
 ### Testing Standards
 
 #### Coverage Requirements
+
 - **Minimum**: 80% overall
 - **Branches**: 75%
 - **Functions**: 85%
 - **Lines**: 80%
 
 #### Test Structure
+
 ```javascript
 describe('ComponentName', () => {
   describe('methodName', () => {
     test('should do something', () => {
       // Arrange
       const input = 'value';
-      
+
       // Act
       const result = method(input);
-      
+
       // Assert
       expect(result).toBe('expected');
     });
@@ -482,16 +517,17 @@ describe('ComponentName', () => {
 ### Documentation Standards
 
 #### Code Comments
+
 ```javascript
 /**
  * Function description
- * 
+ *
  * @param {string} param1 - Parameter description
  * @param {Object} options - Options object
  * @param {boolean} options.flag - Flag description
  * @returns {Promise<Object>} Result description
  * @throws {Error} When something goes wrong
- * 
+ *
  * @example
  * const result = await myFunction('value', { flag: true });
  */
@@ -501,6 +537,7 @@ async function myFunction(param1, options = {}) {
 ```
 
 #### README Updates
+
 - Keep examples up to date
 - Document breaking changes
 - Update API references
@@ -509,12 +546,14 @@ async function myFunction(param1, options = {}) {
 ### Security Standards
 
 #### Secrets Management
+
 - ❌ Never commit secrets
 - ✅ Use environment variables
 - ✅ Use .env.example for templates
 - ✅ Document required secrets
 
 #### Dependencies
+
 - Regular updates (weekly)
 - Security audits (daily)
 - Zero critical vulnerabilities
@@ -537,6 +576,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 ```
 
 **Types:**
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation
@@ -546,6 +586,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 - `chore`: Maintenance
 
 **Examples:**
+
 ```bash
 feat(orchestrator): add parallel execution mode
 fix(security): resolve vulnerability in dependencies
@@ -557,6 +598,7 @@ chore(deps): update dependencies
 ### Code Review Guidelines
 
 #### What to Look For
+
 - ✅ Correctness
 - ✅ Performance
 - ✅ Security
@@ -565,6 +607,7 @@ chore(deps): update dependencies
 - ✅ Documentation
 
 #### Review Comments
+
 ```
 # Blocking (must fix)
 🚫 This introduces a security vulnerability

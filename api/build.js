@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
 
   try {
     const startTime = Date.now();
-    
+
     // Simular ejecución del Build Agent
     // En producción, aquí se ejecutaría el agente real
     const buildResult = {

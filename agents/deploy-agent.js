@@ -1,6 +1,6 @@
 /**
  * Deploy Agent - Rascacielos Digital
- * 
+ *
  * Agente especializado en despliegue a Treesit Cloud
  */
 
@@ -70,7 +70,6 @@ class DeployAgent {
         status: deploymentStatus,
         health: healthStatus
       };
-
     } catch (error) {
       this.logger.error('Error durante el despliegue:', error.message);
       throw error;
@@ -123,13 +122,15 @@ class DeployAgent {
     while (attempts < this.config.healthCheckRetries) {
       try {
         const health = await this.treesitClient.healthCheck(deploymentId);
-        
+
         if (health.status === 'healthy') {
           this.logger.info('Health check exitoso');
           return { healthy: true, ...health };
         }
 
-        this.logger.warn(`Health check falló (intento ${attempts + 1}/${this.config.healthCheckRetries})`);
+        this.logger.warn(
+          `Health check falló (intento ${attempts + 1}/${this.config.healthCheckRetries})`
+        );
       } catch (error) {
         this.logger.warn(`Error en health check: ${error.message}`);
       }

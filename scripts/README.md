@@ -9,6 +9,7 @@ This directory contains utility scripts for maintaining and operating the Rascac
 Performs a comprehensive cleanup of the project directory.
 
 **What it does:**
+
 - Removes `node_modules` directory
 - Removes build artifacts (`dist/`, `build/`)
 - Removes coverage reports (`coverage/`, `.nyc_output/`)
@@ -19,6 +20,7 @@ Performs a comprehensive cleanup of the project directory.
 - Removes editor temporary files (`*.swp`, `*.swo`, `*~`)
 
 **Usage:**
+
 ```bash
 npm run cleanup
 # or
@@ -26,6 +28,7 @@ bash scripts/cleanup.sh
 ```
 
 **When to use:**
+
 - Before committing to ensure no temporary files are included
 - When switching between branches
 - When encountering build issues that might be cache-related
@@ -38,12 +41,14 @@ bash scripts/cleanup.sh
 Performs security audits and checks for outdated packages.
 
 **What it does:**
+
 - Runs `npm audit` to check for vulnerabilities
 - Lists outdated packages
 - Provides summary of dependencies
 - Suggests fixes for vulnerabilities
 
 **Usage:**
+
 ```bash
 npm run audit
 # or
@@ -51,10 +56,12 @@ bash scripts/audit-dependencies.sh
 ```
 
 **Exit codes:**
+
 - `0`: No vulnerabilities found
 - `1+`: Vulnerabilities detected (see output)
 
 **When to use:**
+
 - Before releasing a new version
 - Regularly (weekly/monthly) as part of maintenance
 - After adding new dependencies
@@ -67,11 +74,13 @@ bash scripts/audit-dependencies.sh
 Runs ESLint and Prettier to ensure code quality and consistent formatting.
 
 **What it does:**
+
 - Runs `npm run lint:fix` to check and auto-fix linting issues
 - Runs `npm run format` to format all code files
 - Reports any issues that couldn't be auto-fixed
 
 **Usage:**
+
 ```bash
 npm run lint-and-format
 # or
@@ -79,10 +88,12 @@ bash scripts/lint-and-format.sh
 ```
 
 **Exit codes:**
+
 - `0`: All checks passed
 - `1`: Some checks failed
 
 **When to use:**
+
 - Before committing changes
 - Before creating a pull request
 - After resolving merge conflicts
@@ -97,6 +108,7 @@ bash scripts/lint-and-format.sh
 Validates configuration files and environment variables.
 
 **Usage:**
+
 ```bash
 npm run config:check
 ```
@@ -108,6 +120,7 @@ npm run config:check
 Performs system health checks.
 
 **Usage:**
+
 ```bash
 npm run health-check
 ```
@@ -119,6 +132,7 @@ npm run health-check
 Command-line interface for Treesit Cloud operations.
 
 **Usage:**
+
 ```bash
 npm run deploy
 npm run deploy:status

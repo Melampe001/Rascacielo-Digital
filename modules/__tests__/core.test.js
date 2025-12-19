@@ -17,20 +17,20 @@ describe('Logger', () => {
 
   test('should log at different levels', () => {
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
-    
+
     logger.info('test message');
     expect(consoleSpy).toHaveBeenCalled();
-    
+
     consoleSpy.mockRestore();
   });
 
   test('should respect log level', () => {
     logger.setLevel('ERROR');
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
-    
+
     logger.info('should not log');
     expect(consoleSpy).not.toHaveBeenCalled();
-    
+
     consoleSpy.mockRestore();
   });
 });
@@ -77,7 +77,7 @@ describe('ErrorHandler', () => {
   test('should handle error', () => {
     const error = new Error('Test error');
     const result = errorHandler.handle(error);
-    
+
     expect(result.error).toBe(true);
     expect(result.message).toBe('Test error');
     expect(result.timestamp).toBeDefined();
@@ -86,7 +86,7 @@ describe('ErrorHandler', () => {
   test('should handle async error', async () => {
     const promise = Promise.reject(new Error('Async error'));
     const [error, result] = await errorHandler.handleAsync(promise);
-    
+
     expect(error).toBeDefined();
     expect(error.message).toBe('Async error');
     expect(result).toBeNull();
@@ -95,7 +95,7 @@ describe('ErrorHandler', () => {
   test('should handle async success', async () => {
     const promise = Promise.resolve('success');
     const [error, result] = await errorHandler.handleAsync(promise);
-    
+
     expect(error).toBeNull();
     expect(result).toBe('success');
   });
@@ -106,7 +106,7 @@ describe('Utils', () => {
     const start = Date.now();
     await Utils.sleep(100);
     const duration = Date.now() - start;
-    
+
     expect(duration).toBeGreaterThanOrEqual(90);
   });
 
@@ -122,14 +122,14 @@ describe('Utils', () => {
 
     const retryFn = Utils.retry(fn, 3, 10);
     const result = await retryFn();
-    
+
     expect(result).toBe('success');
     expect(fn).toHaveBeenCalledTimes(3);
   });
 
   test('timeout should reject if promise takes too long', async () => {
     const slowPromise = new Promise(resolve => setTimeout(() => resolve('done'), 200));
-    
+
     await expect(Utils.timeout(slowPromise, 50)).rejects.toThrow('Timeout exceeded');
   });
 
@@ -142,7 +142,7 @@ describe('Utils', () => {
   test('generateId should generate unique IDs', () => {
     const id1 = Utils.generateId();
     const id2 = Utils.generateId();
-    
+
     expect(id1).not.toBe(id2);
     expect(typeof id1).toBe('string');
   });
@@ -150,7 +150,7 @@ describe('Utils', () => {
   test('deepClone should clone object', () => {
     const obj = { a: 1, b: { c: 2 } };
     const clone = Utils.deepClone(obj);
-    
+
     expect(clone).toEqual(obj);
     expect(clone).not.toBe(obj);
     expect(clone.b).not.toBe(obj.b);

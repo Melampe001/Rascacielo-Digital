@@ -229,6 +229,7 @@ SECURITY_FAIL_ON_HIGH=true
 ### Problema: Deployment Falla en Vercel
 
 **Síntomas:**
+
 - Build falla con error "Module not found"
 - Timeout durante build
 
@@ -242,6 +243,7 @@ SECURITY_FAIL_ON_HIGH=true
 ### Problema: API Endpoints Retornan 404
 
 **Síntomas:**
+
 - `/api/health` retorna 404
 - Functions no se ejecutan
 
@@ -254,6 +256,7 @@ SECURITY_FAIL_ON_HIGH=true
 ### Problema: Environment Variables No Funcionan
 
 **Síntomas:**
+
 - Variables retornan `undefined`
 - Features no funcionan correctamente
 
@@ -267,6 +270,7 @@ SECURITY_FAIL_ON_HIGH=true
 ### Problema: Performance Lento
 
 **Síntomas:**
+
 - Respuestas lentas
 - Timeouts frecuentes
 
@@ -274,6 +278,7 @@ SECURITY_FAIL_ON_HIGH=true
 
 1. Optimizar functions para cold starts
 2. Aumentar memory en `vercel.json`:
+
 ```json
 "functions": {
   "api/**/*.js": {
@@ -282,12 +287,14 @@ SECURITY_FAIL_ON_HIGH=true
   }
 }
 ```
+
 3. Implementar caching
 4. Usar CDN para assets estáticos
 
 ### Problema: Security Headers No Aparecen
 
 **Síntomas:**
+
 - Headers de seguridad missing
 - Security score bajo
 
@@ -340,24 +347,28 @@ git push origin main
 ### Proceso de Rollback Completo
 
 1. **Identificar el problema**
+
    ```bash
    # Verificar logs
    vercel logs <deployment-url>
    ```
 
 2. **Rollback rápido**
+
    ```bash
    # Promote deployment anterior
    vercel alias set <previous-deployment> production
    ```
 
 3. **Verificar rollback**
+
    ```bash
    # Test health check
    curl https://your-domain/api/health
    ```
 
 4. **Investigar causa**
+
    ```bash
    # Revisar logs y metrics
    # Identificar root cause

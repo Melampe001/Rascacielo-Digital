@@ -10,7 +10,7 @@ const DeployAgent = require('../agents/deploy-agent');
 const commands = {
   deploy: async () => {
     console.log('🚀 Deploying to Treesit Cloud...\n');
-    
+
     const agent = new DeployAgent();
     try {
       const result = await agent.deploy();
@@ -31,7 +31,7 @@ const commands = {
     }
 
     console.log(`📊 Getting deployment status for ${deploymentId}...\n`);
-    
+
     const agent = new DeployAgent();
     try {
       const status = await agent.getStatus(deploymentId);
@@ -56,7 +56,7 @@ const commands = {
     }
 
     console.log(`⏪ Rolling back deployment ${deploymentId}...\n`);
-    
+
     const agent = new DeployAgent();
     try {
       await agent.rollback(deploymentId, targetVersion);
@@ -78,7 +78,7 @@ const commands = {
     }
 
     console.log(`📋 Getting logs for deployment ${deploymentId}...\n`);
-    
+
     const agent = new DeployAgent();
     try {
       const logs = await agent.getLogs(deploymentId, { lines });
@@ -99,17 +99,17 @@ const commands = {
     }
 
     console.log(`🏥 Checking health for deployment ${deploymentId}...\n`);
-    
+
     const agent = new DeployAgent();
     try {
       const health = await agent.runHealthChecks(deploymentId);
-      
+
       if (health.healthy) {
         console.log('✅ Deployment is healthy');
       } else {
         console.log('❌ Deployment is unhealthy');
       }
-      
+
       console.log('\nDetails:', JSON.stringify(health, null, 2));
     } catch (error) {
       console.error('❌ Health check failed:', error.message);

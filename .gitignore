@@ -86,3 +86,4 @@ jspm_packages/
 # Misc
 *.pem
 .env.production
+reports/

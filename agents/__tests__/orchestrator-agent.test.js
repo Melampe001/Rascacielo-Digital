@@ -9,7 +9,7 @@ class MockBuildAgent {
   async build() {
     return { success: true, artifacts: ['file1.js', 'file2.js'] };
   }
-  
+
   async rollback() {
     return { success: true };
   }
@@ -19,7 +19,7 @@ class MockSecurityAgent {
   async scan() {
     return { success: true, vulnerabilities: 0 };
   }
-  
+
   async rollback() {
     return { success: true };
   }
@@ -29,7 +29,7 @@ class MockDeployAgent {
   async deploy() {
     return { success: true, url: 'https://example.com' };
   }
-  
+
   async rollback() {
     return { success: true };
   }
@@ -79,7 +79,7 @@ describe('OrchestratorAgent', () => {
   describe('executeAgent', () => {
     test('should execute single agent successfully', async () => {
       const result = await orchestrator.executeAgent('build', 'build');
-      
+
       expect(result.success).toBe(true);
       expect(result.agent).toBe('build');
       expect(result.method).toBe('build');
@@ -88,7 +88,7 @@ describe('OrchestratorAgent', () => {
 
     test('should handle agent not found', async () => {
       const result = await orchestrator.executeAgent('nonexistent', 'build');
-      
+
       expect(result.success).toBe(false);
       expect(result.error).toContain('not found');
     });
@@ -96,7 +96,7 @@ describe('OrchestratorAgent', () => {
     test('should handle agent method error', async () => {
       orchestrator.config.agents.failing = new MockFailingAgent();
       const result = await orchestrator.executeAgent('failing', 'fail');
-      
+
       expect(result.success).toBe(false);
       expect(result.error).toContain('Simulated failure');
     });
@@ -200,7 +200,7 @@ describe('OrchestratorAgent', () => {
           return { success: true };
         }
       }
-      
+
       orchestrator.config.agents.maintenance = new MockMaintenanceAgent();
       const report = await orchestrator.executeFullPipeline();
 
@@ -212,7 +212,7 @@ describe('OrchestratorAgent', () => {
   describe('rollback', () => {
     test('should rollback successful steps in reverse order', async () => {
       const rollbackSpy = jest.spyOn(orchestrator.config.agents.build, 'rollback');
-      
+
       const results = [
         { step: 'build', agent: 'build', success: true, result: {} },
         { step: 'deploy', agent: 'deploy', success: true, result: {} }
@@ -231,10 +231,8 @@ describe('OrchestratorAgent', () => {
       }
 
       orchestrator.config.agents.norollback = new NoRollbackAgent();
-      
-      const results = [
-        { step: 'norollback', agent: 'norollback', success: true, result: {} }
-      ];
+
+      const results = [{ step: 'norollback', agent: 'norollback', success: true, result: {} }];
 
       // Should not throw error
       await expect(orchestrator.rollback(results)).resolves.not.toThrow();
@@ -306,9 +304,7 @@ describe('OrchestratorAgent', () => {
 
   describe('metrics', () => {
     test('should collect execution metrics', async () => {
-      const pipeline = [
-        { name: 'build', agent: 'build', method: 'build' }
-      ];
+      const pipeline = [{ name: 'build', agent: 'build', method: 'build' }];
 
       await orchestrator.executeSequential(pipeline);
 
