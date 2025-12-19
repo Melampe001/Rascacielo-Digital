@@ -84,29 +84,34 @@ El pipeline incluye los siguientes gates:
 ### Workflow Automático
 
 El pipeline se ejecuta automáticamente en:
+
 - Push a ramas `main` o `Main`
 - Pull Requests hacia `main` o `Main`
 
 ### Jobs del Pipeline
 
 #### 1. Lint
+
 - Ejecuta ESLint para verificar calidad de código
 - Falla el build si hay errores de linting
 - Node.js 18 con npm cache habilitado
 
 #### 2. Test
+
 - Ejecuta suite completa de tests con Jest
 - Genera reporte de cobertura
 - Sube cobertura a Codecov (si está configurado)
 - Requiere que Lint pase exitosamente
 
 #### 3. Build
+
 - Ejecuta el proceso de build
 - Genera artifacts en el directorio `dist/`
 - Sube artifacts para descarga
 - Requiere que Tests pasen exitosamente
 
 #### 4. Security
+
 - Ejecuta `npm audit` con nivel moderate
 - Ejecuta Security Agent personalizado
 - Corre en paralelo con Build
@@ -179,7 +184,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 👥 Autores
 
-- **Melampe001** - *Trabajo Inicial* - [Melampe001](https://github.com/Melampe001)
+- **Melampe001** - _Trabajo Inicial_ - [Melampe001](https://github.com/Melampe001)
 
 ## 🙏 Agradecimientos
 

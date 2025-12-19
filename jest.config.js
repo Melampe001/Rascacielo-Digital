@@ -17,13 +17,8 @@ module.exports = {
       statements: 70
     }
   },
-  testMatch: [
-    '**/__tests__/**/*.test.js',
-    '**/*.test.js'
-  ],
-  testPathIgnorePatterns: [
-    '/node_modules/',
-    '/dist/'
-  ],
+  testMatch: ['**/__tests__/**/*.test.js', '**/*.test.js'],
+  testPathIgnorePatterns: ['/node_modules/', '/dist/', '/coverage/'],
+  modulePathIgnorePatterns: ['/dist/'],
   verbose: true
 };
