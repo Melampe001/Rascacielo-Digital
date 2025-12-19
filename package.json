@@ -26,7 +26,9 @@
     "precommit": "npm run validate",
     "setup": "npm install && npm run config:check",
     "config:check": "node scripts/config-check.js",
-    "health-check": "node scripts/health-check.js"
+    "health-check": "node scripts/health-check.js",
+    "pr:merge": "node scripts/auto-merge-pr.js",
+    "pr:merge:40": "node scripts/auto-merge-pr.js 40"
   },
   "keywords": [
     "modular",
@@ -52,13 +54,15 @@
     "npm": ">=9.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
     "eslint": "^8.57.0",
-    "prettier": "^3.2.5",
+    "husky": "^8.0.3",
     "jest": "^29.7.0",
     "nodemon": "^3.1.0",
-    "husky": "^8.0.3",
-    "@commitlint/cli": "^17.7.1",
-    "@commitlint/config-conventional": "^17.7.0"
+    "prettier": "^3.2.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@octokit/rest": "^22.0.1"
+  }
 }
