@@ -72,13 +72,97 @@ Los agentes son componentes autónomos que realizan tareas específicas:
 
 ## 🔄 CI/CD Pipeline
 
+[![CI/CD Pipeline](https://github.com/Melampe001/Rascacielo-Digital/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Melampe001/Rascacielo-Digital/actions/workflows/ci-cd.yml)
+
 El pipeline incluye los siguientes gates:
 
 1. **Lint Gate**: Validación de estilo de código
 2. **Test Gate**: Pruebas unitarias y de integración
 3. **Security Gate**: Análisis de vulnerabilidades
 4. **Build Gate**: Compilación exitosa
-5. **Deploy Gate**: Despliegue automático
+
+### Workflow Automático
+
+El pipeline se ejecuta automáticamente en:
+
+- Push a ramas `main` o `Main`
+- Pull Requests hacia `main` o `Main`
+
+### Jobs del Pipeline
+
+#### 1. Lint
+
+- Ejecuta ESLint para verificar calidad de código
+- Falla el build si hay errores de linting
+- Node.js 18 con npm cache habilitado
+
+#### 2. Test
+
+- Ejecuta suite completa de tests con Jest
+- Genera reporte de cobertura
+- Sube cobertura a Codecov (si está configurado)
+- Requiere que Lint pase exitosamente
+
+#### 3. Build
+
+- Ejecuta el proceso de build
+- Genera artifacts en el directorio `dist/`
+- Sube artifacts para descarga
+- Requiere que Tests pasen exitosamente
+
+#### 4. Security
+
+- Ejecuta `npm audit` con nivel moderate
+- Ejecuta Security Agent personalizado
+- Corre en paralelo con Build
+- Requiere que Tests pasen exitosamente
+
+### Scripts Disponibles
+
+```bash
+# Desarrollo
+npm start              # Inicia la aplicación
+npm run dev            # Inicia en modo desarrollo con nodemon
+
+# Testing
+npm test               # Ejecuta tests
+npm run test:watch     # Ejecuta tests en modo watch
+npm run test:coverage  # Genera reporte de cobertura
+
+# Calidad de Código
+npm run lint           # Verifica código con ESLint
+npm run lint:fix       # Corrige errores automáticamente
+npm run format         # Formatea código con Prettier
+npm run format:check   # Verifica formato sin cambios
+
+# Build y Deploy
+npm run build          # Genera build de producción
+npm run clean          # Limpia artifacts
+npm run security       # Ejecuta análisis de seguridad
+
+# Validación Completa
+npm run validate       # Ejecuta lint + format:check + test
+```
+
+### Pre-push Hooks
+
+El proyecto incluye hooks de Git con Husky que ejecutan validaciones antes de push:
+
+1. ✅ Linting
+2. ✅ Tests
+3. ✅ Build
+
+Esto previene que código con errores llegue al repositorio remoto.
+
+### Debug Workflow
+
+Para depurar problemas en CI/CD, usa el workflow manual de debug:
+
+1. Ve a Actions en GitHub
+2. Selecciona "Debug CI/CD"
+3. Click en "Run workflow"
+
+Esto ejecutará el pipeline con información detallada de debugging.
 
 ## 📚 Documentación
 
@@ -100,7 +184,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 👥 Autores
 
-- **Melampe001** - *Trabajo Inicial* - [Melampe001](https://github.com/Melampe001)
+- **Melampe001** - _Trabajo Inicial_ - [Melampe001](https://github.com/Melampe001)
 
 ## 🙏 Agradecimientos
 

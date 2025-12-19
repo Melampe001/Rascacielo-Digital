@@ -4,6 +4,7 @@ module.exports = {
   collectCoverageFrom: [
     'agents/**/*.js',
     'modules/**/*.js',
+    'index.js',
     '!**/__tests__/**',
     '!**/node_modules/**',
     '!**/dist/**'
@@ -16,13 +17,8 @@ module.exports = {
       statements: 70
     }
   },
-  testMatch: [
-    '**/__tests__/**/*.test.js',
-    '**/*.test.js'
-  ],
-  testPathIgnorePatterns: [
-    '/node_modules/',
-    '/dist/'
-  ],
+  testMatch: ['**/__tests__/**/*.test.js', '**/*.test.js'],
+  testPathIgnorePatterns: ['/node_modules/', '/dist/', '/coverage/'],
+  modulePathIgnorePatterns: ['/dist/'],
   verbose: true
 };
