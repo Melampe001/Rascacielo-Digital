@@ -16,6 +16,14 @@ dist/
 build/
 *.log
 
+# Flutter/Dart build outputs
+flutter_web/build/
+flutter_web/.dart_tool/
+flutter_web/.flutter-plugins
+flutter_web/.flutter-plugins-dependencies
+flutter_web/.packages
+flutter_web/pubspec.lock
+
 # Coverage
 coverage/
 .nyc_output/
