@@ -108,10 +108,12 @@ npm audit fix
 ### Stack Tecnológico (Actualizado 2025-12-19)
 
 **Core:**
+
 - Node.js: >=18.0.0
 - npm: >=9.0.0
 
 **Producción:**
+
 - **winston** ^3.17.0 - Sistema de logging avanzado
 - **axios** ^1.7.9 - Cliente HTTP con retry automático
 - **bull** ^4.16.3 - Gestión de colas de trabajos
@@ -128,6 +130,7 @@ npm audit fix
 - **yaml** ^2.6.1 - Parser YAML
 
 **Desarrollo:**
+
 - **eslint** ^8.57.1 - Linting de código
 - **prettier** ^3.3.3 - Formateo de código
 - **jest** ^29.7.0 - Framework de testing
@@ -138,6 +141,7 @@ npm audit fix
 ### Estrategia de Actualización
 
 Se utiliza una estrategia conservadora que prioriza la estabilidad:
+
 - ✅ Actualizaciones patch y minor automáticas
 - ⚠️ Actualizaciones major requieren análisis y testing
 - 🔒 Auditorías de seguridad en cada actualización
@@ -159,7 +163,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 👥 Autores
 
-- **Melampe001** - *Trabajo Inicial* - [Melampe001](https://github.com/Melampe001)
+- **Melampe001** - _Trabajo Inicial_ - [Melampe001](https://github.com/Melampe001)
 
 ## 🙏 Agradecimientos
 

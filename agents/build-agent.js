@@ -1,6 +1,6 @@
 /**
  * Build Agent - Rascacielos Digital
- * 
+ *
  * Agente especializado en construcción y compilación de código
  */
 
@@ -22,30 +22,29 @@ class BuildAgent {
    */
   async build(params = {}) {
     const startTime = Date.now();
-    
+
     try {
       console.log('[Build Agent] Iniciando construcción...');
-      
+
       // Validar parámetros
       await this.validate(params);
-      
+
       // Detectar tipo de proyecto
       const projectType = await this.detectProjectType();
       console.log(`[Build Agent] Tipo de proyecto detectado: ${projectType}`);
-      
+
       // Ejecutar build según el tipo
       const result = await this.executeBuild(projectType, params);
-      
+
       const duration = Date.now() - startTime;
       console.log(`[Build Agent] Build completado en ${duration}ms`);
-      
+
       return {
         success: true,
         duration,
         artifacts: result.artifacts,
         projectType
       };
-      
     } catch (error) {
       console.error('[Build Agent] Error durante el build:', error.message);
       throw error;

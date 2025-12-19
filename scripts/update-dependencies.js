@@ -27,7 +27,7 @@ class DependencyUpdater {
       'fs-extra@^11.2.0',
       'glob@^10.4.5',
       'yaml@^2.6.1',
-      
+
       // Development dependencies - patch and minor updates only
       'eslint@^8.57.1',
       'prettier@^3.3.3',
@@ -73,7 +73,7 @@ class DependencyUpdater {
     console.log('\n📦 Creando backup de package.json...');
     const packagePath = path.join(__dirname, '..', 'package.json');
     const backupPath = path.join(__dirname, '..', 'package.json.backup');
-    
+
     fs.copyFileSync(packagePath, backupPath);
     console.log('✅ Backup creado: package.json.backup');
 
@@ -92,7 +92,7 @@ class DependencyUpdater {
     console.log('\n⚠️  Restaurando desde backup...');
     const packagePath = path.join(__dirname, '..', 'package.json');
     const backupPath = path.join(__dirname, '..', 'package.json.backup');
-    
+
     if (fs.existsSync(backupPath)) {
       fs.copyFileSync(backupPath, packagePath);
       console.log('✅ package.json restaurado');
@@ -126,7 +126,7 @@ class DependencyUpdater {
    */
   updateDependencies() {
     console.log('\n🔄 Actualizando dependencias...\n');
-    
+
     let successCount = 0;
     let failCount = 0;
 
@@ -141,8 +141,10 @@ class DependencyUpdater {
       }
     }
 
-    console.log(`\n✅ Actualizaciones completadas: ${successCount} exitosas, ${failCount} fallidas`);
-    
+    console.log(
+      `\n✅ Actualizaciones completadas: ${successCount} exitosas, ${failCount} fallidas`
+    );
+
     if (failCount > 0) {
       throw new Error(`Algunas actualizaciones fallaron (${failCount} paquetes)`);
     }
@@ -184,7 +186,7 @@ class DependencyUpdater {
     try {
       // Pre-checks
       this.checkNpm();
-      
+
       // Backup
       this.backup();
 
@@ -202,18 +204,17 @@ class DependencyUpdater {
 
       console.log('\n✅ ¡Actualización completada exitosamente!');
       console.log('📝 No olvides actualizar CHANGELOG.md con los cambios');
-      
     } catch (error) {
       console.error('\n❌ Error durante la actualización:', error.message);
       console.log('⚠️  Restaurando estado anterior...');
-      
+
       try {
         this.restore();
         console.log('✅ Estado restaurado');
       } catch (restoreError) {
         console.error('❌ Error al restaurar:', restoreError.message);
       }
-      
+
       process.exit(1);
     }
   }
