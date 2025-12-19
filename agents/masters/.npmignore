@@ -1,0 +1,23 @@
+# Tests
+__tests__/
+*.test.js
+*.spec.js
+
+# Development
+node_modules/
+.git/
+.github/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+coverage/
+.nyc_output/
