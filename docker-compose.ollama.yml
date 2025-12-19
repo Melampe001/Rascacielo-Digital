@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: rascacielo-ollama
+    ports:
+      - '11434:11434'
+    volumes:
+      - ollama-data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+
+  rascacielo:
+    build: .
+    container_name: rascacielo-app
+    depends_on:
+      - ollama
+    environment:
+      - OLLAMA_ENABLED=true
+      - OLLAMA_URL=http://ollama:11434
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+    command: npm start
+
+volumes:
+  ollama-data:

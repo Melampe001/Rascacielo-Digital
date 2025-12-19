@@ -26,7 +26,10 @@
     "precommit": "npm run validate",
     "setup": "npm install && npm run config:check",
     "config:check": "node scripts/config-check.js",
-    "health-check": "node scripts/health-check.js"
+    "health-check": "node scripts/health-check.js",
+    "ollama:check": "node scripts/ollama-manager.js",
+    "ollama:docker": "docker-compose -f docker-compose.ollama.yml up -d",
+    "ollama:install": "curl -fsSL https://ollama.ai/install.sh | sh"
   },
   "keywords": [
     "modular",
