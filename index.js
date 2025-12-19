@@ -76,7 +76,7 @@ if (require.main === module) {
   const app = new RascacielosDigital();
   
   app.start()
-    .then(async (instance) => {
+    .then(async instance => {
       // Demostración de agentes
       console.log('\n--- Demostración de Agentes ---\n');
       
