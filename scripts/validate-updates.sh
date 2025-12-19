@@ -59,7 +59,8 @@ fi
 
 # Step 3: Check outdated packages
 print_step "Verificando paquetes desactualizados"
-npm outdated || print_warning "Algunos paquetes tienen actualizaciones disponibles"
+npm outdated || true  # Always succeed since outdated packages are expected
+print_warning "Algunos paquetes tienen actualizaciones disponibles (esto es normal)"
 
 # Step 4: Lint check
 print_step "Verificando calidad de código (ESLint)"

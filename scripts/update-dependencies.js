@@ -127,26 +127,16 @@ class DependencyUpdater {
   updateDependencies() {
     console.log('\n🔄 Actualizando dependencias...\n');
 
-    let successCount = 0;
-    let failCount = 0;
+    // Install all packages at once for efficiency
+    const allPackages = this.updates.join(' ');
+    console.log(`📦 Instalando ${this.updates.length} paquetes...`);
 
-    for (const pkg of this.updates) {
-      console.log(`📦 Actualizando ${pkg}...`);
-      try {
-        this.exec(`npm install ${pkg}`, { silent: true });
-        successCount++;
-      } catch (error) {
-        console.error(`❌ Error actualizando ${pkg}`);
-        failCount++;
-      }
-    }
-
-    console.log(
-      `\n✅ Actualizaciones completadas: ${successCount} exitosas, ${failCount} fallidas`
-    );
-
-    if (failCount > 0) {
-      throw new Error(`Algunas actualizaciones fallaron (${failCount} paquetes)`);
+    try {
+      this.exec(`npm install ${allPackages}`, { silent: false });
+      console.log(`\n✅ Todas las dependencias actualizadas exitosamente`);
+    } catch (error) {
+      console.error(`❌ Error actualizando dependencias: ${error.message}`);
+      throw new Error('La actualización de dependencias falló');
     }
   }
 
@@ -155,10 +145,15 @@ class DependencyUpdater {
    */
   runAudit() {
     console.log('\n🔒 Ejecutando auditoría de seguridad...');
-    try {
-      this.exec('npm audit --audit-level=moderate', { throwOnError: false });
-    } catch (error) {
-      console.warn('⚠️  Se encontraron vulnerabilidades - revisar manualmente');
+    const result = this.exec('npm audit --audit-level=moderate', {
+      throwOnError: false,
+      silent: true
+    });
+
+    if (result) {
+      console.log(result);
+    } else {
+      console.warn('⚠️  Se encontraron vulnerabilidades - revisar con: npm audit');
     }
   }
 
