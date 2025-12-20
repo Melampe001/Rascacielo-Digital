@@ -41,7 +41,6 @@ class BuildScript {
 
       console.log('\n✅ Build completed successfully!');
       console.log(`📦 Build artifacts in: ${this.distDir}`);
-
     } catch (error) {
       console.error('\n❌ Build failed:', error.message);
       process.exit(1);
@@ -53,11 +52,11 @@ class BuildScript {
    */
   async clean() {
     console.log('🧹 Cleaning dist directory...');
-    
+
     if (fs.existsSync(this.distDir)) {
       fs.rmSync(this.distDir, { recursive: true, force: true });
     }
-    
+
     fs.mkdirSync(this.distDir, { recursive: true });
     console.log('   ✓ Dist directory cleaned');
   }
@@ -68,14 +67,7 @@ class BuildScript {
   async copySourceFiles() {
     console.log('\n📋 Copying source files...');
 
-    const filesToCopy = [
-      'index.js',
-      'package.json',
-      'agents',
-      'modules',
-      'config',
-      'docs'
-    ];
+    const filesToCopy = ['index.js', 'package.json', 'agents', 'modules', 'config', 'docs'];
 
     const excludePatterns = [
       '__tests__',
