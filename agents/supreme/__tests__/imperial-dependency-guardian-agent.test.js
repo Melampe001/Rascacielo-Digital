@@ -21,9 +21,9 @@ describe('ImperialDependencyGuardianAgent', () => {
     });
 
     test('should accept custom config', () => {
-      const customAgent = new ImperialDependencyGuardianAgent({ 
+      const customAgent = new ImperialDependencyGuardianAgent({
         autoUpdate: false,
-        scanInterval: 3600000 
+        scanInterval: 3600000
       });
       expect(customAgent.config.autoUpdate).toBe(false);
       expect(customAgent.config.scanInterval).toBe(3600000);
@@ -33,7 +33,7 @@ describe('ImperialDependencyGuardianAgent', () => {
   describe('scanVulnerabilities', () => {
     test('should scan vulnerabilities successfully', async () => {
       const result = await agent.scanVulnerabilities();
-      
+
       expect(result.success).toBe(true);
       expect(result).toHaveProperty('duration');
       expect(result).toHaveProperty('npmAudit');
@@ -43,7 +43,7 @@ describe('ImperialDependencyGuardianAgent', () => {
 
     test('should categorize vulnerabilities by severity', async () => {
       const result = await agent.scanVulnerabilities();
-      
+
       expect(result.summary).toHaveProperty('total');
       expect(result.summary).toHaveProperty('critical');
       expect(result.summary).toHaveProperty('high');
@@ -55,7 +55,7 @@ describe('ImperialDependencyGuardianAgent', () => {
   describe('runNpmAudit', () => {
     test('should run npm audit and return results', async () => {
       const result = await agent.runNpmAudit();
-      
+
       expect(result).toHaveProperty('vulnerabilities');
       expect(result).toHaveProperty('packages');
       expect(Array.isArray(result.packages)).toBe(true);
@@ -75,9 +75,9 @@ describe('ImperialDependencyGuardianAgent', () => {
           }
         }
       };
-      
+
       const summary = agent.categorizeBySeverity(results);
-      
+
       expect(summary.total).toBe(11);
       expect(summary.critical).toBe(1);
       expect(summary.high).toBe(3);
@@ -89,7 +89,7 @@ describe('ImperialDependencyGuardianAgent', () => {
   describe('autoUpdate', () => {
     test('should perform auto-update', async () => {
       const result = await agent.autoUpdate({ securityOnly: true });
-      
+
       expect(result.success).toBe(true);
       expect(result).toHaveProperty('duration');
       expect(result).toHaveProperty('applied');
@@ -101,7 +101,7 @@ describe('ImperialDependencyGuardianAgent', () => {
   describe('identifyUpdates', () => {
     test('should identify available updates', async () => {
       const updates = await agent.identifyUpdates();
-      
+
       expect(Array.isArray(updates)).toBe(true);
       if (updates.length > 0) {
         expect(updates[0]).toHaveProperty('name');
@@ -120,9 +120,9 @@ describe('ImperialDependencyGuardianAgent', () => {
         { name: 'pkg3', type: 'minor' },
         { name: 'pkg4', type: 'major' }
       ];
-      
+
       const categorized = agent.categorizeUpdates(updates);
-      
+
       expect(categorized.security).toHaveLength(1);
       expect(categorized.patch).toHaveLength(1);
       expect(categorized.minor).toHaveLength(1);
@@ -149,12 +149,10 @@ describe('ImperialDependencyGuardianAgent', () => {
 
   describe('applySecurityUpdates', () => {
     test('should apply security updates', async () => {
-      const updates = [
-        { name: 'lodash', latest: '4.17.21', type: 'security' }
-      ];
-      
+      const updates = [{ name: 'lodash', latest: '4.17.21', type: 'security' }];
+
       const applied = await agent.applySecurityUpdates(updates);
-      
+
       expect(Array.isArray(applied)).toBe(true);
       expect(applied.length).toBe(1);
     });
@@ -163,7 +161,7 @@ describe('ImperialDependencyGuardianAgent', () => {
   describe('analyzeUnused', () => {
     test('should analyze unused dependencies', async () => {
       const result = await agent.analyzeUnused();
-      
+
       expect(result).toHaveProperty('total');
       expect(result).toHaveProperty('unused');
       expect(result).toHaveProperty('unusedList');
@@ -175,7 +173,7 @@ describe('ImperialDependencyGuardianAgent', () => {
   describe('analyzeLicenses', () => {
     test('should analyze licenses', async () => {
       const result = await agent.analyzeLicenses();
-      
+
       expect(result).toHaveProperty('licenses');
       expect(result).toHaveProperty('incompatible');
       expect(result).toHaveProperty('attribution');
@@ -184,7 +182,7 @@ describe('ImperialDependencyGuardianAgent', () => {
 
     test('should generate attribution content', async () => {
       const result = await agent.analyzeLicenses();
-      
+
       expect(typeof result.attribution).toBe('string');
       expect(result.attribution).toContain('# Attribution');
     });
@@ -193,7 +191,7 @@ describe('ImperialDependencyGuardianAgent', () => {
   describe('generateDependencyGraph', () => {
     test('should generate dependency graph', async () => {
       const result = await agent.generateDependencyGraph();
-      
+
       expect(result).toHaveProperty('nodes');
       expect(result).toHaveProperty('edges');
       expect(result).toHaveProperty('circular');
@@ -205,7 +203,7 @@ describe('ImperialDependencyGuardianAgent', () => {
   describe('scheduleScans', () => {
     test('should configure scheduled scans', async () => {
       const result = await agent.scheduleScans();
-      
+
       expect(result.enabled).toBe(true);
       expect(result).toHaveProperty('interval');
       expect(result).toHaveProperty('nextScan');
@@ -215,7 +213,7 @@ describe('ImperialDependencyGuardianAgent', () => {
   describe('getInfo', () => {
     test('should return agent information', () => {
       const info = agent.getInfo();
-      
+
       expect(info.name).toBe('Imperial Dependency Guardian Agent');
       expect(info.version).toBe('1.0.0');
       expect(info.tier).toBe('SUPREME');

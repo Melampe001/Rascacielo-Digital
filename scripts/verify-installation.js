@@ -2,7 +2,7 @@
 
 /**
  * Verify Installation Script - Rascacielos Digital
- * 
+ *
  * Verifica que todos los agentes estén instalados y operacionales
  */
 
@@ -65,7 +65,6 @@ async function verify() {
       console.log('❌ La instalación está incompleta. Ejecuta "npm run imperial:install"\n');
       process.exit(1);
     }
-
   } catch (error) {
     console.error('\n❌ Error durante verificación:', error.message, '\n');
     process.exit(1);

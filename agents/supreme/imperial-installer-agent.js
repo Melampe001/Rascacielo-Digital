@@ -1,6 +1,6 @@
 /**
  * Imperial Package Installer Agent - Rascacielos Digital
- * 
+ *
  * Agente supremo para instalación y configuración del ecosistema completo
  * Tier: SUPREME
  */
@@ -65,7 +65,6 @@ class ImperialInstallerAgent {
         duration: Date.now() - startTime,
         report
       };
-
     } catch (error) {
       console.error(`[${this.name}] Error durante instalación:`, error.message);
       throw error;
@@ -83,7 +82,7 @@ class ImperialInstallerAgent {
       await this.verifyNodeVersion();
       await this.installDependencies({ minimal: true });
       await this.generateEnvFile();
-      
+
       const verification = await this.verifyInstallation({ minimal: true });
       const report = await this.generateInstallReport({
         type: 'minimal',
@@ -97,7 +96,6 @@ class ImperialInstallerAgent {
         duration: Date.now() - startTime,
         report
       };
-
     } catch (error) {
       console.error(`[${this.name}] Error durante instalación mínima:`, error.message);
       throw error;
@@ -116,7 +114,7 @@ class ImperialInstallerAgent {
       await this.verifyNodeVersion();
       await this.installDependencies({ custom: selectedAgents });
       await this.generateEnvFile();
-      
+
       const verification = await this.verifyInstallation({ custom: selectedAgents });
       const report = await this.generateInstallReport({
         type: 'custom',
@@ -131,7 +129,6 @@ class ImperialInstallerAgent {
         duration: Date.now() - startTime,
         report
       };
-
     } catch (error) {
       console.error(`[${this.name}] Error durante instalación personalizada:`, error.message);
       throw error;
@@ -147,7 +144,9 @@ class ImperialInstallerAgent {
     const requiredMajor = this.config.nodeVersion.split('.')[0];
 
     if (parseInt(major) < parseInt(requiredMajor)) {
-      throw new Error(`Node.js >= ${this.config.nodeVersion} requerido. Versión actual: ${nodeVersion}`);
+      throw new Error(
+        `Node.js >= ${this.config.nodeVersion} requerido. Versión actual: ${nodeVersion}`
+      );
     }
 
     console.log(`[Imperial Installer] Node.js ${nodeVersion} ✓`);
@@ -159,19 +158,19 @@ class ImperialInstallerAgent {
    */
   async installDependencies(options = {}) {
     const packageJsonPath = path.join(process.cwd(), 'package.json');
-    
+
     if (!fs.existsSync(packageJsonPath)) {
       throw new Error('package.json no encontrado');
     }
 
     console.log('[Imperial Installer] Instalando dependencias npm...');
-    
+
     try {
       // En producción usaríamos npm install, pero para testing simulamos
       if (process.env.NODE_ENV !== 'test') {
-        execSync('npm install --silent', { 
+        execSync('npm install --silent', {
           stdio: 'inherit',
-          timeout: this.config.timeout 
+          timeout: this.config.timeout
         });
       }
       console.log('[Imperial Installer] Dependencias instaladas ✓');
@@ -222,7 +221,7 @@ class ImperialInstallerAgent {
    */
   async runPostInstallScripts() {
     console.log('[Imperial Installer] Ejecutando scripts post-instalación...');
-    
+
     // Verificar si hay hooks de git
     const hooksPath = path.join(process.cwd(), '.git', 'hooks');
     if (fs.existsSync(hooksPath)) {
@@ -237,7 +236,7 @@ class ImperialInstallerAgent {
    */
   async verifyInstallation(options = {}) {
     console.log('[Imperial Installer] Verificando integridad...');
-    
+
     const checks = {
       nodeModules: fs.existsSync(path.join(process.cwd(), 'node_modules')),
       packageJson: fs.existsSync(path.join(process.cwd(), 'package.json')),
@@ -246,7 +245,7 @@ class ImperialInstallerAgent {
     };
 
     const passed = Object.values(checks).every(check => check === true);
-    
+
     if (options.minimal) {
       console.log('[Imperial Installer] Verificación mínima: PASS ✓');
     } else if (options.custom) {
@@ -258,7 +257,7 @@ class ImperialInstallerAgent {
     return {
       passed,
       checks,
-      agentsOperational: options.minimal ? 40 : (options.custom ? options.custom.length : 192)
+      agentsOperational: options.minimal ? 40 : options.custom ? options.custom.length : 192
     };
   }
 

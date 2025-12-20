@@ -50,11 +50,13 @@ Las sugerencias de mejoras son bienvenidas:
 #### Guía de Estilo
 
 **Commits:**
+
 - Usa mensajes claros y descriptivos
 - Formato: `tipo(scope): descripción`
 - Tipos: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
 
 Ejemplos:
+
 ```
 feat(agents): agregar Monitor Agent
 fix(security): corregir validación de vulnerabilidades
@@ -62,12 +64,14 @@ docs(readme): actualizar guía de instalación
 ```
 
 **Código:**
+
 - Sigue las convenciones de JavaScript/Node.js
 - Usa nombres descriptivos para variables y funciones
 - Comenta código complejo
 - Mantén funciones pequeñas y enfocadas
 
 **Tests:**
+
 - Escribe tests para nuevas funcionalidades
 - Mantén cobertura mínima del 80%
 - Tests deben ser claros y descriptivos

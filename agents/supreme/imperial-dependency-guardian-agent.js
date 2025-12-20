@@ -1,6 +1,6 @@
 /**
  * Imperial Dependency Guardian Agent - Rascacielos Digital
- * 
+ *
  * Agente supremo para gestión de dependencias y seguridad
  * Tier: SUPREME
  */
@@ -44,7 +44,6 @@ class ImperialDependencyGuardianAgent {
         duration: Date.now() - startTime,
         ...results
       };
-
     } catch (error) {
       console.error(`[${this.name}] Error durante escaneo:`, error.message);
       throw error;
@@ -56,7 +55,7 @@ class ImperialDependencyGuardianAgent {
    */
   async runNpmAudit() {
     console.log('[Guardian] Ejecutando npm audit...');
-    
+
     try {
       if (process.env.NODE_ENV === 'test') {
         // Simulación para tests
@@ -89,12 +88,11 @@ class ImperialDependencyGuardianAgent {
 
       const output = execSync('npm audit --json', { encoding: 'utf-8' });
       const audit = JSON.parse(output);
-      
+
       return {
         vulnerabilities: audit.metadata?.vulnerabilities || {},
         packages: this.parseAuditPackages(audit)
       };
-
     } catch (error) {
       // npm audit returns non-zero exit code when vulnerabilities found
       if (error.stdout) {
@@ -113,7 +111,7 @@ class ImperialDependencyGuardianAgent {
    */
   parseAuditPackages(audit) {
     const packages = [];
-    
+
     if (audit.vulnerabilities) {
       Object.entries(audit.vulnerabilities).forEach(([name, vuln]) => {
         packages.push({
@@ -134,7 +132,7 @@ class ImperialDependencyGuardianAgent {
    */
   async checkGitHubAdvisory() {
     console.log('[Guardian] Verificando GitHub Advisory Database...');
-    
+
     // Simulación - en producción usaríamos la API de GitHub
     return {
       checked: true,
@@ -197,7 +195,6 @@ class ImperialDependencyGuardianAgent {
         applied,
         testsPass
       };
-
     } catch (error) {
       console.error(`[${this.name}] Error durante auto-actualización:`, error.message);
       throw error;
@@ -209,7 +206,7 @@ class ImperialDependencyGuardianAgent {
    */
   async identifyUpdates() {
     console.log('[Guardian] Identificando actualizaciones disponibles...');
-    
+
     if (process.env.NODE_ENV === 'test') {
       return [
         { name: 'lodash', current: '4.17.15', latest: '4.17.21', type: 'security' },
@@ -221,7 +218,7 @@ class ImperialDependencyGuardianAgent {
     try {
       const output = execSync('npm outdated --json', { encoding: 'utf-8' });
       const outdated = JSON.parse(output);
-      
+
       return Object.entries(outdated).map(([name, info]) => ({
         name,
         current: info.current,
@@ -283,11 +280,7 @@ class ImperialDependencyGuardianAgent {
    * Aplicar todas las actualizaciones
    */
   async applyAllUpdates(categorized) {
-    const allUpdates = [
-      ...categorized.security,
-      ...categorized.patch,
-      ...categorized.minor
-    ];
+    const allUpdates = [...categorized.security, ...categorized.patch, ...categorized.minor];
 
     return await this.applySecurityUpdates(allUpdates);
   }
@@ -297,7 +290,7 @@ class ImperialDependencyGuardianAgent {
    */
   async runTests() {
     console.log('[Guardian] Ejecutando tests...');
-    
+
     if (process.env.NODE_ENV === 'test') {
       return true;
     }
@@ -326,15 +319,15 @@ class ImperialDependencyGuardianAgent {
     console.log(`[${this.name}] Analizando dependencias no usadas...`);
 
     const packageJsonPath = path.join(process.cwd(), 'package.json');
-    
+
     if (!fs.existsSync(packageJsonPath)) {
       throw new Error('package.json no encontrado');
     }
 
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
     const deps = {
-      ...packageJson.dependencies || {},
-      ...packageJson.devDependencies || {}
+      ...(packageJson.dependencies || {}),
+      ...(packageJson.devDependencies || {})
     };
 
     // Simulación de análisis
@@ -345,7 +338,7 @@ class ImperialDependencyGuardianAgent {
       total: Object.keys(deps).length,
       unused: unused.length,
       unusedList: unused,
-      spaceRecoverable: `${(unused.length * 50)}KB`,
+      spaceRecoverable: `${unused.length * 50}KB`,
       totalSize: `${totalSize}KB`
     };
   }
@@ -470,7 +463,9 @@ if (require.main === module) {
         result = await agent.analyzeLicenses();
         break;
       default:
-        console.log('Uso: node imperial-dependency-guardian-agent.js [--scan|--update|--analyze|--licenses]');
+        console.log(
+          'Uso: node imperial-dependency-guardian-agent.js [--scan|--update|--analyze|--licenses]'
+        );
         process.exit(1);
       }
       console.log(JSON.stringify(result, null, 2));

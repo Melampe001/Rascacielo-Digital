@@ -2,7 +2,7 @@
 
 /**
  * Imperial Install CLI - Rascacielos Digital
- * 
+ *
  * CLI para instalación del ecosistema Imperial Supreme Elite Agents
  */
 
@@ -87,7 +87,6 @@ async function main() {
 
     console.log('\n🎉 ¡Todo listo! Ejecuta "npm run supreme:orchestrate" para comenzar.\n');
     process.exit(0);
-
   } catch (error) {
     console.error('\n╔══════════════════════════════════════════════════════════════╗');
     console.error('║                     ERROR DE INSTALACIÓN                     ║');

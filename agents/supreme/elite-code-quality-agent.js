@@ -1,6 +1,6 @@
 /**
  * Elite Code Quality Agent - Rascacielos Digital
- * 
+ *
  * Agente elite para análisis y mejora de calidad de código
  * Tier: ELITE
  */
@@ -46,7 +46,6 @@ class EliteCodeQualityAgent {
         duration: Date.now() - startTime,
         ...results
       };
-
     } catch (error) {
       console.error(`[${this.name}] Error durante validación:`, error.message);
       throw error;
@@ -58,7 +57,7 @@ class EliteCodeQualityAgent {
    */
   async runESLint(files) {
     console.log('[Code Quality] Ejecutando ESLint...');
-    
+
     try {
       if (process.env.NODE_ENV === 'test') {
         return {
@@ -72,7 +71,6 @@ class EliteCodeQualityAgent {
 
       const output = execSync('npm run lint', { encoding: 'utf-8' });
       return this.parseESLintOutput(output);
-
     } catch (error) {
       // ESLint may return non-zero on warnings/errors
       return {
@@ -103,7 +101,7 @@ class EliteCodeQualityAgent {
    */
   async runPrettier(files) {
     console.log('[Code Quality] Verificando formato con Prettier...');
-    
+
     try {
       if (process.env.NODE_ENV === 'test') {
         return {
@@ -114,7 +112,6 @@ class EliteCodeQualityAgent {
 
       execSync('npm run format:check', { encoding: 'utf-8' });
       return { unformatted: 0, total: 50 };
-
     } catch (_error) {
       return { unformatted: 5, total: 50 };
     }
@@ -174,7 +171,7 @@ class EliteCodeQualityAgent {
    */
   calculateQualityScore(results) {
     let score = 100;
-    
+
     score -= results.eslint.errors * 5;
     score -= results.eslint.warnings * 2;
     score -= results.prettier.unformatted * 1;
@@ -190,8 +187,11 @@ class EliteCodeQualityAgent {
   async autoFix(files = '.', options = {}) {
     console.log(`[${this.name}] Auto-corrigiendo código...`);
     const startTime = Date.now();
-    const aggressiveness = options.aggressive ? 'aggressive' : 
-      options.conservative ? 'conservative' : 'normal';
+    const aggressiveness = options.aggressive
+      ? 'aggressive'
+      : options.conservative
+        ? 'conservative'
+        : 'normal';
 
     try {
       const applied = [];
@@ -222,7 +222,6 @@ class EliteCodeQualityAgent {
         applied,
         aggressiveness
       };
-
     } catch (error) {
       console.error(`[${this.name}] Error durante auto-corrección:`, error.message);
       throw error;
@@ -302,11 +301,11 @@ class EliteCodeQualityAgent {
   gradeToColor(grade) {
     const colorMap = {
       'A+': 'brightgreen',
-      'A': 'green',
-      'B': 'yellowgreen',
-      'C': 'yellow',
-      'D': 'orange',
-      'F': 'red'
+      A: 'green',
+      B: 'yellowgreen',
+      C: 'yellow',
+      D: 'orange',
+      F: 'red'
     };
     return colorMap[grade] || 'lightgrey';
   }
@@ -335,7 +334,6 @@ npm run validate
 
       console.log('[Code Quality] Pre-commit hook configurado ✓');
       return true;
-
     } catch (error) {
       console.error('[Code Quality] Error configurando hook:', error.message);
       return false;
@@ -380,7 +378,9 @@ if (require.main === module) {
         result = await agent.generateQualityBadge();
         break;
       default:
-        console.log('Uso: node elite-code-quality-agent.js [--validate|--fix|--complexity|--badge]');
+        console.log(
+          'Uso: node elite-code-quality-agent.js [--validate|--fix|--complexity|--badge]'
+        );
         process.exit(1);
       }
       console.log(JSON.stringify(result, null, 2));

@@ -21,9 +21,9 @@ describe('EliteCodeQualityAgent', () => {
     });
 
     test('should accept custom config', () => {
-      const customAgent = new EliteCodeQualityAgent({ 
+      const customAgent = new EliteCodeQualityAgent({
         aggressiveness: 'aggressive',
-        autoFix: false 
+        autoFix: false
       });
       expect(customAgent.config.aggressiveness).toBe('aggressive');
       expect(customAgent.config.autoFix).toBe(false);
@@ -33,7 +33,7 @@ describe('EliteCodeQualityAgent', () => {
   describe('validate', () => {
     test('should validate code successfully', async () => {
       const result = await agent.validate();
-      
+
       expect(result).toHaveProperty('success');
       expect(result).toHaveProperty('duration');
       expect(result).toHaveProperty('eslint');
@@ -61,7 +61,7 @@ describe('EliteCodeQualityAgent', () => {
   describe('runESLint', () => {
     test('should run ESLint and return results', async () => {
       const result = await agent.runESLint('.');
-      
+
       expect(result).toHaveProperty('errors');
       expect(result).toHaveProperty('warnings');
       expect(result).toHaveProperty('fixableErrors');
@@ -73,7 +73,7 @@ describe('EliteCodeQualityAgent', () => {
   describe('runPrettier', () => {
     test('should run Prettier check', async () => {
       const result = await agent.runPrettier('.');
-      
+
       expect(result).toHaveProperty('unformatted');
       expect(result).toHaveProperty('total');
       expect(typeof result.unformatted).toBe('number');
@@ -84,7 +84,7 @@ describe('EliteCodeQualityAgent', () => {
   describe('analyzeComplexity', () => {
     test('should analyze code complexity', async () => {
       const result = await agent.analyzeComplexity('.');
-      
+
       expect(result).toHaveProperty('avgCyclomaticComplexity');
       expect(result).toHaveProperty('avgCognitiveComplexity');
       expect(result).toHaveProperty('complexFunctions');
@@ -96,7 +96,7 @@ describe('EliteCodeQualityAgent', () => {
   describe('detectDeadCode', () => {
     test('should detect dead code', async () => {
       const result = await agent.detectDeadCode('.');
-      
+
       expect(result).toHaveProperty('unusedExports');
       expect(result).toHaveProperty('orphanedFiles');
       expect(result).toHaveProperty('unreachableCode');
@@ -113,9 +113,9 @@ describe('EliteCodeQualityAgent', () => {
         complexity: { complexFunctions: [1, 2] },
         deadCode: { total: 1 }
       };
-      
+
       const score = agent.calculateQualityScore(results);
-      
+
       expect(typeof score).toBe('number');
       expect(score).toBeGreaterThanOrEqual(0);
       expect(score).toBeLessThanOrEqual(100);
@@ -146,7 +146,7 @@ describe('EliteCodeQualityAgent', () => {
   describe('autoFix', () => {
     test('should perform auto-fix', async () => {
       const result = await agent.autoFix();
-      
+
       expect(result.success).toBe(true);
       expect(result).toHaveProperty('duration');
       expect(result).toHaveProperty('applied');
@@ -156,14 +156,14 @@ describe('EliteCodeQualityAgent', () => {
 
     test('should apply conservative fixes', async () => {
       const result = await agent.autoFix('.', { conservative: true });
-      
+
       expect(result.aggressiveness).toBe('conservative');
       expect(result.applied).not.toContain('eslint');
     });
 
     test('should apply aggressive fixes', async () => {
       const result = await agent.autoFix('.', { aggressive: true });
-      
+
       expect(result.aggressiveness).toBe('aggressive');
       expect(result.applied).toContain('imports');
     });
@@ -172,7 +172,7 @@ describe('EliteCodeQualityAgent', () => {
   describe('generateQualityBadge', () => {
     test('should generate quality badge', async () => {
       const result = await agent.generateQualityBadge();
-      
+
       expect(result).toHaveProperty('score');
       expect(result).toHaveProperty('grade');
       expect(result).toHaveProperty('color');
@@ -206,7 +206,7 @@ describe('EliteCodeQualityAgent', () => {
   describe('getInfo', () => {
     test('should return agent information', () => {
       const info = agent.getInfo();
-      
+
       expect(info.name).toBe('Elite Code Quality Agent');
       expect(info.version).toBe('1.0.0');
       expect(info.tier).toBe('ELITE');

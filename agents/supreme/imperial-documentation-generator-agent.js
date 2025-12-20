@@ -1,6 +1,6 @@
 /**
  * Imperial Documentation Generator Agent - Rascacielos Digital
- * 
+ *
  * Agente supremo para generación automática de documentación
  * Tier: SUPREME
  */
@@ -42,7 +42,6 @@ class ImperialDocumentationGeneratorAgent {
         duration: Date.now() - startTime,
         ...results
       };
-
     } catch (error) {
       console.error(`[${this.name}] Error generando documentación:`, error.message);
       throw error;
@@ -408,7 +407,9 @@ if (require.main === module) {
         result = await agent.updateChangelog();
         break;
       default:
-        console.log('Uso: node imperial-documentation-generator-agent.js [--generate|--html|--pdf|--changelog]');
+        console.log(
+          'Uso: node imperial-documentation-generator-agent.js [--generate|--html|--pdf|--changelog]'
+        );
         process.exit(1);
       }
       console.log(JSON.stringify(result, null, 2));

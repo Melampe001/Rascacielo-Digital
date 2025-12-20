@@ -1,6 +1,6 @@
 /**
  * Supreme Orchestrator Agent - Rascacielos Digital
- * 
+ *
  * Agente supremo para orquestar y coordinar todos los agentes del ecosistema
  * Tier: SUPREME
  */
@@ -64,7 +64,9 @@ class SupremeOrchestratorAgent {
       risks: this.identifyRisks(task)
     };
 
-    console.log(`[Supreme Orchestrator] Análisis completado: ${analysis.requiredAgents.length} agentes necesarios`);
+    console.log(
+      `[Supreme Orchestrator] Análisis completado: ${analysis.requiredAgents.length} agentes necesarios`
+    );
     return analysis;
   }
 
@@ -93,10 +95,11 @@ class SupremeOrchestratorAgent {
       hasSecurity: task.type === 'security'
     };
 
-    const score = factors.agentCount * 10 + 
-                  (factors.hasDeployment ? 30 : 0) +
-                  (factors.hasTests ? 20 : 0) +
-                  (factors.hasSecurity ? 25 : 0);
+    const score =
+      factors.agentCount * 10 +
+      (factors.hasDeployment ? 30 : 0) +
+      (factors.hasTests ? 20 : 0) +
+      (factors.hasSecurity ? 25 : 0);
 
     if (score < 50) return 'low';
     if (score < 100) return 'medium';
@@ -164,7 +167,7 @@ class SupremeOrchestratorAgent {
     const baseTime = 10000; // 10 seconds
     const agentCount = (task.agents || []).length || 1;
     const complexity = this.calculateComplexity(task);
-    
+
     const multiplier = {
       low: 1,
       medium: 2,
@@ -204,7 +207,7 @@ class SupremeOrchestratorAgent {
    */
   identifyRisks(task) {
     const risks = [];
-    
+
     if (task.type === 'deploy' && !task.agents?.includes('security')) {
       risks.push({ level: 'high', message: 'Deploy sin security scan' });
     }
@@ -256,10 +259,9 @@ class SupremeOrchestratorAgent {
         duration: Date.now() - startTime,
         report
       };
-
     } catch (error) {
       console.error(`[${this.name}] Error durante orquestación:`, error.message);
-      
+
       // Rollback automático
       if (options.autoRollback !== false) {
         await this.rollback(task);
@@ -282,17 +284,17 @@ class SupremeOrchestratorAgent {
     };
 
     // Agrupar agentes por dependencias
-    const agentsWithDeps = analysis.requiredAgents.filter(agent => 
+    const agentsWithDeps = analysis.requiredAgents.filter(agent =>
       analysis.dependencies.some(dep => dep.agent === agent.name)
     );
 
-    const agentsWithoutDeps = analysis.requiredAgents.filter(agent =>
-      !analysis.dependencies.some(dep => dep.agent === agent.name)
+    const agentsWithoutDeps = analysis.requiredAgents.filter(
+      agent => !analysis.dependencies.some(dep => dep.agent === agent.name)
     );
 
     // Agentes sin dependencias pueden ejecutarse en paralelo
     plan.parallel = agentsWithoutDeps.slice(0, this.config.maxParallelAgents);
-    
+
     // Agentes con dependencias se ejecutan secuencialmente
     plan.sequential = agentsWithDeps.sort((a, b) => b.priority - a.priority);
 
@@ -306,7 +308,7 @@ class SupremeOrchestratorAgent {
    */
   async executeAgents(plan, options = {}) {
     console.log('[Supreme Orchestrator] Ejecutando agentes...');
-    
+
     const results = {
       parallel: [],
       sequential: [],
@@ -316,13 +318,17 @@ class SupremeOrchestratorAgent {
 
     // Ejecutar agentes en paralelo
     if (plan.parallel.length > 0) {
-      console.log(`[Supreme Orchestrator] Ejecutando ${plan.parallel.length} agentes en paralelo...`);
+      console.log(
+        `[Supreme Orchestrator] Ejecutando ${plan.parallel.length} agentes en paralelo...`
+      );
       results.parallel = await this.executeParallel(plan.parallel, options);
     }
 
     // Ejecutar agentes secuenciales
     if (plan.sequential.length > 0) {
-      console.log(`[Supreme Orchestrator] Ejecutando ${plan.sequential.length} agentes secuencialmente...`);
+      console.log(
+        `[Supreme Orchestrator] Ejecutando ${plan.sequential.length} agentes secuencialmente...`
+      );
       results.sequential = await this.executeSequential(plan.sequential, options);
     }
 
@@ -333,11 +339,11 @@ class SupremeOrchestratorAgent {
    * Ejecutar agentes en paralelo
    */
   async executeParallel(agents, _options = {}) {
-    const promises = agents.map(agent => 
-      this.executeAgent(agent).catch(error => ({ 
-        agent: agent.name, 
+    const promises = agents.map(agent =>
+      this.executeAgent(agent).catch(error => ({
+        agent: agent.name,
         error: error.message,
-        success: false 
+        success: false
       }))
     );
 
@@ -355,10 +361,10 @@ class SupremeOrchestratorAgent {
         const result = await this.executeAgent(agent);
         results.push(result);
       } catch (error) {
-        results.push({ 
-          agent: agent.name, 
+        results.push({
+          agent: agent.name,
           error: error.message,
-          success: false 
+          success: false
         });
         break; // Stop on first failure
       }
@@ -372,7 +378,7 @@ class SupremeOrchestratorAgent {
    */
   async executeAgent(agent) {
     console.log(`[Supreme Orchestrator] Ejecutando agente: ${agent.name}`);
-    
+
     // Simulación de ejecución
     await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -398,7 +404,7 @@ class SupremeOrchestratorAgent {
    */
   async learnFromExecution(execution) {
     console.log('[Supreme Orchestrator] Aprendiendo de ejecución...');
-    
+
     this.executionHistory.push({
       timestamp: new Date().toISOString(),
       task: execution.task.name || 'unnamed',
@@ -439,7 +445,7 @@ class SupremeOrchestratorAgent {
    */
   async realtimeDashboard() {
     console.log('[Supreme Orchestrator] Dashboard en tiempo real (simulado)');
-    
+
     return {
       activeAgents: Object.keys(this.agents).length,
       executionHistory: this.executionHistory.slice(-10),
@@ -455,7 +461,7 @@ class SupremeOrchestratorAgent {
    */
   calculateAvgDuration() {
     if (this.executionHistory.length === 0) return 0;
-    
+
     const total = this.executionHistory.reduce((sum, exec) => sum + exec.duration, 0);
     return (total / this.executionHistory.length / 1000).toFixed(2);
   }
