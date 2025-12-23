@@ -1,0 +1,59 @@
+name: Publish to NPM
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version bump type'
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        working-directory: agents/masters
+        run: npm install
+
+      - name: Run tests
+        working-directory: agents/masters
+        run: npm test
+
+      - name: Version bump
+        if: github.event_name == 'workflow_dispatch'
+        working-directory: agents/masters
+        run: npm version ${{ github.event.inputs.version }}
+
+      - name: Publish to NPM
+        working-directory: agents/masters
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Commit version bump
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add agents/masters/package.json
+          git commit -m "chore: bump version to $(node -p \"require('./agents/masters/package.json').version\")"
+          git push

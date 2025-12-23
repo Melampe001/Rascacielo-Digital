@@ -1,0 +1,59 @@
+{
+  "name": "@melampe001/rascacielo-masters",
+  "version": "1.0.0",
+  "description": "35 Specialized Master Agents for code analysis, validation, scaffolding and optimization across multiple technologies",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "jest",
+    "prepublishOnly": "npm test"
+  },
+  "keywords": [
+    "code-analysis",
+    "best-practices",
+    "scaffolding",
+    "python",
+    "javascript",
+    "typescript",
+    "react",
+    "vue",
+    "angular",
+    "docker",
+    "kubernetes",
+    "aws",
+    "vercel",
+    "flutter",
+    "react-native",
+    "agents",
+    "code-quality",
+    "linting",
+    "optimization"
+  ],
+  "author": "Melampe001",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Melampe001/Rascacielo-Digital.git",
+    "directory": "agents/masters"
+  },
+  "bugs": {
+    "url": "https://github.com/Melampe001/Rascacielo-Digital/issues"
+  },
+  "homepage": "https://github.com/Melampe001/Rascacielo-Digital/blob/Main/agents/masters/README.md",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "*.js",
+    "*.d.ts",
+    "!**/*.test.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
