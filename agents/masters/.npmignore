@@ -1,0 +1,18 @@
+# Exclude from npm package
+scripts/
+**/*.test.js
+**/__tests__/
+.git/
+.github/
+node_modules/
+coverage/
+.DS_Store
+*.log
+.env
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.eslintcache
+.prettierignore
