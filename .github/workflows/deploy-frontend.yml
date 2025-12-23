@@ -1,0 +1,48 @@
+name: 🎨 Deploy Frontend (Flutter → Vercel)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'flutter_web/**'
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📂 Checkout code
+        uses: actions/checkout@v4
+
+      - name: ☕ Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: 🚀 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: 📦 Install dependencies
+        working-directory: ./flutter_web
+        run: flutter pub get
+
+      - name: 🧪 Analyze
+        working-directory: ./flutter_web
+        run: flutter analyze
+
+      - name: 🏗️ Build Web
+        working-directory: ./flutter_web
+        run: flutter build web --release --web-renderer canvaskit --wasm
+
+      - name: ☁️ Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN_FRONTEND }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_FRONTEND }}
+          working-directory: ./flutter_web/build/web
+          vercel-args: '--prod'

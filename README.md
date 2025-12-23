@@ -27,15 +27,23 @@ Rascacielos Digital es un sistema modular de desarrollo arquitectónico que util
 - **CI/CD Gates**: Pipeline automatizado con validaciones de calidad
 - **Escalabilidad**: Diseño preparado para crecimiento horizontal
 - **Seguridad**: Validaciones de seguridad integradas
+- **🏛️ Arquitectura Híbrida**: Backend Node.js + Frontend Flutter Web con API REST y WebSocket
 
 ## 📁 Estructura del Proyecto
 
 ```
 .
 ├── agents/              # Agentes especializados
+├── api/                 # API REST y WebSocket endpoints
+│   ├── v1/             # API v1 (agents, docs)
+│   └── websocket.js    # WebSocket server
 ├── modules/             # Módulos del sistema
 ├── docs/                # Documentación
+│   ├── HYBRID_ARCHITECTURE.md  # Arquitectura híbrida
+│   ├── FLUTTER_SETUP.md        # Setup Flutter frontend
+│   └── ...
 ├── .github/workflows/   # CI/CD pipelines
+├── scripts/             # Scripts de automatización
 └── config/              # Configuraciones
 ```
 
@@ -54,8 +62,11 @@ Rascacielos Digital es un sistema modular de desarrollo arquitectónico que util
 git clone https://github.com/Melampe001/rascacielos-digital.git
 cd rascacielos-digital
 
-# Instalar dependencias
-npm install  # o pip install -r requirements.txt
+# Setup híbrido automático
+./scripts/setup-hybrid.sh
+
+# O instalación manual
+npm install
 
 # Configurar variables de entorno
 cp .env.example .env
@@ -65,13 +76,17 @@ cp .env.example .env
 
 ```bash
 # Ejecutar el sistema
-npm start  # o python main.py
+npm start
 
 # Ejecutar tests
-npm test   # o pytest
+npm test
 
 # Ejecutar linting
 npm run lint
+
+# Acceder a la API
+# API Docs: http://localhost:3000/api/v1/docs
+# Ejecutar agentes: POST http://localhost:3000/api/v1/agents
 ```
 
 ## 🧹 Mantenimiento y Limpieza
@@ -114,10 +129,42 @@ Para más detalles sobre los scripts de mantenimiento, consulta [scripts/README.
 Los agentes son componentes autónomos que realizan tareas específicas:
 
 - **Build Agent**: Construcción y compilación
-- **Test Agent**: Ejecución de pruebas automatizadas
 - **Security Agent**: Análisis de seguridad
 - **Deploy Agent**: Despliegue automatizado
-- **Monitor Agent**: Monitoreo y alertas
+- **Orchestrator Agent**: Orquestación de pipelines completos
+
+### API REST para Agentes
+
+Los agentes están expuestos via API REST en `/api/v1/agents`:
+
+```bash
+# Ejemplo: Ejecutar build agent
+curl -X POST http://localhost:3000/api/v1/agents \
+  -H "Content-Type: application/json" \
+  -d '{
+    "agent": "build",
+    "action": "build",
+    "params": {}
+  }'
+
+# Ejemplo: Ejecutar security scan
+curl -X POST http://localhost:3000/api/v1/agents \
+  -H "Content-Type: application/json" \
+  -d '{
+    "agent": "security",
+    "action": "scan",
+    "params": {}
+  }'
+
+# Ejemplo: Ejecutar pipeline completo
+curl -X POST http://localhost:3000/api/v1/agents \
+  -H "Content-Type: application/json" \
+  -d '{
+    "agent": "orchestrator",
+    "action": "pipeline",
+    "params": { "deploy": false }
+  }'
+```
 
 ## 🔄 CI/CD Pipeline
 
@@ -147,7 +194,24 @@ Ambos workflows se ejecutan automáticamente en push y pull requests a las ramas
 
 ## 📚 Documentación
 
-Para más información, consulta la [documentación completa](./docs/README.md).
+Para más información, consulta:
+
+- [Documentación Completa](./docs/README.md)
+- [🏛️ Arquitectura Híbrida](./docs/HYBRID_ARCHITECTURE.md) - Backend Node.js + Frontend Flutter
+- [Flutter Setup](./docs/FLUTTER_SETUP.md) - Setup del frontend Flutter Web
+- [API Documentation](http://localhost:3000/api/v1/docs) - OpenAPI/Swagger docs (servidor en ejecución)
+
+## 🏛️ Arquitectura Híbrida
+
+Este proyecto implementa una arquitectura híbrida enterprise-grade:
+
+- **Backend**: Node.js con agentes especializados, API REST y WebSocket
+- **Frontend**: Flutter Web con ML/Analytics edge
+- **Comunicación**: REST API + WebSocket para tiempo real
+- **Deployment**: Vercel para backend y frontend
+- **CI/CD**: Workflows automáticos para ambos proyectos
+
+Ver [docs/HYBRID_ARCHITECTURE.md](./docs/HYBRID_ARCHITECTURE.md) para más detalles.
 
 ## 🤝 Contribuir
 
