@@ -1,0 +1,53 @@
+{
+  "name": "@melampe001/rascacielo-masters",
+  "version": "2.0.0-elara",
+  "description": "👑 Sistema Imperial Elara - 91 Agentes Maestros con IA Personal de Priorización Estratégica",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "bin": {
+    "rascacielo": "./cli/bin/rascacielo",
+    "elara": "./cli/bin/elara"
+  },
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint **/*.js",
+    "build": "echo 'Sistema Elara ready'",
+    "elara": "node cli/bin/elara"
+  },
+  "keywords": [
+    "elara",
+    "personal-ai",
+    "strategic-orchestration",
+    "blockchain",
+    "solana",
+    "ethereum",
+    "web3",
+    "game-development",
+    "real-time",
+    "websocket",
+    "mlops",
+    "llm",
+    "observability",
+    "performance",
+    "roulette",
+    "prediction",
+    "rng",
+    "statistics",
+    "imperial",
+    "premium",
+    "elite",
+    "master-agents",
+    "code-quality",
+    "automation"
+  ],
+  "author": "Melampe001",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Melampe001/Rascacielo-Digital.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Melampe001/Rascacielo-Digital/issues"
+  },
+  "homepage": "https://github.com/Melampe001/Rascacielo-Digital#readme"
+}

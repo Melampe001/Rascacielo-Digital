@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+
+/**
+ * Rascacielo CLI - Main command-line interface
+ */
+
+console.log(`
+🏛️ Rascacielo Digital - Master Agents System
+
+Commands:
+  rascacielo analyze <path>  - Analyze code with master agents
+  rascacielo validate <path> - Validate code quality
+  rascacielo help            - Show this help
+
+For strategic orchestration, use:
+  elara analyze    - Analyze all repositories
+  elara execute    - Execute strategic plan
+  elara priority   - Show priority queue
+
+Version: 2.0.0-elara
+Master Agents: 91 (71 base + 20 Elara)
+`);
+
+process.exit(0);
